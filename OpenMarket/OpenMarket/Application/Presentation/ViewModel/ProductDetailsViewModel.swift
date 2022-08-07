@@ -105,7 +105,7 @@ final class ProductDetailsViewModel {
         }
         
         let productInfo = ProductDetailsEntity(id: productDetails.id,
-                                               vendorID: productDetails.vendorID,
+                                               vendorID: productDetails.vendorId,
                                                name: productDetails.name,
                                                description: productDetails.description,
                                                currency: productDetails.currency,

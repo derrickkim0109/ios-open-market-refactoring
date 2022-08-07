@@ -97,7 +97,7 @@ final class ProductListViewModel {
             entityList.productEntity.append(
                 ProductEntity(
                     id: product.id,
-                    vendorID: product.vendorID,
+                    vendorID: product.vendorId,
                     thumbnail: product.thumbnail,
                     name: product.name,
                     currency: product.currency.rawValue,

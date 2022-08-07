@@ -9,7 +9,7 @@ import UIKit
 
 struct ProductDetails: Codable {
     let id: Int
-    let vendorID: Int
+    let vendorId: Int
     let name: String
     let description: String
     let thumbnail: String
@@ -22,23 +22,6 @@ struct ProductDetails: Codable {
     let vendors: Vendor
     let createdAt: String
     let issuedAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case vendorID = "vendor_id"
-        case name
-        case description
-        case thumbnail
-        case currency
-        case price
-        case bargainPrice = "bargain_price"
-        case discountedPrice = "discounted_price"
-        case stock
-        case images
-        case vendors
-        case createdAt = "created_at"
-        case issuedAt = "issued_at"
-    }
     
     var productImages: [UIImage]? {
         var array: [UIImage] = []
@@ -59,17 +42,9 @@ struct ProductDetails: Codable {
 struct Images: Codable {
     let id: Int
     let url: String
-    let thumbnailURL: String
+    let thumbnailUrl: String
     let succeed: Bool
     let issuedAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case url
-        case thumbnailURL = "thumbnail_url"
-        case succeed
-        case issuedAt = "issued_at"
-    }
 }
 
 struct Vendor: Codable {
@@ -77,11 +52,4 @@ struct Vendor: Codable {
     let id: Int
     let createdAt: String
     let issuedAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case name
-        case id
-        case createdAt = "created_at"
-        case issuedAt = "issued_at"
-    }
 }
