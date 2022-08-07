@@ -335,10 +335,13 @@ extension ProductListViewController: UICollectionViewDelegate {
             return
         }
         
-        let productDetailViewController = ProductDetailsViewController()
-        productDetailViewController.productID = product.id
-        productDetailViewController.productVendorID = product.vendorID
-        productDetailViewController.title = product.name
+        let productDetailViewController: ProductDetailsViewController = {
+            let viewController = ProductDetailsViewController()
+            viewController.productID = product.id
+            viewController.productVendorID = product.vendorID
+            viewController.title = product.name
+            return viewController
+        }()
         
         navigationController?.pushViewController(productDetailViewController,
                                                  animated: true)
