@@ -8,10 +8,10 @@
 import UIKit
 
 protocol ProductDetailsViewModelDelegate: AnyObject {
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type,
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type,
                             didRecieve images: [UIImage])
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type,
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type,
                             didRecieve productInfo: ProductDetailsEntity)
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type,
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type,
                             didRecieve productSecret: String)
 }

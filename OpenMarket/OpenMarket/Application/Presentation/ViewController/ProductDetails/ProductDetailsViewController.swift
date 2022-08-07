@@ -435,8 +435,14 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
 }
 
 extension ProductDetailsViewController: ProductDetailsViewModelDelegate {
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type, didRecieve productInfo: ProductDetailsEntity) {
-        
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type, didRecieve images: [UIImage]) {
+        DispatchQueue.main.async { [weak self] in
+            LoadingIndicator.hideLoading()
+            self?.updateUI(images)
+        }
+    }
+    
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type, didRecieve productInfo: ProductDetailsEntity) {
         DispatchQueue.main.async { [weak self] in
             LoadingIndicator.hideLoading()
             self?.updateUI(productInfo)
@@ -445,14 +451,7 @@ extension ProductDetailsViewController: ProductDetailsViewModelDelegate {
         self.productInfo = productInfo
     }
     
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type, didRecieve images: [UIImage]) {
-        DispatchQueue.main.async { [weak self] in
-            LoadingIndicator.hideLoading()
-            self?.updateUI(images)
-        }
-    }
-    
-    func productDetailsViewController(_ viewController: ProductDetailsViewController.Type, didRecieve productSecret: String) {
+    func productDetailViewModel(_ viewModel: ProductDetailsViewModel.Type, didRecieve productSecret: String) {
         requestAndDelete(with: productID,
                          productSecret)
     }

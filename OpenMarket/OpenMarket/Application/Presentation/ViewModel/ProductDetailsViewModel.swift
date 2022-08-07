@@ -120,14 +120,14 @@ final class ProductDetailsViewModel {
                                                stock: productDetails.stock,
                                                images: productImages)
         
-        delegate?.productDetailsViewController(ProductDetailsViewController.self,
+        delegate?.productDetailViewModel(ProductDetailsViewModel.self,
                                                didRecieve: productImages)
-        delegate?.productDetailsViewController(ProductDetailsViewController.self,
+        delegate?.productDetailViewModel(ProductDetailsViewModel.self,
                                                didRecieve: productInfo)
     }
     
     func fetch(productSecret: String) {
-        delegate?.productDetailsViewController(ProductDetailsViewController.self,
+        delegate?.productDetailViewModel(ProductDetailsViewModel.self,
                                                didRecieve: productSecret)
     }
 }
