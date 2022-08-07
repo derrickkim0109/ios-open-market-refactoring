@@ -82,6 +82,8 @@ final class ProductListViewModel {
         return product.stock == 0
     }
     
+    var pageNumber: Int = 1
+    
     // MARK: - Initializer
     
     init(_ productEntity: ProductEntity) {
@@ -108,5 +110,13 @@ final class ProductListViewModel {
         
         delegate?.productListViewController(ProductListViewController.self,
                                             didRecieve: entityList)
+    }
+    
+    func plusPageNumber() {
+        pageNumber += 1
+    }
+    
+    func resetPageNumber() {
+        pageNumber = 1
     }
 }

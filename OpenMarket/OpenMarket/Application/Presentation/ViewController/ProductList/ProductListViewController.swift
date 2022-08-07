@@ -24,8 +24,6 @@ final class ProductListViewController: UIViewController {
     private var listSnapshot = Snapshot()
     private var gridSnapshot = Snapshot()
     
-    private var pageNumber: Int = 1
-    
     private let segmentedControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [
             SegmentedControlItem.list.name,
@@ -231,7 +229,7 @@ final class ProductListViewController: UIViewController {
     }
     
     private func fetchData() {
-        productListAPIManager = ProductListAPIManager(pageNumber: pageNumber)
+        productListAPIManager = ProductListAPIManager(pageNumber: marketProductsViewModel?.pageNumber ?? 1)
         productListAPIManager?.requestAndDecodeProduct(dataType: ProductList.self) { [weak self] result in
             switch result {
             case .success(let productList):
@@ -279,7 +277,7 @@ final class ProductListViewController: UIViewController {
     }
     
     private func resetData() {
-        pageNumber = 1
+        marketProductsViewModel?.resetPageNumber()
         
         listSnapshot = makeSnapshot()
         gridSnapshot = makeSnapshot()
@@ -363,7 +361,7 @@ extension ProductListViewController: UICollectionViewDelegate {
         
         if collectionView.contentOffset.y > trigger {
             DispatchQueue.main.async { [weak self] in
-                self?.pageNumber += 1
+                self?.marketProductsViewModel?.plusPageNumber()
                 self?.fetchData()
             }
         }
