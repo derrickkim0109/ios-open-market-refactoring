@@ -79,7 +79,7 @@ final class ProductModificationViewController: UIViewController {
         textField.backgroundColor = .systemBackground
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.placeholder = ProductStatus.productName.rawValue
+        textField.placeholder = ProductStatus.productName
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
         return textField
@@ -102,7 +102,7 @@ final class ProductModificationViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.productPrice.rawValue
+        textField.placeholder = ProductStatus.productPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -126,7 +126,7 @@ final class ProductModificationViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.discountedPrice.rawValue
+        textField.placeholder = ProductStatus.discountedPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -139,7 +139,7 @@ final class ProductModificationViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.numberOfStocks.rawValue
+        textField.placeholder = ProductStatus.numberOfStocks
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -195,7 +195,7 @@ final class ProductModificationViewController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        title = CurrentPage.productModification.title
+        title = CurrentPage.productModification
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(didTappedCancelButton))
@@ -328,7 +328,7 @@ final class ProductModificationViewController: UIViewController {
     private func checkNumberOfText(in textView: UITextView) {
         if textView.text.isEmpty {
             textView.textColor = .lightGray
-            textView.text = ProductStatus.productDescription.rawValue
+            textView.text = ProductStatus.productDescription
         } else {
             textView.textColor = .black
         }
@@ -501,7 +501,7 @@ extension ProductModificationViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.text == ProductStatus.productDescription.rawValue else {
+        guard textView.text == ProductStatus.productDescription else {
             return
         }
         
@@ -514,7 +514,7 @@ extension ProductModificationViewController: UITextViewDelegate {
             return
         }
         
-        textView.text = ProductStatus.productDescription.rawValue
+        textView.text = ProductStatus.productDescription
         textView.textColor = .lightGray
     }
 }

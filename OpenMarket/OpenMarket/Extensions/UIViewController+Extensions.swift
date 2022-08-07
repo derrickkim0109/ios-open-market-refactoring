@@ -10,11 +10,11 @@ import UIKit
 extension UIViewController {
     func presentConfirmAlert(message: String) {
         DispatchQueue.main.async { [weak self] in
-            let alertController = UIAlertController(title: AlertSetting.controller.title,
+            let alertController = UIAlertController(title: AlertSetting.controller,
                                                     message: message,
                                                     preferredStyle: .alert)
             
-            let confirmAction = UIAlertAction(title: AlertSetting.confirmAction.title,
+            let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
                                               style: .default) { [weak self] _ in
                 
                 

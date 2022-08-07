@@ -63,8 +63,8 @@ final class ProductDetailsViewModel {
         }
         
         return isEmptyStock == true
-        ? ProductStatus.emptyStock.rawValue
-        : ProductStatus.leftOver.rawValue + " : \(productDetail.stock)"
+        ? ProductStatus.emptyStock
+        : ProductStatus.leftOver + " : \(productDetail.stock)"
     }
     
     var description: String? {

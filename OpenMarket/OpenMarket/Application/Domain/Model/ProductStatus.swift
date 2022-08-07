@@ -5,12 +5,12 @@
 //  Created by 데릭, 수꿍.
 //
 
-enum ProductStatus: String {
-    case emptyStock = "품절"
-    case leftOver = "잔여수량"
-    case productPrice = "상품가격"
-    case discountedPrice = "할인금액"
-    case numberOfStocks = "재고수량"
-    case productDescription = "제품 상세 설명"
-    case productName = "상품명"
+enum ProductStatus {
+    static let emptyStock = "품절"
+    static let leftOver = "잔여수량"
+    static let productPrice = "상품가격"
+    static let discountedPrice = "할인금액"
+    static let numberOfStocks = "재고수량"
+    static let productDescription = "제품 상세 설명"
+    static let productName = "상품명"
 }

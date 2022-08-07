@@ -120,7 +120,7 @@ final class ProductEnrollmentViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.productPrice.rawValue
+        textField.placeholder = ProductStatus.productPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -144,7 +144,7 @@ final class ProductEnrollmentViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.discountedPrice.rawValue
+        textField.placeholder = ProductStatus.discountedPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -157,7 +157,7 @@ final class ProductEnrollmentViewController: UIViewController {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = ProductStatus.numberOfStocks.rawValue
+        textField.placeholder = ProductStatus.numberOfStocks
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         
@@ -168,7 +168,7 @@ final class ProductEnrollmentViewController: UIViewController {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isScrollEnabled = false
-        textView.text = ProductStatus.productDescription.rawValue
+        textView.text = ProductStatus.productDescription
         textView.font = UIFont.preferredFont(forTextStyle: .caption1)
         textView.textColor = .lightGray
         
@@ -208,7 +208,7 @@ final class ProductEnrollmentViewController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        title = CurrentPage.productEnrollment.title
+        title = CurrentPage.productEnrollment
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(didTappedCancelButton))
@@ -360,7 +360,7 @@ final class ProductEnrollmentViewController: UIViewController {
               let discountedPrice = discountedPriceTextField.text?.convertToInt(),
               let productStock = productStockTextField.text?.convertToInt(),
               originalPrice > 0,
-              productDescriptionText != ProductStatus.productDescription.rawValue,
+              productDescriptionText != ProductStatus.productDescription,
               productDescriptionText.trimmingCharacters(in: .whitespaces).count != 0,
               imageStackView.subviews.count > 0 else {
             
@@ -609,7 +609,7 @@ extension ProductEnrollmentViewController: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.text == ProductStatus.productDescription.rawValue else {
+        guard textView.text == ProductStatus.productDescription else {
             return
         }
         
@@ -622,7 +622,7 @@ extension ProductEnrollmentViewController: UITextViewDelegate {
             return
         }
         
-        textView.text = ProductStatus.productDescription.rawValue
+        textView.text = ProductStatus.productDescription
         textView.textColor = .lightGray
     }
 }

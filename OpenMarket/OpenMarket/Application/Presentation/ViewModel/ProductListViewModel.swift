@@ -62,8 +62,8 @@ final class ProductListViewModel {
         }
         
         return isEmptyStock == true
-            ? ProductStatus.emptyStock.rawValue
-            : ProductStatus.leftOver.rawValue + " : \(product.stock)"
+            ? ProductStatus.emptyStock
+            : ProductStatus.leftOver + " : \(product.stock)"
     }
     
     var isDiscountedItem: Bool? {

@@ -164,7 +164,7 @@ final class ProductDetailsViewController: UIViewController {
                                             message: nil,
                                             preferredStyle: .actionSheet)
         
-        let editAction = UIAlertAction(title: AlertSetting.modifyAction.title,
+        let editAction = UIAlertAction(title: AlertSetting.modifyAction,
                                        style: .default) { [weak self]_ in
             
             let productModificationViewController = ProductModificationViewController()
@@ -176,14 +176,14 @@ final class ProductDetailsViewController: UIViewController {
             }
         }
         
-        let deleteAction = UIAlertAction(title: AlertSetting.deleteAction.title,
+        let deleteAction = UIAlertAction(title: AlertSetting.deleteAction,
                                          style: .destructive) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.presentPasswordCheckAlert()
             }
         }
         
-        let cancelAction = UIAlertAction(title: AlertSetting.cancelAction.title,
+        let cancelAction = UIAlertAction(title: AlertSetting.cancelAction,
                                          style: .cancel,
                                          handler: nil)
         
@@ -226,12 +226,12 @@ final class ProductDetailsViewController: UIViewController {
         
         alertController.addTextField()
         
-        let confirmAction = UIAlertAction(title: AlertSetting.confirmAction.title,
+        let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
                                           style: .default) { [weak self] _ in
             self?.checkUserSecret(from: alertController)
         }
         
-        let cancleAction = UIAlertAction(title: AlertSetting.cancelAction.title,
+        let cancleAction = UIAlertAction(title: AlertSetting.cancelAction,
                                          style: .cancel)
         
         alertController.addAction(confirmAction)
