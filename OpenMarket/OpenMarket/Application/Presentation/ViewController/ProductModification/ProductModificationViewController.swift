@@ -311,7 +311,7 @@ final class ProductModificationViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.presentConfirmAlert(message: AlertMessage.modificationSuccess.rawValue)
+                    self?.presentConfirmAlert(message: AlertMessage.modificationSuccess)
                 }
                 
                 self?.delegate?.productModificationViewController(
@@ -403,7 +403,7 @@ extension ProductModificationViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -414,7 +414,7 @@ extension ProductModificationViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -425,7 +425,7 @@ extension ProductModificationViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -436,7 +436,7 @@ extension ProductModificationViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -449,11 +449,11 @@ extension ProductModificationViewController: UITextFieldDelegate {
         switch productNameText.count {
         case 0:
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.emptyValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
             }
         case 1..<3:
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.additionalCharacters.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.additionalCharacters)
             }
         default:
             break
@@ -477,7 +477,7 @@ extension ProductModificationViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.emptyValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
             }
         default:
             break
@@ -491,7 +491,7 @@ extension ProductModificationViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard textView.text.count < 1000 else {
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false

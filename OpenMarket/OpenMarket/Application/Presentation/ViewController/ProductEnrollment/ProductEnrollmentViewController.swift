@@ -365,7 +365,7 @@ final class ProductEnrollmentViewController: UIViewController {
               imageStackView.subviews.count > 0 else {
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.emptyValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
             }
             return nil
         }
@@ -409,7 +409,7 @@ final class ProductEnrollmentViewController: UIViewController {
             switch result {
             case .success(_):
                 DispatchQueue.main.async { [weak self] in
-                    self?.presentConfirmAlert(message: AlertMessage.enrollmentSuccess.rawValue)
+                    self?.presentConfirmAlert(message: AlertMessage.enrollmentSuccess)
                 }
                 
             case .failure(let error):
@@ -455,7 +455,7 @@ final class ProductEnrollmentViewController: UIViewController {
     @objc private func didTappedImagePickerButton(_ sender: UIButton) {
         guard imageStackView.subviews.count < 5 else {
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedImages.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedImages)
             }
             
             return
@@ -511,7 +511,7 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -522,7 +522,7 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -533,7 +533,7 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -544,7 +544,7 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false
@@ -557,11 +557,11 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
         switch productNameText.count {
         case 0:
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.emptyValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
             }
         case 1..<3:
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.additionalCharacters.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.additionalCharacters)
             }
         default:
             break
@@ -585,7 +585,7 @@ extension ProductEnrollmentViewController: UITextFieldDelegate {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.emptyValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
             }
         default:
             break
@@ -599,7 +599,7 @@ extension ProductEnrollmentViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard textView.text.count < 1000 else {
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.exceedValue.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             }
             
             return false

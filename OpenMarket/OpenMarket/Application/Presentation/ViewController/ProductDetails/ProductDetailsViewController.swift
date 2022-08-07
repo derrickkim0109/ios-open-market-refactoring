@@ -206,14 +206,14 @@ final class ProductDetailsViewController: UIViewController {
     private func checkUserSecret(from alertController: UIAlertController) {
         guard User.secret.rawValue == alertController.textFields?.first?.text else {
             DispatchQueue.main.async { [weak self] in
-                self?.presentConfirmAlert(message: AlertMessage.deleteFailure.rawValue)
+                self?.presentConfirmAlert(message: AlertMessage.deleteFailure)
             }
             
             return
         }
         
         DispatchQueue.main.async { [weak self] in
-            self?.presentConfirmAlert(message: AlertMessage.deleteSuccess.rawValue)
+            self?.presentConfirmAlert(message: AlertMessage.deleteSuccess)
         }
         
         fetchProductSecret(by: productID)
@@ -221,7 +221,7 @@ final class ProductDetailsViewController: UIViewController {
     
     private func presentPasswordCheckAlert() {
         let alertController = UIAlertController(title: nil,
-                                                message: AlertMessage.inputPassword.rawValue,
+                                                message: AlertMessage.inputPassword,
                                                 preferredStyle: .alert)
         
         alertController.addTextField()

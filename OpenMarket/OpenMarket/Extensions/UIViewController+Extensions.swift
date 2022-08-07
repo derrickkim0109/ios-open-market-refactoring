@@ -16,17 +16,16 @@ extension UIViewController {
         let confirmAction = UIAlertAction(title: AlertSetting.confirmAction.title,
                                           style: .default) { [weak self] _ in
             
-            switch AlertMessage(rawValue: message) {
-            case .enrollmentSuccess, .modificationSuccess:
+            
+            if message == AlertMessage.enrollmentSuccess
+                || message == AlertMessage.modificationSuccess {
                 DispatchQueue.main.async {
                     self?.dismiss(animated: true)
                 }
-            case .deleteSuccess:
+            } else if message == AlertMessage.deleteSuccess {
                 DispatchQueue.main.async {
                     self?.navigationController?.popViewController(animated: true)
                 }
-            default:
-                break
             }
         }
         
