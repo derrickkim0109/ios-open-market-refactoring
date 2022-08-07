@@ -14,7 +14,7 @@ final class ProductDetailsViewModel {
     private var productDetails: ProductDetails?
     private var currentPage: Int?
     
-    weak var delegate: ProductDetailsViewDelegate?
+    weak var delegate: ProductDetailsViewModelDelegate?
     
     // MARK: - Initializer
     init() {}

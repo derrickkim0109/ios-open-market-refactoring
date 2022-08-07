@@ -434,7 +434,7 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
     }
 }
 
-extension ProductDetailsViewController: ProductDetailsViewDelegate {
+extension ProductDetailsViewController: ProductDetailsViewModelDelegate {
     func productDetailsViewController(_ viewController: ProductDetailsViewController.Type, didRecieve productInfo: ProductDetailsEntity) {
         
         DispatchQueue.main.async { [weak self] in
