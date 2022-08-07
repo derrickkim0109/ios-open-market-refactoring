@@ -365,7 +365,6 @@ extension ProductListViewController: UICollectionViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 self?.pageNumber += 1
                 self?.fetchData()
-                collectionView.reloadData()
             }
         }
     }
