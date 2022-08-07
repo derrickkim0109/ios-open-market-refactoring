@@ -367,13 +367,9 @@ final class ProductDetailsViewController: UIViewController {
     private func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<ProductDetailsCollectionViewCell, UIImage> { [weak self] (cell, indexPath, item) in
             
-            guard let totalImageNumber = self?.productDetailViewModel?.numberOfImages else {
-                return
-            }
-            
-            cell.configureUI(data: item,
-                             currentImageNumber: indexPath.row + 1,
-                             totalImageNumber: totalImageNumber)
+            cell.viewModel = self?.productDetailViewModel
+            self?.productDetailViewModel?.returnCurrentpage(indexPath.row + 1)
+            cell.configureUI(data: item)
         }
         
         guard let productDetailImagesCollectionView = productDetailImagesCollectionView else {

@@ -12,6 +12,7 @@ final class ProductDetailsViewModel {
     
     private var productDetailsEntity: ProductDetailsEntity?
     private var productDetails: ProductDetails?
+    private var currentPage: Int?
     
     weak var delegate: ProductDetailsViewDelegate?
     
@@ -90,11 +91,16 @@ final class ProductDetailsViewModel {
         return productDetail.stock == 0
     }
     
-    var numberOfImages: Int? {
-        if let images = productDetails?.images {
-            return images.count
+    var numberOfImages: String? {
+        if let images = productDetails?.images,
+           let currentPage = currentPage {
+            return "\(currentPage)/\(images.count)"
         }
         return nil
+    }
+    
+    func returnCurrentpage(_ index: Int){
+        currentPage = index
     }
     
     func format(productDetails: ProductDetails) {

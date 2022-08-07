@@ -29,7 +29,7 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private let productStockLabel: UILabel = {
+    private let productImageQuantityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
@@ -38,7 +38,7 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private var viewModel: ProductDetailsViewModel?
+    weak var viewModel: ProductDetailsViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,13 +54,13 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         
         productImageView.image = nil
-        productStockLabel.text = nil
+        productImageQuantityLabel.text = nil
     }
     
     private func configureStackView() {
         contentView.addSubview(rootStackView)
         rootStackView.addArrangedSubview(productImageView)
-        rootStackView.addArrangedSubview(productStockLabel)
+        rootStackView.addArrangedSubview(productImageQuantityLabel)
         
         productImageView.setContentCompressionResistancePriority(.defaultLow,
                                                                  for: .vertical)
@@ -74,13 +74,13 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
             rootStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
             productImageView.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
                                                      multiplier: 0.9),
-            productStockLabel.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
+            productImageQuantityLabel.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
                                                       multiplier: 0.1),
         ])
     }
     
-    func configureUI(data: UIImage, currentImageNumber: Int, totalImageNumber: Int) {
+    func configureUI(data: UIImage) {
         productImageView.image = data
-        productStockLabel.text = "\(currentImageNumber)/\(totalImageNumber)"
+        productImageQuantityLabel.text = viewModel?.numberOfImages
     }
 }
