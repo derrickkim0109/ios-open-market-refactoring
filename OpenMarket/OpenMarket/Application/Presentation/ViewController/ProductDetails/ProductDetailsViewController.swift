@@ -369,7 +369,7 @@ final class ProductDetailsViewController: UIViewController {
             
             cell.viewModel = self?.productDetailViewModel
             self?.productDetailViewModel?.returnCurrentpage(indexPath.row + 1)
-            cell.configureUI(data: item)
+            cell.configureUI(image: item)
         }
         
         guard let productDetailImagesCollectionView = productDetailImagesCollectionView else {

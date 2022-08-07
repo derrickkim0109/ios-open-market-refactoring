@@ -79,8 +79,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureUI(data: UIImage) {
-        productImageView.image = data
+    func configureUI(image: UIImage) {
+        productImageView.image = image
         productImageQuantityLabel.text = viewModel?.numberOfImages
     }
 }
