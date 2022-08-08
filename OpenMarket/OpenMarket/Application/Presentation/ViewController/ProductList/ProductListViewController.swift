@@ -68,14 +68,14 @@ final class ProductListViewController: UIViewController {
         
         gridCollectionView?.isHidden = true
         
-        setUpNavigationItems()
+        setupNavigationItems()
         configureRefreshControl()
     }
     
     private func delayUIForFetchingData() {
         LoadingIndicator.showLoading()
         resetData()
-        setUpCollectionViewFor(hiding: true)
+        setupCollectionViewFor(hiding: true)
     }
     
     private func configureListCollectionView() {
@@ -206,7 +206,7 @@ final class ProductListViewController: UIViewController {
         return layout
     }
     
-    private func setUpNavigationItems() {
+    private func setupNavigationItems() {
         navigationItem.titleView = segmentedControl
         navigationItem.rightBarButtonItem  = UIBarButtonItem(title: "+",
                                                              style: .plain,
@@ -218,7 +218,7 @@ final class ProductListViewController: UIViewController {
         segmentedControl.selectedSegmentIndex = 0
     }
     
-    private func setUpCollectionViewFor(hiding: Bool) {
+    private func setupCollectionViewFor(hiding: Bool) {
         if segmentedControl.selectedSegmentIndex == 0 {
             listCollectionView?.isHidden = hiding
             listCollectionView?.refreshControl?.stop()
@@ -328,7 +328,7 @@ extension ProductListViewController: ProductListDelegate {
     func productListViewController(_ view: ProductListViewController.Type,
                                    didRecieve productListInfo: ProductListEntity) {
         DispatchQueue.main.async { [weak self] in
-            self?.setUpCollectionViewFor(hiding: false)
+            self?.setupCollectionViewFor(hiding: false)
             LoadingIndicator.hideLoading()
             self?.updateUI(by: productListInfo)
         }
