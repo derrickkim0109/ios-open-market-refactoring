@@ -9,9 +9,11 @@ import UIKit
 
 extension UIImageView {
     func setImageUrl(_ url: String) {
+        let imageCacheManager = ImageCacheManager.shared
+        
         DispatchQueue.global(qos: .background).async {
             let cachedKey = NSString(string: url)
-            if let cachedImage = ImageCacheManager.shared.object(forKey: cachedKey) {
+            if let cachedImage = imageCacheManager.object(forKey: cachedKey) {
                 DispatchQueue.main.async {
                     self.image = cachedImage
                 }
@@ -31,7 +33,7 @@ extension UIImageView {
 
                 DispatchQueue.main.async { [weak self] in
                     if let data = data, let image = UIImage(data: data) {
-                        ImageCacheManager.shared.setObject(image, forKey: cachedKey)
+                        imageCacheManager.setObject(image, forKey: cachedKey)
                         self?.image = image
                     }
                 }

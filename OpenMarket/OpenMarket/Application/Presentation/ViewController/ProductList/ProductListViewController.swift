@@ -229,6 +229,20 @@ final class ProductListViewController: UIViewController {
     }
     
     private func fetchData() {
+        productListAPIManager = ProductListAPIManager(pageNumber: 1)
+        productListAPIManager?.requestAndDecodeProduct(dataType: ProductList.self) { [weak self] result in
+            switch result {
+            case .success(let productList):
+                self?.marketProductsViewModel?.format(data: productList)
+            case .failure(let error):
+                DispatchQueue.main.async { [weak self] in
+                    self?.presentConfirmAlert(message: error.errorDescription)
+                }
+            }
+        }
+    }
+    
+    private func fetchMoreData() {
         productListAPIManager = ProductListAPIManager(pageNumber: marketProductsViewModel?.pageNumber ?? 1)
         productListAPIManager?.requestAndDecodeProduct(dataType: ProductList.self) { [weak self] result in
             switch result {
