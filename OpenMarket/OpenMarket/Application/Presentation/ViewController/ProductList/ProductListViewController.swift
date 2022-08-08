@@ -362,7 +362,7 @@ extension ProductListViewController: UICollectionViewDelegate {
         if collectionView.contentOffset.y > trigger {
             DispatchQueue.main.async { [weak self] in
                 self?.marketProductsViewModel?.plusPageNumber()
-                self?.fetchData()
+                self?.fetchMoreData()
             }
         }
     }

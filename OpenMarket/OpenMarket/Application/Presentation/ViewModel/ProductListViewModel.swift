@@ -112,6 +112,26 @@ final class ProductListViewModel {
                                             didRecieve: entityList)
     }
     
+    func formatMoreData(data: ProductList) {
+        var entityList = ProductListEntity(productEntity: [])
+       
+        for product in data.pages {
+            entityList.productEntity.append(
+                ProductEntity(
+                    id: product.id,
+                    vendorID: product.vendorId,
+                    thumbnail: product.thumbnail,
+                    name: product.name,
+                    currency: product.currency.rawValue,
+                    originalPrice: product.price,
+                    discountedPrice: product.bargainPrice,
+                    stock: product.stock))
+        }
+        
+        delegate?.productListViewController(ProductListViewController.self,
+                                            didRecieve: entityList)
+    }
+    
     func plusPageNumber() {
         pageNumber += 1
     }
