@@ -14,7 +14,7 @@ struct ProductEnrollmentAPIManager: POSTProtocol {
     init?() {
         urlComponent = URLComponentsBuilder()
             .setScheme("https")
-            .setHost("market-training.yagom-academy.kr")
+            .setHost("openmarket.yagom-academy.kr")
             .setPath("/api/products")
             .build()
         

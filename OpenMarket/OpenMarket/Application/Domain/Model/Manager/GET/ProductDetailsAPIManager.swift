@@ -14,7 +14,7 @@ struct ProductDetailsAPIManager: GETProtocol {
     init?(productID: Int) {
         urlComponents = URLComponentsBuilder()
             .setScheme("https")
-            .setHost("market-training.yagom-academy.kr")
+            .setHost("openmarket.yagom-academy.kr")
             .setPath("/api/products/\(productID)")
             .build()
         

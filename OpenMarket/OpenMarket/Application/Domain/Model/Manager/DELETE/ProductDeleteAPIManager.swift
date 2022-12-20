@@ -14,7 +14,7 @@ struct ProductDeleteAPIManager: DELETEProtocol {
     init?(productID: Int, productSecret: String) {
         urlComponent = URLComponentsBuilder()
             .setScheme("https")
-            .setHost("market-training.yagom-academy.kr")
+            .setHost("openmarket.yagom-academy.kr")
             .setPath("/api/products/\(productID)/\(productSecret)")
             .build()
         

@@ -18,11 +18,11 @@ struct ProductDetails: Codable {
     let bargainPrice: Double
     let discountedPrice: Double
     let stock: Int
-    let images: [Images]
-    let vendors: Vendor
     let createdAt: String
     let issuedAt: String
-    
+    let images: [Images]
+    let vendors: Vendor
+
     var productImages: [UIImage]? {
         var array: [UIImage] = []
         
@@ -39,17 +39,16 @@ struct ProductDetails: Codable {
     }
 }
 
+
+
 struct Images: Codable {
     let id: Int
     let url: String
     let thumbnailUrl: String
-    let succeed: Bool
     let issuedAt: String
 }
 
 struct Vendor: Codable {
-    let name: String
     let id: Int
-    let createdAt: String
-    let issuedAt: String
+    let name: String
 }

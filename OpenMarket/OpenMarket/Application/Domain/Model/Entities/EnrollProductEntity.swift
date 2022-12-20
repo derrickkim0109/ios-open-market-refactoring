@@ -17,7 +17,7 @@ struct PostParameter {
     let descriptions: String
     let price: Int
     let currency: Currency
-    let discounted_price: Int?
+    let discountedPrice: Int?
     let stock: Int?
     let secret: String
     
@@ -33,7 +33,7 @@ struct PostParameter {
         self.descriptions = descriptions
         self.price = price
         self.currency = currency
-        self.discounted_price = discounted_price
+        self.discountedPrice = discounted_price
         self.stock = stock
         self.secret = secret
     }
@@ -46,7 +46,7 @@ struct PostParameter {
         dicValue["secret"] = "\(secret)"
         dicValue["descriptions"] = "\(descriptions)"
         
-        if let discounted_price = discounted_price {
+        if let discounted_price = discountedPrice {
             dicValue["discounted_price"] = "\(discounted_price)"
         }
         
@@ -57,6 +57,7 @@ struct PostParameter {
         do {
             let data = try JSONSerialization.data(withJSONObject: dicValue,
                                                   options: [])
+
             return data
         } catch {
             return Data()

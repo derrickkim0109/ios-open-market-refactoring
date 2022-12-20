@@ -10,11 +10,11 @@ import Foundation
 struct ProductListAPIManager: GETProtocol {
     var configuration: APIConfiguration
     var urlComponents: URLComponents
-    
+
     init?(pageNumber: Int) {
         urlComponents = URLComponentsBuilder()
             .setScheme("https")
-            .setHost("market-training.yagom-academy.kr")
+            .setHost("openmarket.yagom-academy.kr")
             .setPath("/api/products")
             .addQuery(items: [ProductURLQueryItem.page_no.value: "\(pageNumber)",
                               ProductURLQueryItem.items_per_page.value: "\(20)"])
