@@ -16,7 +16,7 @@ struct APIClient {
     }
     
     func requestData(with url: URL,
-                     completion: @escaping (Result<Data,APIError>) -> Void) {
+                     completion: @escaping (Result<Data, APIError>) -> Void) {
         session.dataTask(with: url) { data, response, error in
             guard error == nil else {
                 completion(.failure(.unknownErrorOccured))
@@ -42,7 +42,7 @@ struct APIClient {
     }
     
     func requestData(with urlRequest: URLRequest,
-                     completion: @escaping (Result<Data,APIError>) -> Void) {
+                     completion: @escaping (Result<Data, APIError>) -> Void) {
         session.dataTask(with: urlRequest) { data, response, error in
             guard error == nil else {
                 completion(.failure(.unknownErrorOccured))

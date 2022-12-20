@@ -94,7 +94,7 @@ final class ListCollectionCell: UICollectionViewListCell {
     }()
     
     private var viewModel: ProductListViewModel?
-
+    
     // MARK: - Cell Life Cycle
     
     override init(frame: CGRect) {
@@ -123,7 +123,7 @@ final class ListCollectionCell: UICollectionViewListCell {
     }
     
     // MARK: - UI
-
+    
     private func configureListCell() {
         contentView.addSubview(rootStackView)
         rootStackView.addArrangedSubview(productImageView)
@@ -136,7 +136,7 @@ final class ListCollectionCell: UICollectionViewListCell {
         priceLabelStackView.addArrangedSubview(discountedPriceLabel)
         
         rootStackView.addArrangedSubview(stockLabel)
-                
+        
         NSLayoutConstraint.activate([
             rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -181,7 +181,7 @@ final class ListCollectionCell: UICollectionViewListCell {
 private extension CALayer {
     func addBottomBorder() {
         let border = CALayer()
-        border.backgroundColor = UIColor.systemGray3.cgColor
+        border.backgroundColor = UIColor.systemGray5.cgColor
         border.frame = CGRect(x: 0,
                               y: frame.height + 4,
                               width: frame.width,

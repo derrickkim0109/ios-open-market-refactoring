@@ -377,7 +377,6 @@ final class ProductEnrollmentViewController: UIViewController {
                                       discounted_price: discountedPrice,
                                       stock: productStock,
                                       secret: User.secret.rawValue)
-        
         return parameter
     }
     
