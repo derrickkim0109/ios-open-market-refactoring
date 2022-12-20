@@ -6,7 +6,7 @@
 //
 
 enum User: String {
-    case identifier = "ea2ab214-0335-11ed-9676-d15bcd5607d5"
-    case secret = "Xym5PrEBXB"
+    case identifier = "127f12a0-7529-11ed-be10-096fa5eea2dc"
+    case secret = "nfgqeurt20hvcbnj2"
     case vendorID = "96"
 }
