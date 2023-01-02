@@ -5,7 +5,7 @@
 //  Created by 데릭, 수꿍.
 //
 
-import UIKit
+import Foundation
 
 struct ProductList: Codable {
     let pages: [Product]
@@ -28,4 +28,18 @@ struct Product: Codable {
     let stock: Int
     let createdAt: String
     let issuedAt: String
+}
+
+extension Product {
+    func generate() -> ProductEntity {
+        return ProductEntity(
+            id: id,
+            vendorID: vendorId,
+            thumbnail: thumbnail,
+            name: name,
+            currency: currency.rawValue,
+            originalPrice: price,
+            discountedPrice: bargainPrice,
+            stock: stock)
+    }
 }

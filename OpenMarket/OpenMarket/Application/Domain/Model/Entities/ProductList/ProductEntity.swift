@@ -1,15 +1,11 @@
 //
-//  ProductListEntity.swift
+//  ProductEntity.swift
 //  OpenMarket
 //
 //  Created by 데릭, 수꿍.
 //
 
 import UIKit
-
-struct ProductListEntity {
-    var productEntity: [ProductEntity]
-}
 
 struct ProductEntity: Hashable {
     let id: Int
