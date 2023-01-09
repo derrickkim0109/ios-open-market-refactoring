@@ -5,7 +5,6 @@
 //
 
 import UIKit
-import Combine
 
 final class ProductListViewController: UIViewController {
     enum Const {
@@ -25,18 +24,15 @@ final class ProductListViewController: UIViewController {
 
     private var initialPageInfo: (pageNumber: Int, itemsPerPage: Int) = (RequestName.initialPageNumber,
                                                                          RequestName.initialItemPerPage)
-    private let viewModel: ProductListViewModelImpl
+    private let viewModel: ProductsListViewModel
     private var productListTask: Task<Void, Error>?
 
     private lazy var dataSource = configureDataSource()
     private var snapshot = Snapshot()
 
-    private lazy var productListView: ProductListView = {
-        let view = ProductListView()
-        return view
-    }()
+    private lazy var productListView: ProductListView = ProductListView()
 
-    init(viewModel: ProductListViewModelImpl) {
+    init(viewModel: ProductsListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,18 +61,18 @@ final class ProductListViewController: UIViewController {
         productListView.collectionView.delegate = self
 
         configureLayouts()
-        setupNavigationItems()
         configureRefreshControl()
 
-        bindData(by: ProductListViewModelImpl.Input(productListTrigger: initialPageInfo))
+        bindData(by: DefaultProductsListViewModel.Input(productListTrigger: initialPageInfo))
     }
 
-    func bindData(by input: ProductListViewModelImpl.Input) {
+    func bindData(by input: DefaultProductsListViewModel.Input) {
         productListTask = Task {
             let output = await viewModel.transform(input: input)
             await LoadingIndicator.hideLoading()
 
             guard let state = output.state else { return }
+
             switch state {
             case .success(let data):
                 applySnapshot(by: data)
@@ -111,19 +107,19 @@ final class ProductListViewController: UIViewController {
                                                                 item: itemIdentifier)
         }
     }
-    
-    private func setupNavigationItems() {
-        navigationItem.rightBarButtonItem  = UIBarButtonItem(title: Const.plus,
-                                                             style: .plain,
-                                                             target: self,
-                                                             action: #selector(addButtonTapped(_:)))
+
+    private func makeSnapshot() -> Snapshot {
+        var snapshot = Snapshot()
+        snapshot.deleteAllItems()
+        snapshot.appendSections([.main])
+
+        return snapshot
     }
 
     @MainActor
     private func applySnapshot(by data: [ProductEntity]) {
         if initialPageInfo.pageNumber == RequestName.initialPageNumber {
-            snapshot.deleteAllItems()
-            snapshot.appendSections([.main])
+            snapshot = makeSnapshot()
         }
 
         snapshot.appendItems(data)
@@ -140,7 +136,7 @@ final class ProductListViewController: UIViewController {
     
     private func resetData() {
         initialPageInfo = (RequestName.initialPageNumber, RequestName.initialItemPerPage)
-        bindData(by: ProductListViewModelImpl.Input(productListTrigger: initialPageInfo))
+//        bindData(by: ProductListViewModelImpl.Input(productListTrigger: initialPageInfo))
         productListView.collectionView.refreshControl?.endRefreshing()
     }
     
@@ -148,9 +144,8 @@ final class ProductListViewController: UIViewController {
         resetData()
     }
 
-    @objc private func addButtonTapped(_ sender: UIBarButtonItem) {
-        let productEnrollmentViewController = ProductEnrollmentViewController()
-        present(viewController: productEnrollmentViewController)
+    @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
+        viewModel.didTapPlusButton()
     }
 }
 
@@ -162,16 +157,7 @@ extension ProductListViewController: UICollectionViewDelegate {
             return
         }
         
-        let productDetailViewController: ProductDetailsViewController = {
-            let viewController = ProductDetailsViewController()
-            viewController.productID = product.id
-            viewController.productVendorID = product.vendorID
-            viewController.title = product.name
-            return viewController
-        }()
-        
-        navigationController?.pushViewController(productDetailViewController,
-                                                 animated: true)
+        viewModel.didSelectItem(product)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -183,7 +169,7 @@ extension ProductListViewController: UICollectionViewDelegate {
         
         if collectionView.contentOffset.y > trigger {
             initialPageInfo = (initialPageInfo.pageNumber + Const.one, RequestName.initialItemPerPage)
-            bindData(by: ProductListViewModelImpl.Input(productListTrigger: initialPageInfo))
+            bindData(by: DefaultProductsListViewModel.Input(productListTrigger: initialPageInfo))
         }
     }
 }
