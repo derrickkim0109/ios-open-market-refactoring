@@ -1,5 +1,5 @@
 //
-//  JsonDecoderManager.swift
+//  JSONResponseDecoder.swift
 //  OpenMarket
 //
 //  Created by Derrick kim on 2023/01/04.
@@ -7,20 +7,22 @@
 
 import Foundation
 
-final class JsonDecoderManager {
-    public static let shared = JsonDecoderManager()
-    private init() {}
+public protocol ResponseDecoder {
+    func decode<T: Decodable>(from data: Data) async throws -> T
+}
 
-    func decode<T: Decodable>(from data: Data, _ requiredDataType: T.Type) async throws -> T {
+final class JSONResponseDecoder: ResponseDecoder {
+    private let decoder = JSONDecoder()
+    init() {}
+
+    func decode<T: Decodable>(from data: Data) async throws -> T {
         do {
-            if requiredDataType == String.self {
+            if T.self == String.self {
                 return String(data: data, encoding: .utf8) as! T
             }
 
-            let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode(T.self,
-                                            from: data)
+            return try decoder.decode(T.self, from: data)
         } catch {
             switch error {
             case DecodingError.typeMismatch(let type, let context):
