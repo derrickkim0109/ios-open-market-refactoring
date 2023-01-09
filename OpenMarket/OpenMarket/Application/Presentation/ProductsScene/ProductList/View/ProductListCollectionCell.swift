@@ -8,23 +8,30 @@
 import UIKit
 
 final class ProductListCollectionCell: UICollectionViewCell {
-    // MARK: Properties
+    enum Const {
+        static let zero: Int = 0
+        static let five: CGFloat = 5
+        static let ten: CGFloat = 10
+    }
     
-    private let rootStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var rootStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [productImageView, labelStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = Const.five
         stackView.alignment = .center
         return stackView
     }()
     
-    private let labelStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var labelStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [productNameLabel,
+                                                       originalPriceLabel,
+                                                       discountedPriceLabel,
+                                                       stockLabel])
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
-        stackView.spacing = 5
+        stackView.spacing = Const.five
         stackView.alignment = .center
         return stackView
     }()
@@ -32,6 +39,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
     private let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -46,7 +54,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .gray
-        label.numberOfLines = 0
+        label.numberOfLines = Const.zero
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -55,7 +63,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .gray
-        label.numberOfLines = 0
+        label.numberOfLines = Const.zero
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -70,8 +78,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configureGridCell()
+        bind()
     }
     
     @available(*, unavailable)
@@ -91,33 +98,27 @@ final class ProductListCollectionCell: UICollectionViewCell {
         stockLabel.textColor = .systemGray
     }
 
-    private func configureGridCell() {
+    private func bind() {
         contentView.addSubview(rootStackView)
-        rootStackView.addArrangedSubview(productImageView)
-        rootStackView.addArrangedSubview(labelStackView)
-        
-        labelStackView.addArrangedSubview(productNameLabel)
-        labelStackView.addArrangedSubview(originalPriceLabel)
-        labelStackView.addArrangedSubview(discountedPriceLabel)
-        labelStackView.addArrangedSubview(stockLabel)
+        configureLayouts()
+    }
 
-        let inset = CGFloat(10)
-
+    private func configureLayouts() {
         NSLayoutConstraint.activate([
             rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                               constant: inset),
+                                               constant: Const.ten),
             rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                  constant: -inset),
+                                                  constant: -Const.ten),
             rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                   constant: inset),
+                                                   constant: Const.ten),
             rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                    constant: -inset),
+                                                    constant: -Const.ten),
         ])
     }
     
     private func configureForOriginal() {
         discountedPriceLabel.isHidden = true
-        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(value: 0)
+        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(value: Const.zero)
         originalPriceLabel.textColor = .systemGray
     }
     
@@ -128,7 +129,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
     }
     
     func updateUI(_ data: ProductEntity) {
-        let viewModel = ProductListCollectionCellViewModelImpl(model: data)
+        let viewModel = ProductListCollectionCellViewModel(model: data)
 
         productImageView.setImageUrl(viewModel.thumbnail)
         productNameLabel.text = viewModel.name

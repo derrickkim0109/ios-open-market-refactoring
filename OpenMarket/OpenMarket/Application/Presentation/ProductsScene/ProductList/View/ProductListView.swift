@@ -45,7 +45,7 @@ class ProductListView: UIView {
         ])
     }
 
-    private func createLayout() -> UICollectionViewCompositionalLayout{
+    private func createLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Const.onePoint),
                                               heightDimension: .fractionalHeight(Const.onePoint))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
