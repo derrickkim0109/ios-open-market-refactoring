@@ -19,7 +19,7 @@ final class AppFlowCoordinator {
 
     func start() {
         let productsSceneDIContainer = appDIContainer.makeProductsSceneDIContainer()
-        let flow = productsSceneDIContainer.makeProductsMainFlowCoordinator(navigationController: navigationController)
+        let flow = productsSceneDIContainer.makeProductsListFlowCoordinator(navigationController: navigationController)
         flow.start()
     }
 }
