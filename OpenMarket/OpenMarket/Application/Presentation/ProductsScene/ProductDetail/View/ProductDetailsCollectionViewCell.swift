@@ -8,10 +8,9 @@
 import UIKit
 
 final class ProductDetailsCollectionViewCell: UICollectionViewCell {
-    // MARK: - Properties
-    
-    private let rootStackView: UIStackView = {
-        let stackView = UIStackView()
+    private lazy var rootStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [productImageView,
+                                                       productImageQuantityLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
@@ -37,12 +36,10 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         
         return label
     }()
-    
-    weak var viewModel: ProductDetailsViewModel?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureStackView()
+        bind()
     }
     
     @available(*, unavailable)
@@ -56,15 +53,15 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         productImageView.image = nil
         productImageQuantityLabel.text = nil
     }
-    
-    private func configureStackView() {
+
+    private func bind() {
         contentView.addSubview(rootStackView)
-        rootStackView.addArrangedSubview(productImageView)
-        rootStackView.addArrangedSubview(productImageQuantityLabel)
-        
         productImageView.setContentCompressionResistancePriority(.defaultLow,
                                                                  for: .vertical)
-        
+        configureLayouts()
+    }
+
+    private func configureLayouts() {
         NSLayoutConstraint.activate([
             rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -79,8 +76,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureUI(image: UIImage) {
-        productImageView.image = image
-        productImageQuantityLabel.text = viewModel?.numberOfImages
+    func configureUI(imageUrl: String) {
+        productImageView.setImageUrl(imageUrl)
+//        productImageQuantityLabel.text = viewModel?.numberOfImages
     }
 }
