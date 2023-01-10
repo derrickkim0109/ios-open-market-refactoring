@@ -13,7 +13,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
         static let five: CGFloat = 5
         static let ten: CGFloat = 10
     }
-    
+
     private lazy var rootStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [productImageView, labelStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -128,9 +128,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
         originalPriceLabel.textColor = .systemRed
     }
     
-    func updateUI(_ data: ProductEntity) {
-        let viewModel = ProductListCollectionCellViewModel(model: data)
-
+    func fill(with viewModel: ProductsListItemViewModel) {
         productImageView.setImageUrl(viewModel.thumbnail)
         productNameLabel.text = viewModel.name
         originalPriceLabel.text = viewModel.originalPriceText

@@ -1,5 +1,5 @@
 //
-//  ProductListCollectionCellViewModelImpl.swift
+//  ProductsListItemViewModel.swift
 //  OpenMarket
 //
 //  Created by Derrick kim on 2022/12/29.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProductListCollectionCellViewModelImpl {
+struct ProductsListItemViewModel {
     enum Const {
         static let zero = 0
         static let space = " "
