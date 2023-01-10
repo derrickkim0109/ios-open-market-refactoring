@@ -17,3 +17,9 @@ struct ProductEntity: Hashable {
     let discountedPrice: Double
     let stock: Int
 }
+
+extension ProductEntity {
+//    func toDomain() -> ProductDetailsEntity {
+//
+//    }
+}

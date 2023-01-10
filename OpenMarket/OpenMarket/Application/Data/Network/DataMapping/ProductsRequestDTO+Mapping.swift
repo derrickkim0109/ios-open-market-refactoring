@@ -1,5 +1,5 @@
 //
-//  ProductsRequestDTO.swift
+//  ProductsResponseDTO.swift
 //  OpenMarket
 //
 //  Created by 데릭, 수꿍.
@@ -7,7 +7,9 @@
 
 import Foundation
 
-struct ProductsRequestDTO: Codable {
+struct ProductsResponseDTO: Codable {
+    let pageNo: Int
+    let itemsPerPage: Int
     let pages: [Product]
 }
 

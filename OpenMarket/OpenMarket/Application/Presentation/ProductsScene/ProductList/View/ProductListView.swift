@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProductListView: UIView {
+final class ProductListView: UIView {
     enum Const {
         static let zero: CGFloat = 0
         static let two = 2

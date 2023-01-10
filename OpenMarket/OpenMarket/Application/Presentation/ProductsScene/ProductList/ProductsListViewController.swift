@@ -1,12 +1,12 @@
 //
-//  OpenMarket - ProductListViewController.swift
+//  OpenMarket - ProductsListViewController.swift
 //  Created by 데릭, 수꿍.
 //  Copyright © yagom. All rights reserved.
 //
 
 import UIKit
 
-final class ProductListViewController: UIViewController {
+final class ProductsListViewController: UIViewController {
     enum Const {
         static let borderWidthOnePoint: CGFloat = 1.0
         static let cornerRadiusTenPoint: CGFloat = 10.0
@@ -63,15 +63,14 @@ final class ProductListViewController: UIViewController {
         configureLayouts()
         configureRefreshControl()
 
-        bindData(by: DefaultProductsListViewModel.Input(productListTrigger: initialPageInfo))
+        bindData(by: initialPageInfo)
     }
 
-    func bindData(by input: DefaultProductsListViewModel.Input) {
+    private func bindData(by input: (pageNumber: Int, itemsPerPage: Int)) {
         productListTask = Task {
-            let output = await viewModel.transform(input: input)
-            await LoadingIndicator.hideLoading()
+            await viewModel.transform(input: input)
 
-            guard let state = output.state else { return }
+            guard let state = viewModel.state else { return }
 
             switch state {
             case .success(let data):
@@ -97,7 +96,7 @@ final class ProductListViewController: UIViewController {
             cell.layer.borderWidth = Const.borderWidthOnePoint
             cell.layer.cornerRadius = Const.cornerRadiusTenPoint
 
-            cell.updateUI(item)
+            cell.fill(with: ProductsListItemViewModel(model: item))
         }
 
         return UICollectionViewDiffableDataSource<ListSection, ProductEntity>(collectionView: productListView.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
@@ -136,7 +135,7 @@ final class ProductListViewController: UIViewController {
     
     private func resetData() {
         initialPageInfo = (RequestName.initialPageNumber, RequestName.initialItemPerPage)
-//        bindData(by: ProductListViewModelImpl.Input(productListTrigger: initialPageInfo))
+        bindData(by: initialPageInfo)
         productListView.collectionView.refreshControl?.endRefreshing()
     }
     
@@ -149,7 +148,7 @@ final class ProductListViewController: UIViewController {
     }
 }
 
-extension ProductListViewController: UICollectionViewDelegate {
+extension ProductsListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let product = dataSource.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath,
@@ -169,7 +168,7 @@ extension ProductListViewController: UICollectionViewDelegate {
         
         if collectionView.contentOffset.y > trigger {
             initialPageInfo = (initialPageInfo.pageNumber + Const.one, RequestName.initialItemPerPage)
-            bindData(by: DefaultProductsListViewModel.Input(productListTrigger: initialPageInfo))
+            bindData(by: initialPageInfo)
         }
     }
 }
