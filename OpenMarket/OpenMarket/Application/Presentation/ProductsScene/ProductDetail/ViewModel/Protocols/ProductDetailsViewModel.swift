@@ -14,6 +14,8 @@ protocol ProductDetailsViewModelInput {
 protocol ProductDetailsViewModelOutput {
     var loading: ProductsListViewModelLoading? { get }
     var state: ProductDetailsState? { get }
+    var items: ProductDetailsEntity? { get }
+    var isEmptyStock: Bool? { get }
 }
 
 enum ProductDetailsState {

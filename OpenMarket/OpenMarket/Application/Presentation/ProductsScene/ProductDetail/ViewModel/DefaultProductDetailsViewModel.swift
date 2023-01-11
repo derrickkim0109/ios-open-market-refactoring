@@ -14,25 +14,22 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     // MARK: Output
     var loading: ProductsListViewModelLoading?
     var state: ProductDetailsState?
+    var items: ProductDetailsEntity?
+    var isEmptyStock: Bool? {
+        return items?.stock == 0
+    }
 
-    private var productDetailsEntity: ProductDetailsEntity?
-    private var currentPage: Int?
-    
     init(fetchProductDetailsUseCase: FetchProductDetailsUseCase,
          actions: ProductDetailsViewModelActions? = nil) {
         self.fetchProductDetailsUseCase = fetchProductDetailsUseCase
         self.actions = actions
-    }
-    
-    func returnCurrentpage(_ index: Int){
-        currentPage = index
     }
 
     func transform(input: Int) async {
         do {
             let data = try await load(productID: input)
             let formattedData = format(productDetails: data)
-            productDetailsEntity = formattedData
+            items = formattedData
             state = .success(data: formattedData)
         } catch (let error) {
             state = .failed(error: error)
@@ -56,7 +53,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
 
 extension DefaultProductDetailsViewModel {
     func didSelectEditButton() {
-        guard let model = productDetailsEntity else { return }
+        guard let model = items else { return }
         actions?.presentProductModitifation(model)
     }
 
