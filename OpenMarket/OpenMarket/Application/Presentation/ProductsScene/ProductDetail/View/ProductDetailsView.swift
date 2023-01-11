@@ -138,9 +138,7 @@ final class ProductDetailsView: UIView {
             rootStackView.leadingAnchor.constraint(equalTo: rootScrollView.leadingAnchor),
             rootStackView.trailingAnchor.constraint(equalTo: rootScrollView.trailingAnchor),
             rootStackView.bottomAnchor.constraint(equalTo: rootScrollView.bottomAnchor),
-            rootStackView.widthAnchor.constraint(equalTo: rootScrollView.widthAnchor),
-
-            imagesCollectionView.heightAnchor.constraint(equalToConstant: layer.bounds.height * 0.35)
+            rootStackView.widthAnchor.constraint(equalTo: rootScrollView.widthAnchor)
         ])
     }
 
