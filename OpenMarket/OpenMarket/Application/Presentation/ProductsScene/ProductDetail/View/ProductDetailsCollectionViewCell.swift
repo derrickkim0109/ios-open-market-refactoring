@@ -69,15 +69,14 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
             rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             rootStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            productImageView.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
-                                                     multiplier: 0.9),
+
             productImageQuantityLabel.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
                                                       multiplier: 0.1),
         ])
     }
     
-    func configureUI(imageUrl: String) {
-        productImageView.setImageUrl(imageUrl)
-//        productImageQuantityLabel.text = viewModel?.numberOfImages
+    func fill(imageURL: String, currentIndex: String) {
+        productImageView.setImageUrl(imageURL)
+        productImageQuantityLabel.text = currentIndex
     }
 }
