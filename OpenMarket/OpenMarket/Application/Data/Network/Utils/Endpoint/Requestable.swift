@@ -40,7 +40,7 @@ extension Requestable {
         config.queryParameters.forEach {
             urlQueryItems.append(URLQueryItem(name: $0.key, value: $0.value))
         }
-        urlComponents.queryItems = !urlQueryItems.isEmpty ? urlQueryItems : nil
+        urlComponents.queryItems = urlQueryItems.isEmpty ? nil : urlQueryItems
         guard let url = urlComponents.url else { throw RequestGenerationError.components }
         return url
     }
@@ -63,7 +63,7 @@ extension Requestable {
     private func encodeBody(bodyParameters: [String: Any], bodyEncoding: BodyEncoding) -> Data? {
         switch bodyEncoding {
         case .jsonSerializationData:
-            return try? JSONSerialization.data(withJSONObject: bodyParameters)
+            return try? JSONSerialization.data(withJSONObject: bodyParameters, options: .init())
         case .stringEncodingAscii:
             return bodyParameters.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
         }

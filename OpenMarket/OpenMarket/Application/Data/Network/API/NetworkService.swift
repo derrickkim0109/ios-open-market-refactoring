@@ -24,7 +24,7 @@ public final class DefaultNetworkService: NetworkService {
 
     public func request(endpoint: Requestable) async throws -> Data {
         do {
-            let urlRequest = try await endpoint.urlRequest(with: config)
+            let urlRequest = try endpoint.urlRequest(with: config)
             return try await sessionManager.request(urlRequest)
         } catch {
             throw NetworkError.urlGeneration

@@ -22,7 +22,7 @@ public class DefaultNetworkSessionManager: NetworkSessionManager {
 
         guard let httpResponse = response as? HTTPURLResponse,
               httpResponse.statusCode == 200 else {
-            throw APIError.invalidServerResponse
+            throw DataTransferError.noResponse
         }
 
         return data
