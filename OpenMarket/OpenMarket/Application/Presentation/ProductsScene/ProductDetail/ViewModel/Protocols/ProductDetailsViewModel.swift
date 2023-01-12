@@ -6,16 +6,18 @@
 //
 
 protocol ProductDetailsViewModelInput {
-    func transform(input: Int) async
+    func transform() async
     func didSelectEditButton()
-    func didDeleteProducts(_ productID: Int)
+    func didSelectDeleteButton() async throws
 }
 
 protocol ProductDetailsViewModelOutput {
     var loading: ProductsListViewModelLoading? { get }
     var state: ProductDetailsState? { get }
     var items: ProductDetailsEntity? { get }
-    var isEmptyStock: Bool? { get }
+    var itemSecret: String { get }
+    var isEmptyStock: Bool { get }
+    var isEqualVendorID: Bool { get }
 }
 
 enum ProductDetailsState {

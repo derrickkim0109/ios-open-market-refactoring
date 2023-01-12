@@ -19,4 +19,11 @@ struct APIEndpoints {
         return Endpoint(path: HTTPPath.productDetail(productID).value,
                         method: .get)
     }
+
+    static func postProductSecret(_ productID: Int) -> Endpoint<String> {
+        return Endpoint(path: HTTPPath.getProductSecret(productID).value,
+                        method: .post,
+                        headerParameters: HTTPHeader.json.header,
+                        bodyParameters: ["secret": User.secret])
+    }
 }

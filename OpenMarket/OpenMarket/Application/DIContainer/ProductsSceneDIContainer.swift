@@ -27,6 +27,10 @@ final class ProductsSceneDIContainer {
         return DefaultFetchProductDetailsUseCase(productDetailsRepository: makeProductDetailsRepository())
     }
 
+    func makeFetchProductSecretUseCase() -> FetchProductSecretUseCase {
+        return DefaultFetchProductSecretUseCase(productSecretRepository: makeProductSecretRepository())
+    }
+
     // MARK: - Repositories
     func makeProductsRepository() -> ProductsRepository {
         return DefaultProductsRepository(dataTransferService: dependencies.apiDataTransferService)
@@ -36,6 +40,9 @@ final class ProductsSceneDIContainer {
         return DefaultProductDetailsRepository(dataTransferService: dependencies.apiDataTransferService)
     }
 
+    func makeProductSecretRepository() -> ProductSecretRepository {
+        return DefaultProductSecretRepository(dataTransferService: dependencies.apiDataTransferService)
+    }
     // MARK: - Products List
     func makeProductsListViewController(actions: ProductsListViewModelActions) -> ProductsListViewController {
         return ProductsListViewController(viewModel: makeProductsListViewModel(actions: actions))
@@ -47,14 +54,18 @@ final class ProductsSceneDIContainer {
     }
 
     // MARK: - Product Details
-    func makeProductDetailsViewController(actions: ProductDetailsViewModelActions,
-                                          productID: Int) -> ProductDetailsViewController {
-        return ProductDetailsViewController(productID: productID,
-                                            viewModel: makeProductDetailsViewModel(actions: actions))
+    func makeProductDetailsViewController(product: ProductEntity,
+                                          actions: ProductDetailsViewModelActions) -> ProductDetailsViewController {
+        return ProductDetailsViewController(viewModel: makeProductDetailsViewModel(product: product,
+                                                                                   actions: actions))
     }
 
     func makeProductDetailsViewModel(actions: ProductDetailsViewModelActions) -> ProductDetailsViewModel {
         return DefaultProductDetailsViewModel(fetchProductDetailsUseCase: makeFetchProductDetailsUseCase(),
+    func makeProductDetailsViewModel(product: ProductEntity, actions: ProductDetailsViewModelActions) -> ProductDetailsViewModel {
+        return DefaultProductDetailsViewModel(product: product,
+                                              fetchProductDetailsUseCase: makeFetchProductDetailsUseCase(),
+                                              fetchProductSecretUseCase: makeFetchProductSecretUseCase(),
                                               actions: actions)
     }
 
