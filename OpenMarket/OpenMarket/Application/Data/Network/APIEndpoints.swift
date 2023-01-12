@@ -26,4 +26,10 @@ struct APIEndpoints {
                         headerParameters: HTTPHeader.json.header,
                         bodyParameters: ["secret": User.secret])
     }
+
+    static func deleteProduct(deleteURL: String) -> Endpoint<()> {
+        return Endpoint(path: HTTPPath.delete(deleteURI: deleteURL).value,
+                        method: .delete,
+                        headerParameters: HTTPHeader.delete.header)
+    }
 }

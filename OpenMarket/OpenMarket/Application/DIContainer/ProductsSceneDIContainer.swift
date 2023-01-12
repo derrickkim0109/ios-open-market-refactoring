@@ -31,6 +31,10 @@ final class ProductsSceneDIContainer {
         return DefaultFetchProductSecretUseCase(productSecretRepository: makeProductSecretRepository())
     }
 
+    func makeDeleteProductUseCase() -> DeleteProductUseCase {
+        return DefaultDeleteProductDetailsUseCase(deleteProductRepository: makeDeleteProductRepository())
+    }
+
     // MARK: - Repositories
     func makeProductsRepository() -> ProductsRepository {
         return DefaultProductsRepository(dataTransferService: dependencies.apiDataTransferService)
@@ -43,6 +47,11 @@ final class ProductsSceneDIContainer {
     func makeProductSecretRepository() -> ProductSecretRepository {
         return DefaultProductSecretRepository(dataTransferService: dependencies.apiDataTransferService)
     }
+
+    func makeDeleteProductRepository() -> DeleteProductRepository {
+        return DefaultDeleteProductRepository(dataTransferService: dependencies.apiDataTransferService)
+    }
+
     // MARK: - Products List
     func makeProductsListViewController(actions: ProductsListViewModelActions) -> ProductsListViewController {
         return ProductsListViewController(viewModel: makeProductsListViewModel(actions: actions))
@@ -60,12 +69,11 @@ final class ProductsSceneDIContainer {
                                                                                    actions: actions))
     }
 
-    func makeProductDetailsViewModel(actions: ProductDetailsViewModelActions) -> ProductDetailsViewModel {
-        return DefaultProductDetailsViewModel(fetchProductDetailsUseCase: makeFetchProductDetailsUseCase(),
     func makeProductDetailsViewModel(product: ProductEntity, actions: ProductDetailsViewModelActions) -> ProductDetailsViewModel {
         return DefaultProductDetailsViewModel(product: product,
                                               fetchProductDetailsUseCase: makeFetchProductDetailsUseCase(),
                                               fetchProductSecretUseCase: makeFetchProductSecretUseCase(),
+                                              deleteProductUseCase: makeDeleteProductUseCase(),
                                               actions: actions)
     }
 

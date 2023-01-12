@@ -162,6 +162,40 @@ final class ProductDetailsViewController: UIViewController {
                      completion: nil)
     }
 
+    private func presentPasswordCheckAlert() {
+        let alertController = UIAlertController(title: nil,
+                                                message: AlertMessage.inputPassword,
+                                                preferredStyle: .alert)
+        alertController.addTextField()
+
+        let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
+                                          style: .default) { [weak self] _ in
+            guard User.secret == alertController.textFields?.first?.text else {
+                self?.presentConfirmAlert(message: AlertMessage.deleteFailure)
+                return
+            }
+            self?.deleteProduct()
+        }
+
+        let cancleAction = UIAlertAction(title: AlertSetting.cancelAction,
+                                         style: .cancel)
+
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancleAction)
+        present(alertController, animated: true)
+    }
+
+    private func deleteProduct() {
+        deleteProductTask = Task {
+            do {
+                try await viewModel.didSelectDeleteButton()
+                presentConfirmAlert(message: AlertMessage.deleteSuccess)
+            } catch (let error) {
+                presentConfirmAlert(message: error.localizedDescription)
+            }
+        }
+    }
+
     private func configureDataSource() -> DataSource {
         let cellRegistration = UICollectionView.CellRegistration<ProductDetailsCollectionViewCell, String> { [weak self] cell, indexPath, item in
             guard let items = self?.viewModel.items else { return }
@@ -194,3 +228,12 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
+
+//extension ProductDetailsViewController: ProductModificationDelegate {
+//    func productModificationViewController(_ viewController: ProductModificationViewController.Type, didRecieve productName: String) {
+//        DispatchQueue.main.async { [weak self] in
+//            self?.title = productName
+//        }
+//        fetchProductDetails(by: productID)
+//    }
+//}

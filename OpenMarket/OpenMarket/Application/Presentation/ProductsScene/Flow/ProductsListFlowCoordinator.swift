@@ -10,8 +10,8 @@ import UIKit
 protocol ProductsListFlowCoordinatorDependencies  {
     func makeProductsListViewController(actions: ProductsListViewModelActions) -> ProductsListViewController
     func makeProductsEnrollmentViewController() -> ProductEnrollmentViewController
-    func makeProductDetailsViewController(actions: ProductDetailsViewModelActions,
-                                          productID: Int) -> ProductDetailsViewController
+    func makeProductDetailsViewController(product: ProductEntity,
+                                          actions: ProductDetailsViewModelActions) -> ProductDetailsViewController
 }
 
 final class ProductsListFlowCoordinator {
@@ -35,10 +35,10 @@ final class ProductsListFlowCoordinator {
         productsListViewController = viewController
     }
 
-    private func presentProductDetails(productID: Int) {
+    private func presentProductDetails(product: ProductEntity) {
         let actions = ProductDetailsViewModelActions(presentProductModitifation: presentProductModification)
-        let viewController = dependencies.makeProductDetailsViewController(actions: actions,
-                                                                           productID: productID)
+        let viewController = dependencies.makeProductDetailsViewController(product: product,
+                                                                           actions: actions)
         navigationController?.pushViewController(viewController, animated: true)
     }
 

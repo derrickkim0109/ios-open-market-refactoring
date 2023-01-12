@@ -10,6 +10,7 @@ import UIKit
 final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     private let fetchProductDetailsUseCase: FetchProductDetailsUseCase
     private let fetchProductSecretUseCase: FetchProductSecretUseCase
+    private let deleteProductUseCase: DeleteProductUseCase
     private let actions: ProductDetailsViewModelActions?
 
     // MARK: Output
@@ -29,10 +30,12 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     init(product: ProductEntity,
          fetchProductDetailsUseCase: FetchProductDetailsUseCase,
          fetchProductSecretUseCase: FetchProductSecretUseCase,
+         deleteProductUseCase: DeleteProductUseCase,
          actions: ProductDetailsViewModelActions? = nil) {
         self.product = product
         self.fetchProductDetailsUseCase = fetchProductDetailsUseCase
         self.fetchProductSecretUseCase = fetchProductSecretUseCase
+        self.deleteProductUseCase = deleteProductUseCase
         self.actions = actions
     }
 
@@ -69,6 +72,15 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
             throw error
         }
     }
+
+    private func deleteProduct(deleteURL: String) async throws {
+        do {
+            try await deleteProductUseCase.execute(deleteURL: deleteURL)
+        } catch (let error) {
+            throw error
+        }
+    }
+
     private func format(productDetails: ProductDetailsResponseDTO) -> ProductDetailsEntity {
         let productInfo = productDetails.toDomain()
         return productInfo
@@ -81,7 +93,11 @@ extension DefaultProductDetailsViewModel {
         actions?.presentProductModitifation(model)
     }
 
-    func didDeleteProducts(_ productID: Int) {
-
+    func didSelectDeleteButton() async throws {
+        do {
+            try await deleteProduct(deleteURL: itemSecret)
+        } catch (let error) {
+            throw error
+        }
     }
 }
