@@ -55,7 +55,7 @@ extension DefaultProductsListViewModel {
     func viewDidLoad() { }
 
     func didSelectItem(_ item: ProductEntity) {
-        actions?.presentProductDetails(item.id)
+        actions?.presentProductDetails(item)
     }
 
     func didTapPlusButton() {

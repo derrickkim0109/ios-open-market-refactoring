@@ -53,6 +53,7 @@ final class ProductsListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        bindData(by: initialPageInfo)
     }
 
     private func bind() {
@@ -62,8 +63,6 @@ final class ProductsListViewController: UIViewController {
 
         configureLayouts()
         configureRefreshControl()
-
-        bindData(by: initialPageInfo)
     }
 
     private func bindData(by input: (pageNumber: Int, itemsPerPage: Int)) {
@@ -100,7 +99,6 @@ final class ProductsListViewController: UIViewController {
         }
 
         return UICollectionViewDiffableDataSource<ListSection, ProductEntity>(collectionView: productListView.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: itemIdentifier)

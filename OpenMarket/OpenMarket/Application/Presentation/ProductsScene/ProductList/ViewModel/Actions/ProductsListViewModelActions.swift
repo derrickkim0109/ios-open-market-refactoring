@@ -7,5 +7,5 @@
 
 struct ProductsListViewModelActions {
     let presentProductEnrollment: () -> Void
-    let presentProductDetails: (Int) -> Void
+    let presentProductDetails: (ProductEntity) -> Void
 }
