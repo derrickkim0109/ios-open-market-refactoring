@@ -18,19 +18,19 @@ extension String {
         return attributeString
     }
     
-    func convertToInt() -> Int {
-        guard let convertedString = Int(self) else {
+    func convertToDouble() -> Double {
+        guard let convertedString = Double(self) else {
             return 0
         }
         
         return convertedString
     }
-    
-    func convertToOptionalInt() -> Int? {
+
+    func convertToInt() -> Int {
         guard let convertedString = Int(self) else {
-            return nil
+            return 0
         }
-        
+
         return convertedString
     }
 }

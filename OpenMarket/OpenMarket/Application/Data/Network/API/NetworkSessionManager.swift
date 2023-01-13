@@ -21,7 +21,8 @@ public class DefaultNetworkSessionManager: NetworkSessionManager {
         let (data, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+              httpResponse.statusCode >= 200, httpResponse.statusCode < 300
+        else {
             throw DataTransferError.noResponse
         }
 

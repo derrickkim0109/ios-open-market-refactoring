@@ -23,17 +23,6 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
         self.actions = actions
     }
 
-    func transform(input: (pageNumber: Int, itemsPerPage: Int)) async {
-        do {
-            let (pageNumber, itemsPerPage) = input
-            let data = try await load(pageNumber: pageNumber, itemsPerPage: itemsPerPage)
-            state = .success(data: format(data: data?.pages))
-
-        } catch (let error) {
-            state = .failed(error: error)
-        }
-    }
-
     private func load(pageNumber: Int, itemsPerPage: Int) async throws -> ProductsResponseDTO? {
         do {
             let result = try await fetchProductsUseCase.execute(requestValue: FetchProductsUseCaseRequestValue(page: pageNumber, itemPerPage: itemsPerPage))
@@ -54,6 +43,17 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
 extension DefaultProductsListViewModel {
     func viewDidLoad() { }
 
+    func transform(input: (pageNumber: Int, itemsPerPage: Int)) async {
+        do {
+            let (pageNumber, itemsPerPage) = input
+            let data = try await load(pageNumber: pageNumber, itemsPerPage: itemsPerPage)
+            state = .success(data: format(data: data?.pages))
+
+        } catch (let error) {
+            state = .failed(error: error)
+        }
+    }
+    
     func didSelectItem(_ item: ProductEntity) {
         actions?.presentProductDetails(item)
     }

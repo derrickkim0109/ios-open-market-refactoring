@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FetchProductDetailsUseCase {
-    func execute(productID: Int) async throws -> ProductDetailsResponseDTO
+    func execute(productID: Int) async throws -> ProductDetailsRequestDTO
 }
 
 final class DefaultFetchProductDetailsUseCase: FetchProductDetailsUseCase {
@@ -18,7 +18,7 @@ final class DefaultFetchProductDetailsUseCase: FetchProductDetailsUseCase {
         self.productDetailsRepository = productDetailsRepository
     }
 
-    func execute(productID: Int) async throws -> ProductDetailsResponseDTO {
+    func execute(productID: Int) async throws -> ProductDetailsRequestDTO {
         return try await productDetailsRepository.fetchProductDetails(productID: productID)
     }
 }

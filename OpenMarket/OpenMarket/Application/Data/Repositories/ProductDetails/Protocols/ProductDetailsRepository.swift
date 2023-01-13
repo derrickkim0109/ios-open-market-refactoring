@@ -6,5 +6,5 @@
 //
 
 protocol ProductDetailsRepository {
-    func fetchProductDetails(productID: Int) async throws -> Endpoint<ProductDetailsResponseDTO>.Response
+    func fetchProductDetails(productID: Int) async throws -> Endpoint<ProductDetailsRequestDTO>.Response
 }

@@ -7,18 +7,6 @@
 import UIKit
 
 final class ProductsListViewController: UIViewController {
-    enum Const {
-        static let borderWidthOnePoint: CGFloat = 1.0
-        static let cornerRadiusTenPoint: CGFloat = 10.0
-        static let plus = "+"
-        static let one = 1
-        static let hundred: CGFloat = 100
-    }
-
-    enum ListSection {
-        case main
-    }
-
     private typealias DataSource = UICollectionViewDiffableDataSource<ListSection, ProductEntity>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<ListSection, ProductEntity>
 
@@ -53,7 +41,7 @@ final class ProductsListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bindData(by: initialPageInfo)
+        bindViewModel(by: initialPageInfo)
     }
 
     private func bind() {
@@ -65,7 +53,7 @@ final class ProductsListViewController: UIViewController {
         configureRefreshControl()
     }
 
-    private func bindData(by input: (pageNumber: Int, itemsPerPage: Int)) {
+    private func bindViewModel(by input: (pageNumber: Int, itemsPerPage: Int)) {
         productListTask = Task {
             await viewModel.transform(input: input)
 
@@ -133,7 +121,7 @@ final class ProductsListViewController: UIViewController {
     
     private func resetData() {
         initialPageInfo = (RequestName.initialPageNumber, RequestName.initialItemPerPage)
-        bindData(by: initialPageInfo)
+        bindViewModel(by: initialPageInfo)
         productListView.collectionView.refreshControl?.endRefreshing()
     }
     
@@ -143,6 +131,18 @@ final class ProductsListViewController: UIViewController {
 
     @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
         viewModel.didTapPlusButton()
+    }
+
+    enum ListSection {
+        case main
+    }
+
+    enum Const {
+        static let borderWidthOnePoint: CGFloat = 1.0
+        static let cornerRadiusTenPoint: CGFloat = 10.0
+        static let plus = "+"
+        static let one = 1
+        static let hundred: CGFloat = 100
     }
 }
 
@@ -166,7 +166,7 @@ extension ProductsListViewController: UICollectionViewDelegate {
         
         if collectionView.contentOffset.y > trigger {
             initialPageInfo = (initialPageInfo.pageNumber + Const.one, RequestName.initialItemPerPage)
-            bindData(by: initialPageInfo)
+            bindViewModel(by: initialPageInfo)
         }
     }
 }

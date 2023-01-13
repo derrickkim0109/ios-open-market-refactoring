@@ -15,7 +15,7 @@ struct APIEndpoints {
                                           ProductURLQueryItem.items_per_page: itemsPerPage])
     }
 
-    static func getProductDetails(_ productID: Int) -> Endpoint<ProductDetailsResponseDTO> {
+    static func getProductDetails(_ productID: Int) -> Endpoint<ProductDetailsRequestDTO> {
         return Endpoint(path: HTTPPath.productDetail(productID).value,
                         method: .get)
     }

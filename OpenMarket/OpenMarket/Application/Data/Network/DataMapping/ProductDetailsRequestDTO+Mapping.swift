@@ -1,5 +1,5 @@
 //
-//  ProductDetailsResponseDTO.swift
+//  ProductDetailsRequestDTO.swift
 //  OpenMarket
 //
 //  Created by 데릭, 수꿍.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProductDetailsResponseDTO: Codable {
+struct ProductDetailsRequestDTO: Decodable {
     let id: Int
     let vendorId: Int
     let name: String
@@ -24,7 +24,7 @@ struct ProductDetailsResponseDTO: Codable {
     let vendors: Vendor
 }
 
-extension ProductDetailsResponseDTO {
+extension ProductDetailsRequestDTO {
     func toDomain() -> ProductDetailsEntity {
         return ProductDetailsEntity(id: id,
                                     vendorID: vendorId,
@@ -47,7 +47,7 @@ extension ProductDetailsResponseDTO {
     }
 }
 
-struct Images: Codable {
+struct Images: Decodable {
     let id: Int
     let url: String
     let thumbnailUrl: String

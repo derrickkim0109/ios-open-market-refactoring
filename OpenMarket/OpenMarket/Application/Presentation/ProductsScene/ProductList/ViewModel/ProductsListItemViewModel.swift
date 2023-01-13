@@ -8,11 +8,6 @@
 import UIKit
 
 struct ProductsListItemViewModel {
-    enum Const {
-        static let zero = 0
-        static let space = " "
-        static let colons = " : "
-    }
     private let model: ProductEntity
 
     var thumbnail: String {
@@ -55,5 +50,11 @@ struct ProductsListItemViewModel {
 
     init(model: ProductEntity) {
         self.model = model
+    }
+
+    enum Const {
+        static let zero = 0
+        static let space = " "
+        static let colons = " : "
     }
 }

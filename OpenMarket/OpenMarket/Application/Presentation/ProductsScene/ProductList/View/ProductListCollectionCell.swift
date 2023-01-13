@@ -8,12 +8,6 @@
 import UIKit
 
 final class ProductListCollectionCell: UICollectionViewCell {
-    enum Const {
-        static let zero: Int = 0
-        static let five: CGFloat = 5
-        static let ten: CGFloat = 10
-    }
-
     private lazy var rootStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [productImageView, labelStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -137,5 +131,11 @@ final class ProductListCollectionCell: UICollectionViewCell {
 
         viewModel.isDiscountedItem == true ? configureForBargain() : configureForOriginal()
         stockLabel.textColor = viewModel.stockTextColor
+    }
+
+    enum Const {
+        static let zero: Int = 0
+        static let five: CGFloat = 5
+        static let ten: CGFloat = 10
     }
 }

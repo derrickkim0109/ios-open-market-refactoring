@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProductsResponseDTO: Codable {
+struct ProductsResponseDTO: Decodable {
     let pageNo: Int
     let itemsPerPage: Int
     let pages: [Product]
@@ -18,7 +18,7 @@ enum Currency: String, Codable {
     case usd = "USD"
 }
 
-struct Product: Codable {
+struct Product: Decodable {
     let id: Int
     let vendorId: Int
     let name: String
