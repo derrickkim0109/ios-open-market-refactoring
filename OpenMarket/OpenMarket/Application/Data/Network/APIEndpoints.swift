@@ -32,4 +32,11 @@ struct APIEndpoints {
                         method: .delete,
                         headerParameters: HTTPHeader.delete.header)
     }
+
+    static func patchProduct(_ productID: Int, product: TypedProductDetailsRequestDTO) -> Endpoint<()> {
+        return Endpoint(path: HTTPPath.motifyProduct(productID).value,
+                        method: .patch,
+                        headerParameters: HTTPHeader.json.header,
+                        bodyParametersEncodable: product)
+    }
 }
