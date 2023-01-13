@@ -33,6 +33,7 @@ enum HTTPPath {
     case products
     case productDetail(_ productID: Int)
     case getProductSecret(_ productID: Int)
+    case motifyProduct(_ productID: Int)
     case delete(deleteURI: String)
 
     var value: String {
@@ -43,6 +44,8 @@ enum HTTPPath {
             return HTTPPath.basePath + "/\(productID)/"
         case .getProductSecret(let productID):
             return HTTPPath.basePath + "/\(productID)/archived"
+        case .motifyProduct(let productID):
+            return HTTPPath.basePath + "/\(productID)/"
         case .delete(let deleteURI):
             return "\(deleteURI)"
         }
