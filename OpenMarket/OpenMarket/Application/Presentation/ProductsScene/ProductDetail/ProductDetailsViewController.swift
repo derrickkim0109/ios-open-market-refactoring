@@ -8,10 +8,6 @@
 import UIKit
 
 final class ProductDetailsViewController: UIViewController {
-    enum DetailsSection {
-        case main
-    }
-
     private typealias DataSource = UICollectionViewDiffableDataSource<DetailsSection, String>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<DetailsSection, String>
 
@@ -70,6 +66,7 @@ final class ProductDetailsViewController: UIViewController {
         }
     }
 
+    @MainActor
     private func updateUI(_ data: ProductDetailsEntity) {
         productDetailsView.productNameLabel.text = data.name
         productDetailsView.stockLabel.text = data.stock.description
@@ -86,7 +83,7 @@ final class ProductDetailsViewController: UIViewController {
 
     private func configureForOriginal() {
         productDetailsView.discountedPriceLabel.isHidden = true
-        productDetailsView.originalPriceLabel.attributedText = productDetailsView.originalPriceLabel.text?.strikeThrough(value: 0)
+        productDetailsView.originalPriceLabel.attributedText = productDetailsView.originalPriceLabel.text?.strikeThrough(value: Const.zero)
         productDetailsView.originalPriceLabel.textColor = .systemGray
     }
 
@@ -111,12 +108,12 @@ final class ProductDetailsViewController: UIViewController {
             productDetailsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             productDetailsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             productDetailsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            productDetailsView.imagesCollectionView.heightAnchor.constraint(equalToConstant: view.layer.bounds.height * 0.35)
+            productDetailsView.imagesCollectionView.heightAnchor.constraint(equalToConstant: view.layer.bounds.height * Const.zeroPintThirtyFive)
         ])
     }
 
     private func configureNavigationItems() {
-        let leftButtonImage = UIImage(systemName: "chevron.backward")
+        let leftButtonImage = UIImage(systemName: Const.navigationItemBackward)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: leftButtonImage,
                                                                 style: .done,
                                                                 target: self,
@@ -124,7 +121,7 @@ final class ProductDetailsViewController: UIViewController {
         
         guard viewModel.isEqualVendorID else { return }
 
-        let rightButtonImage = UIImage(systemName: "square.and.arrow.up")
+        let rightButtonImage = UIImage(systemName: Const.navigationItemArrowUp)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,
                                                                  style: .plain,
                                                                  target: self,
@@ -201,7 +198,7 @@ final class ProductDetailsViewController: UIViewController {
             guard let items = self?.viewModel.items else { return }
             let viewModel = ProductDetailsItemViewModel(model: items)
 
-            cell.fill(imageURL: item, currentIndex: viewModel.returnTotalPage(indexPath.row + 1))
+            cell.fill(imageURL: item, currentIndex: viewModel.returnTotalPage(indexPath.row + Const.one))
         }
 
         return UICollectionViewDiffableDataSource<DetailsSection, String>(collectionView: productDetailsView.imagesCollectionView) {
@@ -221,6 +218,18 @@ final class ProductDetailsViewController: UIViewController {
             self?.presentActionSheet()
         }
     }
+
+    enum DetailsSection {
+        case main
+    }
+
+    enum Const {
+        static let zero = 0
+        static let zeroPintThirtyFive: CGFloat = 0.35
+        static let one = 1
+        static let navigationItemBackward = "chevron.backward"
+        static let navigationItemArrowUp = "square.and.arrow.up"
+    }
 }
 
 extension ProductDetailsViewController: UICollectionViewDelegate {
@@ -229,11 +238,9 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
     }
 }
 
-//extension ProductDetailsViewController: ProductModificationDelegate {
-//    func productModificationViewController(_ viewController: ProductModificationViewController.Type, didRecieve productName: String) {
-//        DispatchQueue.main.async { [weak self] in
-//            self?.title = productName
-//        }
-//        fetchProductDetails(by: productID)
-//    }
-//}
+extension ProductDetailsViewController: ProductModificationDelegate {
+    func productModificationViewController(_ viewController: ProductModificationViewController.Type, didRecieve product: ProductDetailsEntity) {
+
+        updateUI(product)
+    }
+}

@@ -5,7 +5,7 @@
 //  Created by 데릭, 수꿍.
 //
 
-import UIKit
+import Foundation
 
 final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     private let fetchProductDetailsUseCase: FetchProductDetailsUseCase
@@ -39,23 +39,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         self.actions = actions
     }
 
-    func transform() async {
-        do {
-            let data = try await load(productID: product.id)
-            let formattedData = format(productDetails: data)
-            items = formattedData
-            state = .success(data: formattedData)
-
-            if isEqualVendorID {
-                let data = try await fetchProductSecret(by: product.id)
-                itemSecret = data
-            }
-        } catch (let error) {
-            state = .failed(error: error)
-        }
-    }
-    
-    private func load(productID: Int) async throws -> ProductDetailsResponseDTO {
+    private func load(productID: Int) async throws -> ProductDetailsRequestDTO {
         do {
             let result = try await fetchProductDetailsUseCase.execute(productID: productID)
             return result
@@ -81,13 +65,29 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         }
     }
 
-    private func format(productDetails: ProductDetailsResponseDTO) -> ProductDetailsEntity {
+    private func format(productDetails: ProductDetailsRequestDTO) -> ProductDetailsEntity {
         let productInfo = productDetails.toDomain()
         return productInfo
     }
 }
 
 extension DefaultProductDetailsViewModel {
+    func transform() async {
+        do {
+            let data = try await load(productID: product.id)
+            let formattedData = format(productDetails: data)
+            items = formattedData
+            state = .success(data: formattedData)
+
+            if isEqualVendorID {
+                let data = try await fetchProductSecret(by: product.id)
+                itemSecret = data
+            }
+        } catch (let error) {
+            state = .failed(error: error)
+        }
+    }
+    
     func didSelectEditButton() {
         guard let model = items else { return }
         actions?.presentProductModitifation(model)

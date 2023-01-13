@@ -19,15 +19,15 @@ final class ProductDetailsView: UIView {
                                                        productInfoLabelStackView,
                                                        productDescriptionTextView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 10,
-                                               left: 10,
-                                               bottom: 10,
-                                               right: 10)
+        stackView.layoutMargins = UIEdgeInsets(top: Const.ten,
+                                               left: Const.ten,
+                                               bottom: Const.ten,
+                                               right: Const.ten)
         return stackView
     }()
 
@@ -43,7 +43,7 @@ final class ProductDetailsView: UIView {
                                                        productPriceAndStockStackView])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = 0
+        stackView.spacing = Const.zero
         stackView.alignment = .firstBaseline
         return stackView
     }()
@@ -61,7 +61,7 @@ final class ProductDetailsView: UIView {
                                                        discountedPriceLabel])
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = Const.five
         stackView.alignment = .fill
         return stackView
     }()
@@ -143,22 +143,22 @@ final class ProductDetailsView: UIView {
     }
 
     private func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                              heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Const.onePointZero),
+                                              heightDimension: .fractionalHeight(Const.onePointZero))
 
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .fractionalWidth(0.8))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Const.onePointZero),
+                                               heightDimension: .fractionalWidth(Const.zeroPointEight))
 
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
-                                                       count: 1)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 10,
-                                                      leading: 10,
-                                                      bottom: 10,
-                                                      trailing: 10)
-        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(0)
+                                                       count: Const.one)
+        group.contentInsets = NSDirectionalEdgeInsets(top: Const.ten,
+                                                      leading: Const.ten,
+                                                      bottom: Const.ten,
+                                                      trailing: Const.ten)
+        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(Const.zero)
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging
@@ -166,5 +166,14 @@ final class ProductDetailsView: UIView {
         let layout = UICollectionViewCompositionalLayout(section: section)
 
         return layout
+    }
+
+    enum Const {
+        static let zero: CGFloat = 0
+        static let onePointZero: CGFloat = 1.0
+        static let one = 1
+        static let zeroPointEight: CGFloat = 0.8
+        static let five: CGFloat = 5
+        static let ten: CGFloat = 10
     }
 }

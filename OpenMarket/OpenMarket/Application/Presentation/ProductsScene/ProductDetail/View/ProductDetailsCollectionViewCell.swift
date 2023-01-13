@@ -8,23 +8,10 @@
 import UIKit
 
 final class ProductDetailsCollectionViewCell: UICollectionViewCell {
-    private lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productImageView,
-                                                       productImageQuantityLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fillProportionally
-        stackView.spacing = 0
-        stackView.alignment = .fill
-        
-        return stackView
-    }()
-    
     private let productImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        
         return imageView
     }()
     
@@ -33,7 +20,6 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.preferredFont(forTextStyle: .caption2)
-        
         return label
     }()
 
@@ -55,7 +41,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
     }
 
     private func bind() {
-        contentView.addSubview(rootStackView)
+        contentView.addSubview(productImageView)
+        contentView.addSubview(productImageQuantityLabel)
         productImageView.setContentCompressionResistancePriority(.defaultLow,
                                                                  for: .vertical)
         configureLayouts()
@@ -63,20 +50,23 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            rootStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            productImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            productImageView.bottomAnchor.constraint(equalTo: productImageQuantityLabel.topAnchor, constant: -Const.ten),
 
-            productImageQuantityLabel.heightAnchor.constraint(equalTo: rootStackView.heightAnchor,
-                                                      multiplier: 0.1),
+            productImageQuantityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            productImageQuantityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            productImageQuantityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
     
     func fill(imageURL: String, currentIndex: String) {
         productImageView.setImageUrl(imageURL)
         productImageQuantityLabel.text = currentIndex
+    }
+
+    enum Const {
+        static let ten: CGFloat = 10
     }
 }
