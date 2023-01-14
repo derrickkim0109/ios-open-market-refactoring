@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TypedProductDetailsRequestDTO: Codable {
+struct TypedProductDetailsRequestDTO: Encodable {
     let name: String?
     let descriptions: String?
     let price: Double?
