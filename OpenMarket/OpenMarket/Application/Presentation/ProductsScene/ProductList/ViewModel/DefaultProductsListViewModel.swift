@@ -58,7 +58,7 @@ extension DefaultProductsListViewModel {
         actions?.presentProductDetails(item)
     }
 
-    func didTapPlusButton() {
+    func didTapEnrollmentButton() {
         actions?.presentProductEnrollment()
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum DataTransferError: Error {
+enum DataTransferError: Error {
     case noResponse
     case parsing(Error)
     case networkFailure(NetworkError)

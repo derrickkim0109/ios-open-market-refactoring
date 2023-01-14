@@ -5,10 +5,9 @@
 //  Created by Derrick kim on 2023/01/13.
 //
 
-import Foundation
-
 protocol ProductModificationViewModelInput {
     func didSelectCompletionButton(input: TypedProductDetailsRequestDTO) async
+    func didTapCancelButton()
     func fetchData() -> ProductDetailsEntity
 }
 

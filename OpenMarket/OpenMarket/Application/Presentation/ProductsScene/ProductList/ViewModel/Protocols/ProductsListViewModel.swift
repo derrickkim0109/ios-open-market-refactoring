@@ -13,7 +13,7 @@ protocol ProductsListViewModelInput {
     func transform(input: (pageNumber: Int, itemsPerPage: Int)) async
     func viewDidLoad()
     func didSelectItem(_ item: ProductEntity)
-    func didTapPlusButton()
+    func didTapEnrollmentButton()
 }
 
 protocol ProductsListViewModelOutput {

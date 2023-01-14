@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol ResponseDecoder {
+protocol ResponseDecoder {
     func decode<T: Decodable>(from data: Data) async throws -> T
 }
 

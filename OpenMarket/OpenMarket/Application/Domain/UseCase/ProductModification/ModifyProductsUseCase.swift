@@ -5,8 +5,6 @@
 //  Created by Derrick kim on 2023/01/10.
 //
 
-import Foundation
-
 protocol ModifyProductsUseCase {
     func execute(productID: Int, product: TypedProductDetailsRequestDTO) async throws 
 }

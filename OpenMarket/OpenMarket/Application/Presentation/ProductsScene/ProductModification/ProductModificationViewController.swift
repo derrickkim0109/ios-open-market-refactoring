@@ -8,9 +8,8 @@
 import UIKit
 
 final class ProductModificationViewController: UIViewController {
-    private let productEnrollmentView = ProductEnrollmentView()
+    private let productEnrollmentView = ProductEnrollmentView(pagePurpose: .modification)
 
-    weak var delegate: ProductModificationDelegate?
     private let viewModel: ProductModificationViewModel
     private var modifyProductTask: Task<Void, Error>?
 
@@ -29,10 +28,12 @@ final class ProductModificationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(self, #function)
         bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        print(self, #function)
         super.viewWillAppear(animated)
     }
 
@@ -45,7 +46,8 @@ final class ProductModificationViewController: UIViewController {
     }
 
     private func bindViewModel() {
-        updateUI(by: viewModel.fetchData())
+        let data = viewModel.fetchData()
+        updateUI(by: data)
     }
 
     private func configureLayouts() {
@@ -55,12 +57,12 @@ final class ProductModificationViewController: UIViewController {
             productEnrollmentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             productEnrollmentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
-            productEnrollmentView.imageAndPickerButtonScrollView.heightAnchor.constraint(equalToConstant: view.layer.bounds.width * 0.3)
+            productEnrollmentView.imageAndPickerButtonScrollView.heightAnchor.constraint(equalToConstant: view.layer.bounds.width * Const.zeroPointThree)
         ])
     }
 
     private func configureNavigationItems() {
-        title = CurrentPage.productModification
+        title = Const.title
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
                                                            target: self,
                                                            action: #selector(didTapCancelButton))
@@ -84,7 +86,7 @@ final class ProductModificationViewController: UIViewController {
         productEnrollmentView.discountedPriceTextField.text = data.bargainPrice.description
         productEnrollmentView.productStockTextField.text = data.stock.description
         productEnrollmentView.productDescriptionTextView.text = data.description
-        productEnrollmentView.currencySegmentedControl.selectedSegmentIndex = data.currency == .krw ? 0 : 1
+        productEnrollmentView.currencySegmentedControl.selectedSegmentIndex = data.currency == .krw ? Const.zero : Const.one
         configureNewImageView(data.images)
         checkNumberOfText(in: productEnrollmentView.productDescriptionTextView)
     }
@@ -108,10 +110,8 @@ final class ProductModificationViewController: UIViewController {
         }
     }
 
-    // MARK: - Action
-
     @objc private func didTapCancelButton() {
-        dismiss(animated: true)
+        viewModel.didTapCancelButton()
     }
 
     @objc private func didTapDoneButton() {
@@ -123,5 +123,12 @@ final class ProductModificationViewController: UIViewController {
                 self.presentConfirmAlert(message: error.localizedDescription)
             }
         }
+    }
+
+    enum Const {
+        static let zero = 0
+        static let zeroPointThree = 0.3
+        static let one = 1
+        static let title = "상품 수정"
     }
 }

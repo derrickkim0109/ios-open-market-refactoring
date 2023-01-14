@@ -7,25 +7,25 @@
 
 import Foundation
 
-public protocol ResponseRequestable: Requestable {
+protocol ResponseRequestable: Requestable {
     associatedtype Response
     
     var responseDecoder: ResponseDecoder { get }
 }
 
-public class Endpoint<R>: ResponseRequestable {
-    public typealias Response = R
+final class Endpoint<R>: ResponseRequestable {
+    typealias Response = R
 
-    public let path: String
-    public let isFullPath: Bool
-    public let method: HTTPMethodType
-    public let headerParameters: [String: String]
-    public let queryParametersEncodable: Encodable?
-    public let queryParameters: [String: Any]
-    public let bodyParametersEncodable: Encodable?
-    public let bodyParameters: [String: Any]
-    public let bodyEncoding: BodyEncoding
-    public let responseDecoder: ResponseDecoder
+    let path: String
+    let isFullPath: Bool
+    let method: HTTPMethodType
+    let headerParameters: [String: String]
+    let queryParametersEncodable: Encodable?
+    let queryParameters: [String: Any]
+    let bodyParametersEncodable: Encodable?
+    let bodyParameters: [String: Any]
+    let bodyEncoding: BodyEncoding
+    let responseDecoder: ResponseDecoder
 
     init(path: String,
          isFullPath: Bool = false,

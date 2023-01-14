@@ -4,6 +4,7 @@
 //
 //  Created by 데릭, 수꿍.
 //
+
 enum RequestName {
     static let initialPageNumber = 1
     static let initialItemPerPage = 10
@@ -14,18 +15,13 @@ enum ProductURLQueryItem {
     static let items_per_page = "items_per_page"
 }
 
-public enum HTTPMethodType: String {
+enum HTTPMethodType: String {
     case get     = "GET"
     case head    = "HEAD"
     case post    = "POST"
     case put     = "PUT"
     case patch   = "PATCH"
     case delete  = "DELETE"
-}
-
-public enum BodyEncoding {
-    case jsonSerializationData
-    case stringEncodingAscii
 }
 
 enum HTTPPath {

@@ -16,7 +16,7 @@ final class DefaultProductsRepository {
 }
 
 extension DefaultProductsRepository: ProductsRepository {
-    public func fetchProductsList(page: Int, itemsPerPage: Int) async throws -> ProductsResponseDTO {
+    func fetchProductsList(page: Int, itemsPerPage: Int) async throws -> ProductsResponseDTO {
         let endpoint = APIEndpoints.getProducts(page, itemsPerPage)
         let result = try await self.dataTransferService.request(with: endpoint) 
         return result

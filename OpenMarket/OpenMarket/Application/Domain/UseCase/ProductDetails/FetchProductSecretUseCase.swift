@@ -5,8 +5,6 @@
 //  Created by Derrick kim on 2023/01/12.
 //
 
-import Foundation
-
 protocol FetchProductSecretUseCase {
     func execute(productID: Int) async throws -> String
 }

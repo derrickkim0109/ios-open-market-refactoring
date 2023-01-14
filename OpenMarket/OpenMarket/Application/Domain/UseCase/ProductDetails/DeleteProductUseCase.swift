@@ -5,8 +5,6 @@
 //  Created by Derrick kim on 2023/01/12.
 //
 
-import Foundation
-
 protocol DeleteProductUseCase {
     func execute(deleteURL: String) async throws
 }

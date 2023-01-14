@@ -129,8 +129,8 @@ final class ProductsListViewController: UIViewController {
         resetData()
     }
 
-    @objc private func plusButtonTapped(_ sender: UIBarButtonItem) {
-        viewModel.didTapPlusButton()
+    @objc private func didTapEnrollmentButton(_ sender: UIBarButtonItem) {
+        viewModel.didTapEnrollmentButton()
     }
 
     enum ListSection {

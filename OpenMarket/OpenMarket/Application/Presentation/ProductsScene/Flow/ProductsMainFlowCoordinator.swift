@@ -49,7 +49,20 @@ final class ProductsMainFlowCoordinator {
     }
 
     private func presentProductModification(productDetails: ProductDetailsEntity) {
-        let viewController = dependencies.makeProductModificationViewController(productDetails: productDetails)
-        navigationController?.pushViewController(viewController, animated: true)
+        let actions = ProductModificationViewModelActions(dismissViewController: dismissViewController)
+        let viewController = dependencies.makeProductModificationViewController(productDetails: productDetails,
+                                                                                actions: actions)
+
+        let rootViewCntroller = UINavigationController(rootViewController: viewController)
+        rootViewCntroller.modalPresentationStyle = .fullScreen
+        navigationController?.present(rootViewCntroller, animated: true)
+    }
+
+    func dismissViewController() {
+        Task {
+            await MainActor.run() {
+                self.navigationController?.dismiss(animated: true)
+            }
+        }
     }
 }

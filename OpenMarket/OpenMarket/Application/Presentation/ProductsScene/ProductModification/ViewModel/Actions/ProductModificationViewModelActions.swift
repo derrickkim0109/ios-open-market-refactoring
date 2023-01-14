@@ -8,5 +8,5 @@
 import Foundation
 
 struct ProductModificationViewModelActions {
-    let presentProductModitifation: (ProductDetailsEntity) -> Void
+    let dismissViewController: () -> Void
 }

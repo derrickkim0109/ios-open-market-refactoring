@@ -39,6 +39,7 @@ final class ProductDetailsViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        bindViewModel(viewModel)
     }
 
     private func bind() {
@@ -46,7 +47,6 @@ final class ProductDetailsViewController: UIViewController {
         view.addSubview(productDetailsView)
         productDetailsView.imagesCollectionView.delegate = self
         configureLayouts()
-        bindViewModel(viewModel)
         configureNavigationItems()
     }
 
@@ -68,6 +68,8 @@ final class ProductDetailsViewController: UIViewController {
 
     @MainActor
     private func updateUI(_ data: ProductDetailsEntity) {
+        title = data.name
+
         productDetailsView.productNameLabel.text = data.name
         productDetailsView.stockLabel.text = data.stock.description
         productDetailsView.originalPriceLabel.text = data.price.description
@@ -235,12 +237,5 @@ final class ProductDetailsViewController: UIViewController {
 extension ProductDetailsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-    }
-}
-
-extension ProductDetailsViewController: ProductModificationDelegate {
-    func productModificationViewController(_ viewController: ProductModificationViewController.Type, didRecieve product: ProductDetailsEntity) {
-
-        updateUI(product)
     }
 }

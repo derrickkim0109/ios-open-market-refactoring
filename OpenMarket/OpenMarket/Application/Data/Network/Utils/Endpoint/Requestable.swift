@@ -11,7 +11,7 @@ enum RequestGenerationError: Error {
     case components
 }
 
-public protocol Requestable {
+protocol Requestable {
     var path: String { get }
     var isFullPath: Bool { get }
     var method: HTTPMethodType { get }
@@ -45,7 +45,7 @@ extension Requestable {
         return url
     }
 
-    public func urlRequest(with config: NetworkConfigurable) throws -> URLRequest {
+    func urlRequest(with config: NetworkConfigurable) throws -> URLRequest {
         let url = try self.url(with: config)
         var urlRequest = URLRequest(url: url)
         var allHeaders: [String: String] = config.headers

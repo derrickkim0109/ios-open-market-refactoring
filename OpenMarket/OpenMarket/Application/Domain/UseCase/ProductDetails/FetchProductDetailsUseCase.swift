@@ -5,8 +5,6 @@
 //  Created by Derrick kim on 2023/01/10.
 //
 
-import Foundation
-
 protocol FetchProductDetailsUseCase {
     func execute(productID: Int) async throws -> ProductDetailsRequestDTO
 }
