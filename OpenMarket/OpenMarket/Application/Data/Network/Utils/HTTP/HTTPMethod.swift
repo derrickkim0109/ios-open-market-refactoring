@@ -49,7 +49,11 @@ enum HTTPPath {
 }
 
 enum HTTPHeader {
-    static let identifier = "identifier"
+    private static let identifier = "identifier"
+    private static let applicationJSON = "application/json"
+    private static let multipartFormData = "multipart/form-data; boundary="
+    private static let contentType = "Content-Type"
+
     case delete
     case json
     case multiPartForm(_ boundary: String)
@@ -59,10 +63,10 @@ enum HTTPHeader {
         case .delete:
             return [HTTPHeader.identifier: User.identifier]
         case .json:
-            return [MIMEType.contentType: MIMEType.applicationJSON,
+            return [HTTPHeader.contentType: HTTPHeader.applicationJSON,
                     HTTPHeader.identifier: User.identifier]
         case .multiPartForm(let boundary):
-            return [MIMEType.contentType: MIMEType.multipartFormData + "\(boundary)",
+            return [HTTPHeader.contentType: HTTPHeader.multipartFormData + boundary,
                     HTTPHeader.identifier: User.identifier]
         }
     }
