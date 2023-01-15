@@ -1,3 +1,17 @@
+//
+//  MultiPartForm.swift
+//  OpenMarket
+//
+//  Created by Derrick kim on 2023/01/14.
+//
+
+import Foundation
+
+struct MultiPartForm {
+    let boundary: String
+    let data: Data
+    let images: [ProductImageDTO]
+}
 
 enum BodyEncoding {
     case jsonSerializationData
