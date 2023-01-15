@@ -8,10 +8,10 @@
 import Foundation
 
 struct TypedProductDetailsRequestDTO: Encodable {
-    let name: String?
-    let descriptions: String?
-    let price: Double?
-    let currency: Currency?
+    let name: String
+    let description: String
+    let price: Double
+    let currency: String
     let discountedPrice: Double?
     let stock: Int?
     let secret: String
