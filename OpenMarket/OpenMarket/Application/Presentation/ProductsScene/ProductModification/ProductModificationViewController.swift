@@ -28,12 +28,10 @@ final class ProductModificationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(self, #function)
         bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print(self, #function)
         super.viewWillAppear(animated)
     }
 
@@ -42,12 +40,19 @@ final class ProductModificationViewController: UIViewController {
         view.addSubview(productEnrollmentView)
         configureNavigationItems()
         configureLayouts()
-        bindViewModel()
+
+        updateUI(by: viewModel.fetchData())
     }
 
     private func bindViewModel() {
-        let data = viewModel.fetchData()
-        updateUI(by: data)
+        modifyProductTask = Task {
+            await viewModel.didSelectCompletionButton(input: productEnrollmentView.convertTextToTypeDTO())
+            guard let state = viewModel.state else { return }
+            switch state {
+            case .failed(let error):
+                self.presentConfirmAlert(message: error.localizedDescription)
+            }
+        }
     }
 
     private func configureLayouts() {
@@ -74,7 +79,7 @@ final class ProductModificationViewController: UIViewController {
     private func checkNumberOfText(in textView: UITextView) {
         if textView.text.isEmpty {
             textView.textColor = .lightGray
-            textView.text = ProductStatus.productDescription
+            textView.text = Const.productDescription
         } else {
             textView.textColor = .black
         }
@@ -115,14 +120,7 @@ final class ProductModificationViewController: UIViewController {
     }
 
     @objc private func didTapDoneButton() {
-        modifyProductTask = Task {
-            await viewModel.didSelectCompletionButton(input: productEnrollmentView.convertTextToTypeDTO())
-            guard let state = viewModel.state else { return }
-            switch state {
-            case .failed(let error):
-                self.presentConfirmAlert(message: error.localizedDescription)
-            }
-        }
+        bindViewModel()
     }
 
     enum Const {
@@ -130,5 +128,6 @@ final class ProductModificationViewController: UIViewController {
         static let zeroPointThree = 0.3
         static let one = 1
         static let title = "상품 수정"
+        static let productDescription = "제품 상세 설명"
     }
 }
