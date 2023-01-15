@@ -17,8 +17,7 @@ final class DefaultEnrollProductRepository {
 
 extension DefaultEnrollProductRepository: EnrollmentProductRepository {
     func enrollProduct(product: TypedProductDetailsRequestDTO, images: [ProductImageDTO]) async throws {
-        let productData = try product.toEncode()
-        let endpoint = APIEndpoints.postProductEnrollment(product: productData, images: images)
+        guard let endpoint = APIEndpoints.postProductEnrollment(product: product, images: images) else { return }
         return try await self.dataTransferService.request(with: endpoint)
     }
 }
