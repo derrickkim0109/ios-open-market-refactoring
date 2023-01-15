@@ -31,9 +31,7 @@ struct ProductsListItemViewModel {
     }
 
     var stockText: String {
-        return isEmptyStock == true
-            ? ProductStatus.emptyStock
-        : ProductStatus.leftOver + Const.colons + "\(model.stock)"
+        return isEmptyStock == true ? Const.emptyStock : Const.leftOver + Const.colons + "\(model.stock)"
     }
 
     var isDiscountedItem: Bool {
@@ -53,6 +51,8 @@ struct ProductsListItemViewModel {
     }
 
     enum Const {
+        static let emptyStock = "품절"
+        static let leftOver = "잔여수량"
         static let zero = 0
         static let space = " "
         static let colons = " : "
