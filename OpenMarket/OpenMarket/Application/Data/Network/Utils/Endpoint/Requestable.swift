@@ -64,17 +64,19 @@ extension Requestable {
         switch bodyEncoding {
         case .jsonSerializationData:
             return try? JSONSerialization.data(withJSONObject: bodyParameters, options: .init())
+        case .multipartFormData(let form):
+            return BodyEncoding.createMultiPartFormBody(form: form)
         }
     }
 }
 
+extension Encodable {
+    func toEncode() throws -> Data {
+        return try JSONEncoder().encode(self)
     }
-}
 
-private extension Encodable {
     func toDictionary() throws -> [String: Any]? {
-        let data = try JSONEncoder().encode(self)
-        let jsonData = try JSONSerialization.jsonObject(with: data)
+        let jsonData = try JSONSerialization.jsonObject(with: self.toEncode())
         return jsonData as? [String : Any]
     }
 }
