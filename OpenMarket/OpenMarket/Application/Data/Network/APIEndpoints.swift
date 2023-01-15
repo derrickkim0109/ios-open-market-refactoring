@@ -27,6 +27,24 @@ struct APIEndpoints {
                         bodyParameters: ["secret": User.secret])
     }
 
+    static func postProductEnrollment(product: TypedProductDetailsRequestDTO,
+                                      images: [ProductImageDTO]) -> Endpoint<()>? {
+        guard let productData = try? product.toEncode() else { return nil }
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+        let multiPartForm = MultiPartForm(
+            boundary: boundary,
+            data: productData,
+            images: images
+        )
+
+        return Endpoint(path: HTTPPath.products.value,
+                        method: .post,
+                        headerParameters: HTTPHeader.multiPartForm(boundary).header,
+                        bodyParameters: ["":""],
+                        bodyEncoding: .multipartFormData(multiPartForm))
+    }
+
     static func deleteProduct(deleteURL: String) -> Endpoint<()> {
         return Endpoint(path: HTTPPath.delete(deleteURI: deleteURL).value,
                         method: .delete,
