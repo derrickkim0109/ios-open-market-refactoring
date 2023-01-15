@@ -9,10 +9,11 @@ import UIKit
 
 protocol ProductsMainFlowCoordinatorDependencies  {
     func makeProductsListViewController(actions: ProductsListViewModelActions) -> ProductsListViewController
-    func makeProductsEnrollmentViewController() -> ProductEnrollmentViewController
+    func makeProductsEnrollmentViewController(actions: ProductEnrollmentViewModelActions) -> ProductEnrollmentViewController
     func makeProductDetailsViewController(product: ProductEntity,
                                           actions: ProductDetailsViewModelActions) -> ProductDetailsViewController
-    func makeProductModificationViewController(productDetails: ProductDetailsEntity) -> ProductModificationViewController
+    func makeProductModificationViewController(productDetails: ProductDetailsEntity,
+                                               actions: ProductModificationViewModelActions) -> ProductModificationViewController
 }
 
 final class ProductsMainFlowCoordinator {
@@ -44,8 +45,12 @@ final class ProductsMainFlowCoordinator {
     }
 
     private func presentProductEnrollment() {
-        let viewController = dependencies.makeProductsEnrollmentViewController()
-        navigationController?.pushViewController(viewController, animated: true)
+        let actions = ProductEnrollmentViewModelActions(dismissViewController: dismissViewController)
+        let viewController = dependencies.makeProductsEnrollmentViewController(actions: actions)
+
+        let rootViewCntroller = UINavigationController(rootViewController: viewController)
+        rootViewCntroller.modalPresentationStyle = .fullScreen
+        navigationController?.present(rootViewCntroller, animated: true)
     }
 
     private func presentProductModification(productDetails: ProductDetailsEntity) {
