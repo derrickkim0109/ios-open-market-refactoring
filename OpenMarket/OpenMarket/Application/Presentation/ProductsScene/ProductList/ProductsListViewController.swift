@@ -20,6 +20,16 @@ final class ProductsListViewController: UIViewController {
 
     private lazy var productListView: ProductListView = ProductListView()
 
+    private let productEnrollmentImageViewButton: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.tintColor = .systemBlue
+        imageView.image = UIImage(systemName: Const.systemCircleImageName)
+        imageView.isUserInteractionEnabled = true
+        return imageView
+    }()
+
     init(viewModel: ProductsListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -47,10 +57,13 @@ final class ProductsListViewController: UIViewController {
     private func bind() {
         view.backgroundColor = .white
         view.addSubview(productListView)
+        view.addSubview(productEnrollmentImageViewButton)
+
         productListView.collectionView.delegate = self
 
         configureLayouts()
         configureRefreshControl()
+        setupProductEnrollmentImageViewGesture()
     }
 
     private func bindViewModel(by input: (pageNumber: Int, itemsPerPage: Int)) {
@@ -74,6 +87,13 @@ final class ProductsListViewController: UIViewController {
             productListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             productListView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             productListView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            productEnrollmentImageViewButton.widthAnchor.constraint(equalToConstant: Const.fifty),
+            productEnrollmentImageViewButton.heightAnchor.constraint(equalToConstant: Const.fifty),
+            productEnrollmentImageViewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Const.twenty),
+            productEnrollmentImageViewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Const.twenty)
         ])
     }
     
@@ -124,13 +144,20 @@ final class ProductsListViewController: UIViewController {
         bindViewModel(by: initialPageInfo)
         productListView.collectionView.refreshControl?.endRefreshing()
     }
+
+    private func setupProductEnrollmentImageViewGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(didTapEnrollmentButton))
+
+        productEnrollmentImageViewButton.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func didTapEnrollmentButton() {
+        viewModel.didTapEnrollmentButton()
+    }
     
     @objc private func didSetRefreshControl() {
         resetData()
-    }
-
-    @objc private func didTapEnrollmentButton(_ sender: UIBarButtonItem) {
-        viewModel.didTapEnrollmentButton()
     }
 
     enum ListSection {
@@ -142,7 +169,10 @@ final class ProductsListViewController: UIViewController {
         static let cornerRadiusTenPoint: CGFloat = 10.0
         static let plus = "+"
         static let one = 1
+        static let twenty: CGFloat = 20
+        static let fifty: CGFloat = 50
         static let hundred: CGFloat = 100
+        static let systemCircleImageName = "plus.circle.fill"
     }
 }
 
