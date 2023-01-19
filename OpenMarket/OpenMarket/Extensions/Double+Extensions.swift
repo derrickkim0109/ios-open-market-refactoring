@@ -8,14 +8,10 @@
 import Foundation
 
 extension Double {
-    func numberFormatter() -> String? {
+    func numberFormatter() -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        
-        guard let stringNumber = numberFormatter.string(from: NSNumber(value: self)) else {
-            return nil
-        }
-        
-        return stringNumber
+
+        return numberFormatter.string(from: NSNumber(value: self)) ?? ""
     }
 }

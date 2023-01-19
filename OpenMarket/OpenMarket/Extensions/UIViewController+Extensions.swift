@@ -9,41 +9,24 @@ import UIKit
 
 extension UIViewController {
     func presentConfirmAlert(message: String) {
-        DispatchQueue.main.async { [weak self] in
-            let alertController = UIAlertController(title: AlertSetting.controller,
-                                                    message: message,
-                                                    preferredStyle: .alert)
-            
-            let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
-                                              style: .default) { [weak self] _ in
-                
-                
-                if message == AlertMessage.enrollmentSuccess
-                    || message == AlertMessage.modificationSuccess {
-                    DispatchQueue.main.async {
-                        self?.dismiss(animated: true)
-                    }
-                } else if message == AlertMessage.deleteSuccess {
-                    DispatchQueue.main.async {
-                        self?.navigationController?.popViewController(animated: true)
-                    }
-                }
+        let alertController = UIAlertController(title: AlertSetting.controller,
+                                                message: message,
+                                                preferredStyle: .alert)
+
+        let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
+                                          style: .default) { [weak self] _ in
+
+            if message == AlertMessage.enrollmentSuccess
+                || message == AlertMessage.modificationSuccess {
+                self?.dismiss(animated: true)
+            } else if message == AlertMessage.deleteSuccess {
+                self?.navigationController?.popViewController(animated: true)
             }
-            
-            alertController.addAction(confirmAction)
-            
-            self?.present(alertController,
-                    animated: false)
         }
-    }
-    
-    func present(viewController: UIViewController) {
-        DispatchQueue.main.async { [weak self] in
-            let rootViewController = UINavigationController(rootViewController: viewController)
-            rootViewController.modalPresentationStyle = .fullScreen
-            
-            self?.present(rootViewController, animated: true)
-        }
+
+        alertController.addAction(confirmAction)
+
+        present(alertController,animated: false)
     }
 }
 
