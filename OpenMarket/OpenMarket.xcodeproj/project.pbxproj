@@ -212,8 +212,6 @@
 		2028AD83288D1BDE00FAFC7D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				90275C06296BC37D002D396E /* Endpoint */,
-				20BFDA682890ECBA000AA075 /* HTTP */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -229,6 +227,8 @@
 				90423B1428802AE400F65E94 /* Presentation */,
 				90423B1528802B0600F65E94 /* Domain */,
 				90423B1328800E8500F65E94 /* Data */,
+				90C0AD8E297951C400F10DEA /* Infrastruture */,
+				90C0AD902979523E00F10DEA /* Common */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -241,16 +241,6 @@
 				C70FB10525BEF61D00C9924E /* LaunchScreen.storyboard */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		20BFDA5D2890E3AB000AA075 /* API */ = {
-			isa = PBXGroup;
-			children = (
-				90275C09296BC63A002D396E /* DataTransferService.swift */,
-				90E5AB8D2965590F009B4C18 /* NetworkService.swift */,
-				6AD8D04A287D8E9E0062E969 /* NetworkSessionManager.swift */,
-			);
-			path = API;
 			sourceTree = "<group>";
 		};
 		20BFDA652890EAB1000AA075 /* Entities */ = {
@@ -326,8 +316,6 @@
 				900BE11B295DC8F20040A630 /* Builder */,
 				20596FE4289CABE0006B0AD6 /* LoadingIndicator.swift */,
 				20E2F6752889225900E150AC /* AlertSetting.swift */,
-				90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */,
-				90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -337,7 +325,6 @@
 			children = (
 				90275C19296BF992002D396E /* APIEndpoints.swift */,
 				90275C1B296C34D5002D396E /* DataMapping */,
-				20BFDA5D2890E3AB000AA075 /* API */,
 				90275C0D296BCF75002D396E /* NetworkError.swift */,
 				90275C0B296BCF6F002D396E /* DataTransferError.swift */,
 				2028AD83288D1BDE00FAFC7D /* Utils */,
@@ -409,6 +396,7 @@
 				90275BFC296AB04B002D396E /* ApiDataNetworkConfig.swift */,
 				90275C07296BC3D1002D396E /* Requestable.swift */,
 				90C881F82972BC180057ED87 /* MultiPartForm.swift */,
+				90E5AB9129655F46009B4C18 /* JSONResponseDecoder.swift */,
 			);
 			path = Endpoint;
 			sourceTree = "<group>";
@@ -518,8 +506,6 @@
 		90423B1328800E8500F65E94 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				90AAB05C289E58DA00A3F1E1 /* ImageCacheManager.swift */,
-				90E5AB9129655F46009B4C18 /* JSONResponseDecoder.swift */,
 				90275C16296BF8F5002D396E /* Repositories */,
 				900BE118295D8A4C0040A630 /* Network */,
 			);
@@ -653,6 +639,36 @@
 				905A292929725B920058E1EF /* ProductEnrollmentViewModel.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		90C0AD8E297951C400F10DEA /* Infrastruture */ = {
+			isa = PBXGroup;
+			children = (
+				90C0AD8F297951E100F10DEA /* Network */,
+			);
+			path = Infrastruture;
+			sourceTree = "<group>";
+		};
+		90C0AD8F297951E100F10DEA /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				90AAB05C289E58DA00A3F1E1 /* ImageCacheManager.swift */,
+				90275C09296BC63A002D396E /* DataTransferService.swift */,
+				90E5AB8D2965590F009B4C18 /* NetworkService.swift */,
+				6AD8D04A287D8E9E0062E969 /* NetworkSessionManager.swift */,
+				90275C06296BC37D002D396E /* Endpoint */,
+				20BFDA682890ECBA000AA075 /* HTTP */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		90C0AD902979523E00F10DEA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */,
+				90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		90C881EA2972B49D0057ED87 /* Actions */ = {
