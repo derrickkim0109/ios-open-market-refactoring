@@ -13,7 +13,7 @@ final class ProductsListViewController: UIViewController {
     private var initialPageInfo: (pageNumber: Int, itemsPerPage: Int) = (RequestName.initialPageNumber,
                                                                          RequestName.initialItemPerPage)
     private let viewModel: ProductsListViewModel
-    private var productListTask: Task<Void, Error>?
+    private let bag = AnyCancelTaskBag()
 
     private lazy var dataSource = configureDataSource()
     private var snapshot = Snapshot()
@@ -40,10 +40,6 @@ final class ProductsListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        productListTask?.cancel()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
@@ -55,7 +51,7 @@ final class ProductsListViewController: UIViewController {
     }
 
     private func bind() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(productListView)
         view.addSubview(productEnrollmentImageViewButton)
 
@@ -67,7 +63,7 @@ final class ProductsListViewController: UIViewController {
     }
 
     private func bindViewModel(by input: (pageNumber: Int, itemsPerPage: Int)) {
-        productListTask = Task {
+        Task {
             await viewModel.transform(input: input)
 
             guard let state = viewModel.state else { return }
@@ -78,7 +74,7 @@ final class ProductsListViewController: UIViewController {
             case .failed(let error):
                 presentConfirmAlert(message: error.localizedDescription)
             }
-        }
+        }.store(in: bag)
     }
 
     private func configureLayouts() {
@@ -92,13 +88,16 @@ final class ProductsListViewController: UIViewController {
         NSLayoutConstraint.activate([
             productEnrollmentImageViewButton.widthAnchor.constraint(equalToConstant: Const.fifty),
             productEnrollmentImageViewButton.heightAnchor.constraint(equalToConstant: Const.fifty),
-            productEnrollmentImageViewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Const.twenty),
-            productEnrollmentImageViewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Const.twenty)
+            productEnrollmentImageViewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                                                                       constant: -Const.twenty),
+            productEnrollmentImageViewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                                                                     constant: -Const.twenty)
         ])
     }
     
     private func configureDataSource() -> DataSource {
-        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionCell, ProductEntity> { cell, indexPath, item in
+        let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionCell, ProductEntity> {
+            cell, indexPath, item in
             cell.layer.borderColor = UIColor.systemGray.cgColor
             cell.layer.borderWidth = Const.borderWidthOnePoint
             cell.layer.cornerRadius = Const.cornerRadiusTenPoint
@@ -106,7 +105,9 @@ final class ProductsListViewController: UIViewController {
             cell.fill(with: ProductsListItemViewModel(model: item))
         }
 
-        return UICollectionViewDiffableDataSource<ListSection, ProductEntity>(collectionView: productListView.collectionView) { (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
+        return UICollectionViewDiffableDataSource<ListSection, ProductEntity>(collectionView:
+                                                                                productListView.collectionView) {
+            (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
                                                                 item: itemIdentifier)

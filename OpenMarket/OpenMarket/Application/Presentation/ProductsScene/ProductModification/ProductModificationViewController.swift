@@ -11,7 +11,7 @@ final class ProductModificationViewController: UIViewController {
     private let productEnrollmentView = ProductEnrollmentView(pagePurpose: .modification)
 
     private let viewModel: ProductModificationViewModel
-    private var modifyProductTask: Task<Void, Error>?
+    private let bag = AnyCancelTaskBag()
 
     init(viewModel: ProductModificationViewModel) {
         self.viewModel = viewModel
@@ -20,10 +20,6 @@ final class ProductModificationViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        modifyProductTask?.cancel()
     }
 
     override func viewDidLoad() {
@@ -45,14 +41,14 @@ final class ProductModificationViewController: UIViewController {
     }
 
     private func bindViewModel() {
-        modifyProductTask = Task {
+        Task {
             await viewModel.didSelectCompletionButton(input: productEnrollmentView.convertTextToTypeDTO())
             guard let state = viewModel.state else { return }
             switch state {
             case .failed(let error):
                 self.presentConfirmAlert(message: error.localizedDescription)
             }
-        }
+        }.store(in: bag)
     }
 
     private func configureLayouts() {

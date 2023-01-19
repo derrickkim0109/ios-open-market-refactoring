@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum PagePurpose: String {
+    case enrollment = "상품등록"
+    case modification = "상품수정"
+}
+
 final class ProductEnrollmentView: UIView {
     private let rootScrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -19,16 +24,34 @@ final class ProductEnrollmentView: UIView {
                                                        textFieldStackView,
                                                        productDescriptionTextView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: 10,
-                                               left: 10,
-                                               bottom: 10,
-                                               right: 10)
+        stackView.layoutMargins = UIEdgeInsets(top: Const.ten,
+                                               left: Const.ten,
+                                               bottom: Const.ten,
+                                               right: Const.ten)
         return stackView
+    }()
+
+    let productImagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+
+        return imagePicker
+    }()
+
+    let enrollmentButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: Const.plus),
+                        for: .normal)
+        button.backgroundColor = .systemGray4
+
+        return button
     }()
 
     let imageAndPickerButtonScrollView: UIScrollView = {
@@ -38,21 +61,20 @@ final class ProductEnrollmentView: UIView {
     }()
 
     private lazy var imageAndPickerButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageStackView])
+        let stackView = UIStackView(arrangedSubviews: [imageStackView,
+                                                       enrollmentButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .horizontal
         return stackView
     }()
 
-
-
     let imageStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.axis = .horizontal
@@ -64,7 +86,7 @@ final class ProductEnrollmentView: UIView {
                                                        productPriceStackView,
                                                        discountedPriceTextField,
                                                        productStockTextField])
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
@@ -74,7 +96,7 @@ final class ProductEnrollmentView: UIView {
     private lazy var productPriceStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [originalPriceTextField,
                                                        currencySegmentedControl])
-        stackView.spacing = 10
+        stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .horizontal
@@ -86,7 +108,7 @@ final class ProductEnrollmentView: UIView {
         textField.backgroundColor = .systemBackground
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.placeholder = ProductStatus.productName
+        textField.placeholder = Const.productName
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         return textField
     }()
@@ -96,7 +118,7 @@ final class ProductEnrollmentView: UIView {
         textField.backgroundColor = .systemBackground
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.placeholder = ProductStatus.productPrice
+        textField.placeholder = Const.productPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         return textField
@@ -106,7 +128,7 @@ final class ProductEnrollmentView: UIView {
         let segmentedControl = UISegmentedControl(items: [
             Currency.krw.rawValue,
             Currency.usd.rawValue])
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedSegmentIndex = Const.zero
         return segmentedControl
     }()
 
@@ -115,7 +137,7 @@ final class ProductEnrollmentView: UIView {
         textField.backgroundColor = .systemBackground
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.placeholder = ProductStatus.discountedPrice
+        textField.placeholder = Const.productDiscountedPrice
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         return textField
@@ -126,7 +148,7 @@ final class ProductEnrollmentView: UIView {
         textField.backgroundColor = .systemBackground
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
-        textField.placeholder = ProductStatus.numberOfStocks
+        textField.placeholder = Const.productStock
         textField.keyboardType = .numberPad
         textField.font = UIFont.preferredFont(forTextStyle: .caption1)
         return textField
@@ -135,14 +157,16 @@ final class ProductEnrollmentView: UIView {
     let productDescriptionTextView: UITextView = {
         let textView = UITextView()
         textView.isScrollEnabled = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = UIFont.preferredFont(forTextStyle: .caption1)
         return textView
     }()
 
-    init() {
+    private let pagePurpose: PagePurpose
+
+    init(pagePurpose: PagePurpose) {
+        self.pagePurpose = pagePurpose
         super.init(frame: .zero)
-        backgroundColor = .systemBackground
-        translatesAutoresizingMaskIntoConstraints = false
         
         bind()
     }
@@ -153,17 +177,29 @@ final class ProductEnrollmentView: UIView {
     }
 
     private func bind() {
+        backgroundColor = .systemBackground
+        translatesAutoresizingMaskIntoConstraints = false
         addSubview(rootScrollView)
         rootScrollView.addSubview(rootStackView)
         imageAndPickerButtonScrollView.addSubview(imageAndPickerButtonStackView)
+        productDescriptionTextView.delegate = self
 
         let heightAnchor = rootScrollView.heightAnchor.constraint(equalTo: rootScrollView.heightAnchor)
         heightAnchor.priority = .defaultHigh
         heightAnchor.isActive = true
 
         configureLayouts()
-        connectDelegate()
         registerNotificationForKeyboard()
+        hideEnrollmentButton()
+    }
+
+    private func hideEnrollmentButton() {
+        switch pagePurpose {
+        case .enrollment:
+            enrollmentButton.isHidden = false
+        case .modification:
+            enrollmentButton.isHidden = true
+        }
     }
 
     private func configureLayouts() {
@@ -187,16 +223,11 @@ final class ProductEnrollmentView: UIView {
             imageAndPickerButtonStackView.bottomAnchor.constraint(equalTo: imageAndPickerButtonScrollView.bottomAnchor),
             imageAndPickerButtonStackView.trailingAnchor.constraint(equalTo: imageAndPickerButtonScrollView.trailingAnchor),
             imageAndPickerButtonStackView.leadingAnchor.constraint(equalTo: imageAndPickerButtonScrollView.leadingAnchor),
-            imageAndPickerButtonStackView.heightAnchor.constraint(equalTo: imageAndPickerButtonScrollView.heightAnchor)
-        ])
-    }
 
-    private func connectDelegate() {
-        productNameTextField.delegate = self
-        originalPriceTextField.delegate = self
-        discountedPriceTextField.delegate = self
-        productStockTextField.delegate = self
-        productDescriptionTextView.delegate = self
+            imageAndPickerButtonStackView.heightAnchor.constraint(equalTo: imageAndPickerButtonScrollView.heightAnchor),
+            productDescriptionTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            enrollmentButton.widthAnchor.constraint(equalTo: enrollmentButton.heightAnchor)
+        ])
     }
 
     private func registerNotificationForKeyboard() {
@@ -220,60 +251,31 @@ final class ProductEnrollmentView: UIView {
         return true
     }
 
-    private func checkNumberOfNameText(_ productNameText: String) {
-        //        switch productNameText.count {
-        //        case 0:
-        //            DispatchQueue.main.async { [weak self] in
-        ////                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
-        //            }
-        //        case 1..<3:
-        //            DispatchQueue.main.async { [weak self] in
-        ////                self?.presentConfirmAlert(message: AlertMessage.additionalCharacters)
-        //            }
-        //        default:
-        //            break
-        //        }
-    }
-
-    private func limitTextLength(_ text: String?) -> Bool {
-        let textFields = [productNameTextField,
-                          originalPriceTextField,
-                          discountedPriceTextField,
-                          productStockTextField]
-
-//        for field in textFields {
-//            if field == productNameTextField {
-//                return checkNumberOfTextValidation(text, by: 40)
-//            } else {
-//                return checkNumberOfTextValidation(text, by: 10)
-//            }
-//        }
-        return true
-    }
-
     func convertTextToTypeDTO() -> TypedProductDetailsRequestDTO {
         let currency = currencySegmentedControl.selectedSegmentIndex == 0 ? Currency.krw : Currency.usd
-        let data = TypedProductDetailsRequestDTO(name: productNameTextField.text,
-                                                 descriptions: productDescriptionTextView.text,
-                                                 price: originalPriceTextField.text?.convertToDouble(),
-                                                 currency: currency,
+        let data = TypedProductDetailsRequestDTO(name: productNameTextField.text ?? "",
+                                                 description: productDescriptionTextView.text,
+                                                 price: originalPriceTextField.text?.convertToDouble() ?? Const.zeroPointZero,
+                                                 currency: currency.rawValue,
                                                  discountedPrice: discountedPriceTextField.text?.convertToDouble(),
                                                  stock: productStockTextField.text?.convertToInt(),
                                                  secret: User.secret)
         return data
     }
 
+    func addSquareImageView(_ view: UIView) {
+        imageStackView.addArrangedSubview(view)
+    }
+
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
 
         let contentInset = UIEdgeInsets(
-            top: 0.0,
-            left: 0.0,
+            top: Const.zeroPointZero,
+            left: Const.zeroPointZero,
             bottom: keyboardFrame.size.height,
-            right: 0.0)
+            right: Const.zeroPointZero)
 
         rootScrollView.contentInset = contentInset
         rootScrollView.scrollIndicatorInsets = contentInset
@@ -284,31 +286,19 @@ final class ProductEnrollmentView: UIView {
         rootScrollView.contentInset = contentInset
         rootScrollView.scrollIndicatorInsets = contentInset
     }
-}
 
-// MARK: - UITextFieldDelegate
-
-extension ProductEnrollmentView: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.isEmpty {
-            return true
-        }
-        return limitTextLength(textField.text)
-    }
-
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        switch textField {
-        case productNameTextField:
-            guard let productNameText =
-                    productNameTextField.text?.replacingOccurrences(of: " ",
-                                                                    with: "") else { return }
-            checkNumberOfNameText(productNameText)
-        case originalPriceTextField:
-            guard checkNumberOfTextValidation(originalPriceTextField.text, by: 0) else { return }
-            //                self?.presentConfirmAlert(message: AlertMessage.emptyValue)
-        default:
-            break
-        }
+    enum Const {
+        static let zero = 0
+        static let zeroPointZero: CGFloat = 0.0
+        static let two = 2
+        static let ten: CGFloat = 10
+        static let oneThousand = 1000
+        static let plus = "plus"
+        static let productName = "상품명"
+        static let productPrice = "상품 가격"
+        static let productDiscountedPrice = "할인금액"
+        static let productStock = "재고 수량"
+        static let productDescription = "상품설명"
     }
 }
 
@@ -316,7 +306,7 @@ extension ProductEnrollmentView: UITextFieldDelegate {
 
 extension ProductEnrollmentView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard checkNumberOfTextValidation(textView.text, by: 1000) else {
+        guard checkNumberOfTextValidation(textView.text, by: Const.oneThousand) else {
             //                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
             return true
         }
@@ -324,7 +314,7 @@ extension ProductEnrollmentView: UITextViewDelegate {
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.text == ProductStatus.productDescription else { return }
+        guard textView.text == Const.productDescription else { return }
 
         textView.text = nil
         textView.textColor = .black
@@ -333,7 +323,7 @@ extension ProductEnrollmentView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
 
-        textView.text = ProductStatus.productDescription
+        textView.text = Const.productDescription
         textView.textColor = .lightGray
     }
 }

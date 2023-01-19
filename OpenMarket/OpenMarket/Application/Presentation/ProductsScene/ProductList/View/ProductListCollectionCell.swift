@@ -32,7 +32,9 @@ final class ProductListCollectionCell: UICollectionViewCell {
     
     private let productImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = Const.ten
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -99,14 +101,14 @@ final class ProductListCollectionCell: UICollectionViewCell {
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                               constant: Const.ten),
-            rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
-                                                  constant: -Const.ten),
-            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                   constant: Const.ten),
-            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,
-                                                    constant: -Const.ten),
+            rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+            productImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            productImageView.heightAnchor.constraint(equalTo: productImageView.widthAnchor,
+                                                     multiplier: Const.zeroPointEight)
         ])
     }
     
@@ -135,6 +137,7 @@ final class ProductListCollectionCell: UICollectionViewCell {
 
     enum Const {
         static let zero: Int = 0
+        static let zeroPointEight: CGFloat = 0.8
         static let five: CGFloat = 5
         static let ten: CGFloat = 10
     }

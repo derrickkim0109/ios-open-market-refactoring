@@ -53,7 +53,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
             productImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             productImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             productImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            productImageView.bottomAnchor.constraint(equalTo: productImageQuantityLabel.topAnchor, constant: -Const.ten),
+            productImageView.bottomAnchor.constraint(equalTo: productImageQuantityLabel.topAnchor,
+                                                     constant: -Const.ten),
 
             productImageQuantityLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             productImageQuantityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

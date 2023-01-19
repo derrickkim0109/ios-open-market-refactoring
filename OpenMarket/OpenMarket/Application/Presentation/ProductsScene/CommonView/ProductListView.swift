@@ -8,13 +8,6 @@
 import UIKit
 
 final class ProductListView: UIView {
-    enum Const {
-        static let zero: CGFloat = 0
-        static let two = 2
-        static let ten: CGFloat = 10
-        static let onePoint: CGFloat = 1.0
-        static let onePointFive: CGFloat = 1.5
-    }
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: createLayout())
@@ -69,5 +62,13 @@ final class ProductListView: UIView {
         let layout = UICollectionViewCompositionalLayout(section: section)
 
         return layout
+    }
+
+    enum Const {
+        static let zero: CGFloat = 0
+        static let two = 2
+        static let ten: CGFloat = 10
+        static let onePoint: CGFloat = 1.0
+        static let onePointFive: CGFloat = 1.5
     }
 }

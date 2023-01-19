@@ -15,8 +15,7 @@ final class ProductDetailsViewController: UIViewController {
     private lazy var productDetailImagesDataSource = configureDataSource()
 
     private let viewModel: ProductDetailsViewModel
-    private var productDetailsTask: Task<Void, Error>?
-    private var deleteProductTask: Task<Void, Error>?
+    private let bag = AnyCancelTaskBag()
 
     init(viewModel: ProductDetailsViewModel) {
         self.viewModel = viewModel
@@ -27,11 +26,6 @@ final class ProductDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    deinit {
-        productDetailsTask?.cancel()
-        deleteProductTask?.cancel()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
@@ -40,19 +34,19 @@ final class ProductDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         bindViewModel(viewModel)
+        configureNavigationItems()
     }
 
     private func bind() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         view.addSubview(productDetailsView)
         productDetailsView.imagesCollectionView.delegate = self
         configureLayouts()
-        configureNavigationItems()
     }
 
     @MainActor
     private func bindViewModel(_ viewModel: ProductDetailsViewModel) {
-        productDetailsTask = Task {
+        Task {
             await viewModel.transform()
 
             guard let state = viewModel.state else { return }
@@ -63,7 +57,7 @@ final class ProductDetailsViewController: UIViewController {
             case .failed(let error):
                 self.presentConfirmAlert(message: error.localizedDescription)
             }
-        }
+        }.store(in: bag)
     }
 
     @MainActor
@@ -185,14 +179,14 @@ final class ProductDetailsViewController: UIViewController {
     }
 
     private func deleteProduct() {
-        deleteProductTask = Task {
+        Task {
             do {
                 try await viewModel.didSelectDeleteButton()
                 presentConfirmAlert(message: AlertMessage.deleteSuccess)
             } catch (let error) {
                 presentConfirmAlert(message: error.localizedDescription)
             }
-        }
+        }.store(in: bag)
     }
 
     private func configureDataSource() -> DataSource {
