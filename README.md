@@ -17,7 +17,8 @@
 ## 📺 프로젝트 실행화면
 |GridView|Pagenation|DetailViewView|
 |--|--|--|
-|<img src="https://i.imgur.com/HXz7RaU.gif" width="250">|<img src="https://i.imgur.com/85oyqT7.gif" width="250">|<img src="https://i.imgur.com/k7EuAxK.gif" width="250">|
+|<img src="https://i.imgur.com/HXz7RaU.gif" width="250">|<img src="https://i.imgur.com/85oyqT7.gif" width="250">|<img src="https://user-images.githubusercontent.com/59466342/214778241-65207dd9-725f-4605-b262-5fe4c326a62c.gif" width="250">|
+
 
 ---
 
