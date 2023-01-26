@@ -17,7 +17,7 @@ final class DefaultNetworkService: NetworkService {
     private let sessionManager: NetworkSessionManager
 
     init(config: NetworkConfigurable,
-                sessionManager: NetworkSessionManager = DefaultNetworkSessionManager.shared) {
+         sessionManager: NetworkSessionManager = DefaultNetworkSessionManager.shared) {
         self.config = config
         self.sessionManager = sessionManager
     }
@@ -26,8 +26,8 @@ final class DefaultNetworkService: NetworkService {
         do {
             let urlRequest = try endpoint.urlRequest(with: config)
             return try await sessionManager.request(urlRequest)
-        } catch {
-            throw NetworkError.urlGeneration
+        } catch (let error) {
+            throw error
         }
     }
 }

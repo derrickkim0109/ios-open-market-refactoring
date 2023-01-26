@@ -10,6 +10,6 @@ import Foundation
 enum DataTransferError: Error {
     case noResponse
     case parsing(Error)
-    case networkFailure(NetworkError)
+    case networkFailure(Error)
     case resolvedNetworkFailure(Error)
 }

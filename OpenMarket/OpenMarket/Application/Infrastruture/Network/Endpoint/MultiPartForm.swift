@@ -16,6 +16,7 @@ struct MultiPartForm {
 enum BodyEncoding {
     case jsonSerializationData
     case multipartFormData(_ form: MultiPartForm)
+    case stringEncodingAscii
 
     private static let lineBreak = "\r\n"
     private static let doubleMinus = "--"

@@ -18,14 +18,33 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
     private init() {}
     
     func request(_ request: URLRequest) async throws -> Data {
-        let (data, response) = try await session.data(for: request)
+        do {
+            let (data, response) = try await session.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode >= 200, httpResponse.statusCode < 300
-        else {
-            throw DataTransferError.noResponse
+            if let httpResponse = response as? HTTPURLResponse,
+               httpResponse.statusCode != 200 {
+                guard httpResponse.statusCode != 202 else {
+                    return data
+                }
+
+                throw NetworkError.error(statusCode: httpResponse.statusCode, data: data)
+            }
+
+            return data
+        } catch (let error) {
+            throw resolve(error: error)
         }
+    }
 
-        return data
+    private func resolve(error: Error) -> NetworkError {
+        let code = URLError.Code(rawValue: (error as NSError).code)
+        switch code {
+        case .notConnectedToInternet:
+            return .notConnected
+        case .cancelled:
+            return .cancelled
+        default:
+            return .generic(error)
+        }
     }
 }

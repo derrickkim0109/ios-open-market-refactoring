@@ -29,7 +29,7 @@ extension DefaultDataTransferService: DataTransferService {
             let result: T = try await self.decode(data: data, decoder: endpoint.responseDecoder)
             return result
         } catch (let error) {
-            throw error
+            throw resolve(error: error)
         }
     }
 
@@ -38,7 +38,7 @@ extension DefaultDataTransferService: DataTransferService {
         do {
             try await networkService.request(endpoint: endpoint)
         } catch (let error) {
-            throw error
+            throw resolve(error: error)
         }
     }
 
@@ -50,4 +50,12 @@ extension DefaultDataTransferService: DataTransferService {
             throw DataTransferError.parsing(error)
         }
     }
+
+    private func resolve(error: Error) -> DataTransferError {
+        return error is NetworkError ? .networkFailure(error) : .resolvedNetworkFailure(error)
+    }
+}
+
+protocol DataTransferErrorResolver {
+    func resolve(error: NetworkError) -> Error
 }

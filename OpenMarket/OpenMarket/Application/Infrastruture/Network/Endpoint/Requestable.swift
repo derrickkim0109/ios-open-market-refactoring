@@ -66,7 +66,17 @@ extension Requestable {
             return try? JSONSerialization.data(withJSONObject: bodyParameters, options: .init())
         case .multipartFormData(let form):
             return BodyEncoding.createMultiPartFormBody(form: form)
+        case .stringEncodingAscii:
+            return bodyParameters.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
         }
+    }
+}
+
+private extension Dictionary {
+    var queryString: String {
+        return self.map { "\($0.key)=\($0.value)" }
+            .joined(separator: "&")
+            .addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) ?? ""
     }
 }
 
