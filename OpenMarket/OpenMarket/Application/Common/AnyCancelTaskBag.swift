@@ -5,16 +5,16 @@
 //  Created by Derrick kim on 2023/01/19.
 //
 
-public final class AnyCancelTaskBag {
+final class AnyCancelTaskBag {
     private var tasks: [any AnyCancellableTask] = []
 
-    public init() {}
+    init() {}
 
-    public func add(task: any AnyCancellableTask) {
+    func add(task: any AnyCancellableTask) {
         tasks.append(task)
     }
 
-    public func cancel() {
+    private func cancel() {
         tasks.forEach { $0.cancel() }
         tasks.removeAll()
     }
@@ -26,7 +26,7 @@ public final class AnyCancelTaskBag {
 
 
 extension Task {
-    public func store(in bag: AnyCancelTaskBag) {
+    func store(in bag: AnyCancelTaskBag) {
         bag.add(task: self)
     }
 }
