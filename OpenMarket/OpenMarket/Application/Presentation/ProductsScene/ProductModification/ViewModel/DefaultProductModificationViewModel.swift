@@ -32,6 +32,20 @@ final class DefaultProductModificationViewModel: ProductModificationViewModel {
             throw error
         }
     }
+
+    private func handleModifyProduct(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedModifyingProduct,
+                          comment: Const.empty)
+    }
+
+    private enum Const {
+        static let empty = ""
+        static let noInternetConnection = "No internet connection"
+        static let failedModifyingProduct = "Failed modifying product"
+    }
 }
 
 extension DefaultProductModificationViewModel {
@@ -40,7 +54,7 @@ extension DefaultProductModificationViewModel {
             try await motify(productID: product.id, product: input)
             actions?.dismissViewController()
         } catch (let error) {
-            state = .failed(error: error)
+            state = .failed(error: handleModifyProduct(error: error))
         }
     }
 

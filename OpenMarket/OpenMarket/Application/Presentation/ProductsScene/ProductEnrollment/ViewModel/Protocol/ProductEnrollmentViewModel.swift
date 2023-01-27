@@ -6,7 +6,8 @@
 //
 
 protocol ProductEnrollmentViewModelInput {
-    func didSelectCompletionButton(input: (TypedProductDetailsRequestDTO, [ProductImageDTO])) async
+    func didSelectCompletionButton(input: (TypedProductDetailsRequestDTO,
+                                           [ProductImageDTO])) async
     func didTapCancelButton()
 }
 
@@ -15,7 +16,7 @@ protocol ProductEnrollmentViewModelOutput {
 }
 
 enum ProducEnrollmentState {
-    case failed(error: Error)
+    case failed(error: String)
 }
 
 protocol ProductEnrollmentViewModel: ProductEnrollmentViewModelInput, ProductEnrollmentViewModelOutput {}

@@ -13,3 +13,13 @@ enum DataTransferError: Error {
     case networkFailure(Error)
     case resolvedNetworkFailure(Error)
 }
+
+extension DataTransferError: ConnectionError {
+    var isInternetConnectionError: Bool {
+        guard case let DataTransferError.networkFailure(networkError) = self,
+              case NetworkError.notConnected = networkError else {
+            return false
+        }
+        return true
+    }
+}

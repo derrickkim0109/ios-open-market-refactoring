@@ -44,19 +44,36 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
 
         return convertedEntity
     }
+
+    private func handleFetchingProducts(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedFetchingProducts,
+                          comment: Const.empty)
+    }
+
+    private enum Const {
+        static let empty = ""
+        static let noInternetConnection = "No internet connection"
+        static let failedFetchingProducts = "Failed fetching products"
+    }
 }
 
 extension DefaultProductsListViewModel {
     func viewDidLoad() { }
 
-    func transform(input: (pageNumber: Int, itemsPerPage: Int)) async {
+    func transform(input: (pageNumber: Int,
+                           itemsPerPage: Int)) async {
         do {
             let (pageNumber, itemsPerPage) = input
-            let data = try await load(pageNumber: pageNumber, itemsPerPage: itemsPerPage)
+            let data = try await fetch(pageNumber: pageNumber,
+                                       itemsPerPage: itemsPerPage)
+
             state = .success(data: format(data: data?.pages))
 
         } catch (let error) {
-            state = .failed(error: error)
+            state = .failed(error: handleFetchingProducts(error: error))
         }
     }
     

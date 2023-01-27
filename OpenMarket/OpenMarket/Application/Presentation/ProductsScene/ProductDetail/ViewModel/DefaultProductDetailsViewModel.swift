@@ -17,7 +17,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     var loading: ProductsListViewModelLoading?
     var state: ProductDetailsState?
     var items: ProductDetailsEntity?
-    var itemSecret: String = "" 
+    var itemSecret: String = ""
     var isEmptyStock: Bool {
         return items?.stock == 0
     }
@@ -39,7 +39,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         self.actions = actions
     }
 
-    private func load(productID: Int) async throws -> ProductDetailsRequestDTO {
+    private func fetchProduct(productID: Int) async throws -> ProductDetailsRequestDTO {
         do {
             let result = try await fetchProductDetailsUseCase.execute(productID: productID)
             return result
@@ -65,39 +65,81 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         }
     }
 
+    private func checkVendorID() async {
+        do {
+            if isEqualVendorID {
+                let data = try await fetchProductSecret(by: product.id)
+                itemSecret = data
+            }
+        } catch (let error) {
+            state = .failed(error: handleDeletingProduct(error: error))
+        }
+    }
+
+    private func handleFetchProductNetwork(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedFetchingProduct,
+                          comment: Const.empty)
+    }
+
+    private func handleFetchProductSecret(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedFetchingProductSecret,
+                          comment: Const.empty)
+    }
+
+    private func handleDeletingProduct(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedDeletingProduct,
+                          comment: Const.empty)
+    }
+
     private func format(productDetails: ProductDetailsRequestDTO) -> ProductDetailsEntity {
         let productInfo = productDetails.toDomain()
         return productInfo
+    }
+
+    private enum Const {
+        static let empty = ""
+        static let noInternetConnection = "No internet connection"
+        static let failedFetchingProduct = "Failed fetching product"
+        static let failedFetchingProductSecret = "Failed fetching product secret"
+        static let failedDeletingProduct = "Failed deleting product"
     }
 }
 
 extension DefaultProductDetailsViewModel {
     func transform() async {
         do {
-            let data = try await load(productID: product.id)
+            let data = try await fetchProduct(productID: product.id)
             let formattedData = format(productDetails: data)
             items = formattedData
             state = .success(data: formattedData)
-
-            if isEqualVendorID {
-                let data = try await fetchProductSecret(by: product.id)
-                itemSecret = data
-            }
+            await checkVendorID()
         } catch (let error) {
-            state = .failed(error: error)
+            state = .failed(error: handleFetchProductNetwork(error: error))
         }
     }
     
     func didSelectEditButton() {
-        guard let model = items else { return }
+        guard let model = items else {
+            return
+        }
+
         actions?.presentProductModitifation(model)
     }
 
-    func didSelectDeleteButton() async throws {
+    func didSelectDeleteButton() async {
         do {
             try await deleteProduct(deleteURL: itemSecret)
         } catch (let error) {
-            throw error
+            state = .failed(error: handleDeletingProduct(error: error))
         }
     }
 }

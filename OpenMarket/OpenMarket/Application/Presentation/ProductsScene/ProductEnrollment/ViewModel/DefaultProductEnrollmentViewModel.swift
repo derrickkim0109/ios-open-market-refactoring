@@ -29,6 +29,20 @@ final class DefaultProductEnrollmentViewModel: ProductEnrollmentViewModel {
             throw error
         }
     }
+    
+    private func handlePostProduct(error: Error) -> String {
+        return error.isInternetConnectionError ?
+        NSLocalizedString(Const.noInternetConnection,
+                          comment: Const.empty) :
+        NSLocalizedString(Const.failedPostingProduct,
+                          comment: Const.empty)
+    }
+    
+    private enum Const {
+        static let empty = ""
+        static let noInternetConnection = "No internet connection"
+        static let failedPostingProduct = "Failed posting product"
+    }
 }
 
 extension DefaultProductEnrollmentViewModel {
@@ -41,7 +55,7 @@ extension DefaultProductEnrollmentViewModel {
             
             actions?.dismissViewController()
         } catch (let error) {
-            state = .failed(error: error)
+            state = .failed(error: handlePostProduct(error: error))
         }
     }
     
