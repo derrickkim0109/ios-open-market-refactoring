@@ -22,7 +22,7 @@ protocol ProductDetailsViewModelOutput {
 
 enum ProductDetailsState {
     case success(data: ProductDetailsEntity)
-    case failed(error: Error)
+    case failed(error: String)
 }
 
 protocol ProductDetailsViewModel: ProductDetailsViewModelInput, ProductDetailsViewModelOutput {}

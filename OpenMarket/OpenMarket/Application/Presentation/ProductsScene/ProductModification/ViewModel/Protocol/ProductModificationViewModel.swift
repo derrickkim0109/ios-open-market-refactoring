@@ -16,7 +16,7 @@ protocol ProductModificationViewModelOutput {
 }
 
 enum ProductModificationState {
-    case failed(error: Error)
+    case failed(error: String)
 }
 
 protocol ProductModificationViewModel: ProductModificationViewModelInput, ProductModificationViewModelOutput {}

@@ -24,7 +24,7 @@ protocol ProductsListViewModelOutput {
 
 enum ProductsListState {
     case success(data: [ProductEntity])
-    case failed(error: Error)
+    case failed(error: String)
 }
 
 enum ProductsListViewModelLoading {
