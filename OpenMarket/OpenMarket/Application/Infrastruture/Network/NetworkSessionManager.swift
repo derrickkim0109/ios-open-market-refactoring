@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NetworkSessionManager {
-    func request(_ request: URLRequest) async throws -> Data
+    func request(_ request: URLRequest) async throws -> Data?
 }
 
 final class DefaultNetworkSessionManager: NetworkSessionManager {
@@ -17,7 +17,7 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
 
     private init() {}
     
-    func request(_ request: URLRequest) async throws -> Data {
+    func request(_ request: URLRequest) async throws -> Data? {
         do {
             let (data, response) = try await session.data(for: request)
 

@@ -9,7 +9,7 @@ import Foundation
 
 protocol NetworkService {
     @discardableResult
-    func request(endpoint: Requestable) async throws -> Data
+    func request(endpoint: Requestable) async throws -> Data?
 }
 
 final class DefaultNetworkService: NetworkService {
@@ -22,7 +22,7 @@ final class DefaultNetworkService: NetworkService {
         self.sessionManager = sessionManager
     }
 
-    func request(endpoint: Requestable) async throws -> Data {
+    func request(endpoint: Requestable) async throws -> Data? {
         do {
             let urlRequest = try endpoint.urlRequest(with: config)
             return try await sessionManager.request(urlRequest)
