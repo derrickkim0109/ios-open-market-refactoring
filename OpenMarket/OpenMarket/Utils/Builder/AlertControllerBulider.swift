@@ -8,42 +8,44 @@
 import UIKit
 
 struct AlertControllerBulider {
-    private var params:BuilderParams
+    private var params: BuilderParams
 
-    init(params:BuilderParams) {
+    init(params: BuilderParams) {
         self.params = params
     }
 
     @MainActor
     func present() {
-        let alertController = UIAlertController(title: self.params.title,
-                                                message: self.params.message,
+        let alertController = UIAlertController(title: params.title,
+                                                message: params.message,
                                                 preferredStyle: UIAlertController.Style.alert)
-        if (self.params.confirmText) != nil {
-            alertController.addAction(UIAlertAction(title: self.params.confirmText,
+        if (params.confirmText) != nil {
+            alertController.addAction(UIAlertAction(title: params.confirmText,
                                                     style: UIAlertAction.Style.destructive,
-                                                    handler: self.params.confirmAction))
+                                                    handler: params.confirmAction))
         }
 
-        if (self.params.cancelText) != nil {
-            alertController.addAction(UIAlertAction(title: self.params.cancelText,
+        if (params.cancelText) != nil {
+            alertController.addAction(UIAlertAction(title: params.cancelText,
                                                     style: UIAlertAction.Style.destructive,
-                                                    handler: self.params.cancelAction))
+                                                    handler: params.cancelAction))
         }
 
-        self.params.context.present(alertController, animated: true, completion: nil)
+        params.context.present(alertController,
+                               animated: true,
+                               completion: nil)
     }
 
     struct BuilderParams {
-        var context:UIViewController
-        var title:String?
-        var message:String?
-        var confirmText:String?
-        var cancelText:String?
+        var context: UIViewController
+        var title: String?
+        var message: String?
+        var confirmText: String?
+        var cancelText: String?
 
-        var confirmAction:((UIAlertAction)->Void)?
+        var confirmAction: ((UIAlertAction) -> Void)?
 
-        var cancelAction:((UIAlertAction)->Void)?
+        var cancelAction: ((UIAlertAction) -> Void)?
 
         init(_ context:UIViewController) {
             self.context = context
@@ -53,41 +55,41 @@ struct AlertControllerBulider {
     class Builder {
         private var params:BuilderParams
         init(_ context: UIViewController) {
-            self.params = BuilderParams.init(context)
+            params = BuilderParams.init(context)
         }
 
-        func setTitle(_ title:String) -> Builder {
-            self.params.title = title
+        func setTitle(_ title: String) -> Builder {
+            params.title = title
             return self
         }
 
-        func setMessag(_ message:String) -> Builder {
-            self.params.message = message
+        func setMessag(_ message: String) -> Builder {
+            params.message = message
             return self
         }
 
-        func setConfrimText(_ confirmText:String) -> Builder {
-            self.params.confirmText = confirmText
+        func setConfrimText(_ confirmText: String) -> Builder {
+            params.confirmText = confirmText
             return self
         }
 
-        func setCancelText(_ cancelText:String) -> Builder {
-            self.params.cancelText = cancelText
+        func setCancelText(_ cancelText: String) -> Builder {
+            params.cancelText = cancelText
             return self
         }
 
-        func setConfirmAction(_ confirmAction:@escaping ((UIAlertAction)->Void)) -> Builder {
-            self.params.confirmAction = confirmAction
+        func setConfirmAction(_ confirmAction: @escaping ((UIAlertAction) -> Void)) -> Builder {
+            params.confirmAction = confirmAction
             return self
         }
 
-        func setCancelAction(_ cancelAction:@escaping ((UIAlertAction)->Void)) -> Builder {
-            self.params.cancelAction = cancelAction
+        func setCancelAction(_ cancelAction: @escaping ((UIAlertAction) -> Void)) -> Builder {
+            params.cancelAction = cancelAction
             return self
         }
 
         func build() -> AlertControllerBulider {
-            return AlertControllerBulider(params: self.params)
+            return AlertControllerBulider(params: params)
         }
     }
 }

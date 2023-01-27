@@ -13,7 +13,7 @@ final class ProductDetailsItemViewModel {
     init(model: ProductDetailsEntity) {
         self.model = model
     }
-
+    
     func returnTotalPage(_ index: Int) -> String {
         return "\(index)/\(model.images.count)"
     }

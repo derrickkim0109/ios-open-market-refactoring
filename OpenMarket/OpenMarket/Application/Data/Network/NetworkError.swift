@@ -8,7 +8,8 @@
 import Foundation
 
 enum NetworkError: Error {
-    case error(statusCode: Int, data: Data?)
+    case error(statusCode: Int,
+               data: Data?)
     case notConnected
     case cancelled
     case generic(Error)
@@ -16,7 +17,9 @@ enum NetworkError: Error {
 }
 
 extension NetworkError {
-    public var isNotFoundError: Bool { return hasStatusCode(404) }
+    public var isNotFoundError: Bool {
+        return hasStatusCode(404)
+    }
 
     public func hasStatusCode(_ codeError: Int) -> Bool {
         switch self {

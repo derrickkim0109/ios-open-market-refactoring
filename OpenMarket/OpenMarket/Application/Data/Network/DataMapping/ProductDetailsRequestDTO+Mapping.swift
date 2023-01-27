@@ -43,6 +43,7 @@ extension ProductDetailsRequestDTO {
         for image in images {
             array.append(image.url)
         }
+        
         return array
     }
 }

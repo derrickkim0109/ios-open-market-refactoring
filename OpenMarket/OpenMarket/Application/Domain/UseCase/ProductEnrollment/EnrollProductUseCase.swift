@@ -16,7 +16,9 @@ final class DefaultEnrollProductUseCase: EnrollProductUseCase {
         self.enrollmentProductRepository = enrollmentProductRepository
     }
 
-    func execute(product: TypedProductDetailsRequestDTO, images: [ProductImageDTO]) async throws  {
-        return try await enrollmentProductRepository.enrollProduct(product: product, images: images)
+    func execute(product: TypedProductDetailsRequestDTO,
+                 images: [ProductImageDTO]) async throws  {
+        return try await enrollmentProductRepository.enrollProduct(product: product,
+                                                                   images: images)
     }
 }

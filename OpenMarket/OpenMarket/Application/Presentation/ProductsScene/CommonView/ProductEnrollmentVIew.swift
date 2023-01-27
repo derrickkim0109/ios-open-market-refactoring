@@ -40,7 +40,6 @@ final class ProductEnrollmentView: UIView {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
-
         return imagePicker
     }()
 
@@ -50,7 +49,6 @@ final class ProductEnrollmentView: UIView {
         button.setImage(UIImage(systemName: Const.plus),
                         for: .normal)
         button.backgroundColor = .systemGray4
-
         return button
     }()
 
@@ -269,7 +267,9 @@ final class ProductEnrollmentView: UIView {
 
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
 
         let contentInset = UIEdgeInsets(
             top: Const.zeroPointZero,
@@ -302,26 +302,31 @@ final class ProductEnrollmentView: UIView {
     }
 }
 
-// MARK: - UITextViewDelegate
-
 extension ProductEnrollmentView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard checkNumberOfTextValidation(textView.text, by: Const.oneThousand) else {
-            //                self?.presentConfirmAlert(message: AlertMessage.exceedValue)
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
+        guard checkNumberOfTextValidation(textView.text,
+                                          by: Const.oneThousand) else {
+            //            self.presentConfirmAlert(message: AlertMessage.exceedValue)
             return true
         }
         return false
     }
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        guard textView.text == Const.productDescription else { return }
+        guard textView.text == Const.productDescription else {
+            return
+        }
 
         textView.text = nil
         textView.textColor = .black
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        guard textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return
+        }
 
         textView.text = Const.productDescription
         textView.textColor = .lightGray

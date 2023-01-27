@@ -49,13 +49,15 @@ final class ProductDetailsViewController: UIViewController {
         Task {
             await viewModel.transform()
 
-            guard let state = viewModel.state else { return }
+            guard let state = viewModel.state else {
+                return
+            }
             switch state {
             case .success(let data):
-                self.updateUI(data)
+                updateUI(data)
                 await LoadingIndicator.hideLoading()
-            case .failed(let error):
-                self.presentConfirmAlert(message: error.localizedDescription)
+            case .failed(let errorMessage):
+                presentConfirmAlert(message: errorMessage)
             }
         }.store(in: bag)
     }
@@ -104,7 +106,8 @@ final class ProductDetailsViewController: UIViewController {
             productDetailsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             productDetailsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             productDetailsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            productDetailsView.imagesCollectionView.heightAnchor.constraint(equalToConstant: view.layer.bounds.height * Const.zeroPintThirtyFive)
+            productDetailsView.imagesCollectionView.heightAnchor.constraint(equalToConstant:
+                                                                                view.layer.bounds.height * Const.zeroPintThirtyFive)
         ])
     }
 
@@ -115,7 +118,9 @@ final class ProductDetailsViewController: UIViewController {
                                                                 target: self,
                                                                 action: #selector(didTapBackButton))
         
-        guard viewModel.isEqualVendorID else { return }
+        guard viewModel.isEqualVendorID else {
+            return
+        }
 
         let rightButtonImage = UIImage(systemName: Const.navigationItemArrowUp)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: rightButtonImage,
@@ -150,28 +155,23 @@ final class ProductDetailsViewController: UIViewController {
         actionSheet.addAction(cancelAction)
 
         actionSheet.modalPresentationStyle = .overFullScreen
-        self.present(actionSheet,
-                     animated: true,
-                     completion: nil)
+        present(actionSheet,
+                animated: true,
+                completion: nil)
     }
 
+    @MainActor
     private func presentPasswordCheckAlert() {
         let alertController = UIAlertController(title: nil,
-                                                message: AlertMessage.inputPassword,
+                                                message: Const.deleteMessage,
                                                 preferredStyle: .alert)
-        alertController.addTextField()
-
         let confirmAction = UIAlertAction(title: AlertSetting.confirmAction,
                                           style: .default) { [weak self] _ in
-            guard User.secret == alertController.textFields?.first?.text else {
-                self?.presentConfirmAlert(message: AlertMessage.deleteFailure)
-                return
-            }
             self?.deleteProduct()
         }
 
         let cancleAction = UIAlertAction(title: AlertSetting.cancelAction,
-                                         style: .cancel)
+                                         style: .destructive)
 
         alertController.addAction(confirmAction)
         alertController.addAction(cancleAction)
@@ -190,8 +190,11 @@ final class ProductDetailsViewController: UIViewController {
     }
 
     private func configureDataSource() -> DataSource {
-        let cellRegistration = UICollectionView.CellRegistration<ProductDetailsCollectionViewCell, String> { [weak self] cell, indexPath, item in
-            guard let items = self?.viewModel.items else { return }
+        let cellRegistration = UICollectionView.CellRegistration<ProductDetailsCollectionViewCell, String> {
+            [weak self] cell, indexPath, item in
+            guard let items = self?.viewModel.items else {
+                return
+            }
             let viewModel = ProductDetailsItemViewModel(model: items)
 
             cell.fill(imageURL: item, currentIndex: viewModel.returnTotalPage(indexPath.row + Const.one))
@@ -225,11 +228,13 @@ final class ProductDetailsViewController: UIViewController {
         static let one = 1
         static let navigationItemBackward = "chevron.backward"
         static let navigationItemArrowUp = "square.and.arrow.up"
+        static let deleteMessage = "정말 삭제하시겠습니까?"
     }
 }
 
 extension ProductDetailsViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }

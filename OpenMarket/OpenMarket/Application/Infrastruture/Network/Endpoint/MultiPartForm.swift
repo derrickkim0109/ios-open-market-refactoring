@@ -42,7 +42,8 @@ extension BodyEncoding {
         return data
     }
 
-    private static func createData(boundary: String, json: Data) -> Data {
+    private static func createData(boundary: String,
+                                   json: Data) -> Data {
         var data = Data()
         data.append("\(lineBreak)--\(boundary + lineBreak)")
         data.append("Content-Disposition: form-data; name=\"params\"\(lineBreak)")
@@ -51,7 +52,8 @@ extension BodyEncoding {
         return data
     }
 
-    private static func createData(boundary: String, image: ProductImageDTO) -> Data {
+    private static func createData(boundary: String,
+                                   image: ProductImageDTO) -> Data {
         let fileName = image.fileName + "." + image.mimeType
         let fileType = "image/\(image.mimeType)"
 
@@ -66,7 +68,10 @@ extension BodyEncoding {
 
 fileprivate extension Data {
     mutating func append(_ text: String) {
-        guard let data = text.data(using: .utf8) else { return }
+        guard let data = text.data(using: .utf8) else {
+            return
+        }
+        
         append(data)
     }
 }

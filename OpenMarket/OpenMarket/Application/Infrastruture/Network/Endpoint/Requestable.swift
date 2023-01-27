@@ -30,44 +30,62 @@ extension Requestable {
         let baseURL = config.baseURL.absoluteString
         let endpoint = isFullPath ? path : baseURL.appending(path)
 
-        guard var urlComponents = URLComponents(string: endpoint) else { throw RequestGenerationError.components }
+        guard var urlComponents = URLComponents(string: endpoint) else {
+            throw RequestGenerationError.components
+        }
+
         var urlQueryItems = [URLQueryItem]()
 
-        let queryParameters = try queryParametersEncodable?.toDictionary() ?? self.queryParameters
+        let queryParameters = try queryParametersEncodable?.toDictionary() ?? queryParameters
         queryParameters.forEach {
-            urlQueryItems.append(URLQueryItem(name: $0.key, value: "\($0.value)"))
+            urlQueryItems.append(URLQueryItem(name: $0.key,
+                                              value: "\($0.value)"))
         }
+
         config.queryParameters.forEach {
-            urlQueryItems.append(URLQueryItem(name: $0.key, value: $0.value))
+            urlQueryItems.append(URLQueryItem(name: $0.key,
+                                              value: $0.value))
         }
+
         urlComponents.queryItems = urlQueryItems.isEmpty ? nil : urlQueryItems
-        guard let url = urlComponents.url else { throw RequestGenerationError.components }
+
+        guard let url = urlComponents.url else {
+            throw RequestGenerationError.components
+        }
+
         return url
     }
 
     func urlRequest(with config: NetworkConfigurable) throws -> URLRequest {
-        let url = try self.url(with: config)
+        let url = try url(with: config)
         var urlRequest = URLRequest(url: url)
         var allHeaders: [String: String] = config.headers
-        headerParameters.forEach { allHeaders.updateValue($1, forKey: $0) }
+        headerParameters.forEach {
+            allHeaders.updateValue($1, forKey: $0)
+        }
 
-        let bodyParameters = try bodyParametersEncodable?.toDictionary() ?? self.bodyParameters
+        let bodyParameters = try bodyParametersEncodable?.toDictionary() ?? bodyParameters
         if !bodyParameters.isEmpty {
-            urlRequest.httpBody = encodeBody(bodyParameters: bodyParameters, bodyEncoding: bodyEncoding)
+            urlRequest.httpBody = encodeBody(bodyParameters: bodyParameters,
+                                             bodyEncoding: bodyEncoding)
         }
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = allHeaders
+
         return urlRequest
     }
 
-    private func encodeBody(bodyParameters: [String: Any], bodyEncoding: BodyEncoding) -> Data? {
+    private func encodeBody(bodyParameters: [String: Any],
+                            bodyEncoding: BodyEncoding) -> Data? {
         switch bodyEncoding {
         case .jsonSerializationData:
-            return try? JSONSerialization.data(withJSONObject: bodyParameters, options: .init())
+            return try? JSONSerialization.data(withJSONObject: bodyParameters,
+                                               options: .init())
         case .multipartFormData(let form):
             return BodyEncoding.createMultiPartFormBody(form: form)
         case .stringEncodingAscii:
-            return bodyParameters.queryString.data(using: String.Encoding.ascii, allowLossyConversion: true)
+            return bodyParameters.queryString.data(using: String.Encoding.ascii,
+                                                   allowLossyConversion: true)
         }
     }
 }

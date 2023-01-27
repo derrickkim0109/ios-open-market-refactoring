@@ -18,7 +18,7 @@ final class DefaultProductDetailsRepository {
 extension DefaultProductDetailsRepository: ProductDetailsRepository {
     func fetchProductDetails(productID: Int) async throws -> ProductDetailsRequestDTO {
         let endpoint = APIEndpoints.getProductDetails(productID)
-        let result = try await self.dataTransferService.request(with: endpoint)
+        let result = try await dataTransferService.request(with: endpoint)
         return result
     }
 }

@@ -18,7 +18,7 @@ final class DefaultProductSecretRepository {
 extension DefaultProductSecretRepository: ProductSecretRepository {
     func fetchProductSecret(productID: Int) async throws -> Endpoint<String>.Response {
         let endpoint = APIEndpoints.postProductSecret(productID)
-        let result = try await self.dataTransferService.request(with: endpoint)
+        let result = try await dataTransferService.request(with: endpoint)
         return result
     }
 }

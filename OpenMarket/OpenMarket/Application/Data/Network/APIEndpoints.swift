@@ -8,7 +8,8 @@
 import Foundation
 
 struct APIEndpoints {
-    static func getProducts(_ pageNumber: Int,_ itemsPerPage: Int) -> Endpoint<ProductsResponseDTO> {
+    static func getProducts(_ pageNumber: Int,
+                            _ itemsPerPage: Int) -> Endpoint<ProductsResponseDTO> {
         return Endpoint(path: HTTPPath.products.value,
                         method: .get,
                         queryParameters: [ProductURLQueryItem.page_no: pageNumber,
@@ -29,14 +30,14 @@ struct APIEndpoints {
 
     static func postProductEnrollment(product: TypedProductDetailsRequestDTO,
                                       images: [ProductImageDTO]) -> Endpoint<()>? {
-        guard let productData = try? product.toEncode() else { return nil }
+        guard let productData = try? product.toEncode() else {
+            return nil
+        }
 
         let boundary = "Boundary-\(UUID().uuidString)"
-        let multiPartForm = MultiPartForm(
-            boundary: boundary,
-            data: productData,
-            images: images
-        )
+        let multiPartForm = MultiPartForm(boundary: boundary,
+                                          data: productData,
+                                          images: images)
 
         return Endpoint(path: HTTPPath.products.value,
                         method: .post,
@@ -51,7 +52,8 @@ struct APIEndpoints {
                         headerParameters: HTTPHeader.delete.header)
     }
 
-    static func patchProduct(_ productID: Int, product: TypedProductDetailsRequestDTO) -> Endpoint<()> {
+    static func patchProduct(_ productID: Int,
+                             product: TypedProductDetailsRequestDTO) -> Endpoint<()> {
         return Endpoint(path: HTTPPath.motifyProduct(productID).value,
                         method: .patch,
                         headerParameters: HTTPHeader.json.header,

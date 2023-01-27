@@ -62,7 +62,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func fill(imageURL: String, currentIndex: String) {
+    func fill(imageURL: String,
+              currentIndex: String) {
         productImageView.setImageUrl(imageURL)
         productImageQuantityLabel.text = currentIndex
     }

@@ -10,13 +10,14 @@ final class ProductsListViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<ListSection, ProductEntity>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<ListSection, ProductEntity>
 
-    private var initialPageInfo: (pageNumber: Int, itemsPerPage: Int) = (RequestName.initialPageNumber,
-                                                                         RequestName.initialItemPerPage)
-    private let viewModel: ProductsListViewModel
-    private let bag = AnyCancelTaskBag()
-
     private lazy var dataSource = configureDataSource()
     private var snapshot = Snapshot()
+
+    private var initialPageInfo: (pageNumber: Int,
+                                  itemsPerPage: Int) = (RequestName.initialPageNumber,
+                                                        RequestName.initialItemPerPage)
+    private let viewModel: ProductsListViewModel
+    private let bag = AnyCancelTaskBag()
 
     private lazy var productListView: ProductListView = ProductListView()
 
@@ -62,17 +63,20 @@ final class ProductsListViewController: UIViewController {
         setupProductEnrollmentImageViewGesture()
     }
 
-    private func bindViewModel(by input: (pageNumber: Int, itemsPerPage: Int)) {
+    private func bindViewModel(by input: (pageNumber: Int,
+                                          itemsPerPage: Int)) {
         Task {
             await viewModel.transform(input: input)
 
-            guard let state = viewModel.state else { return }
+            guard let state = viewModel.state else {
+                return
+            }
 
             switch state {
             case .success(let data):
                 applySnapshot(by: data)
-            case .failed(let error):
-                presentConfirmAlert(message: error.localizedDescription)
+            case .failed(let errorMessage):
+                presentConfirmAlert(message: errorMessage)
             }
         }.store(in: bag)
     }
@@ -86,12 +90,16 @@ final class ProductsListViewController: UIViewController {
         ])
 
         NSLayoutConstraint.activate([
-            productEnrollmentImageViewButton.widthAnchor.constraint(equalToConstant: Const.fifty),
-            productEnrollmentImageViewButton.heightAnchor.constraint(equalToConstant: Const.fifty),
-            productEnrollmentImageViewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                                                                       constant: -Const.twenty),
-            productEnrollmentImageViewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                                     constant: -Const.twenty)
+            productEnrollmentImageViewButton.widthAnchor.constraint(
+                equalToConstant: Const.fifty),
+            productEnrollmentImageViewButton.heightAnchor.constraint(
+                equalToConstant: Const.fifty),
+            productEnrollmentImageViewButton.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                constant: -Const.twenty),
+            productEnrollmentImageViewButton.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -Const.twenty)
         ])
     }
     
@@ -105,8 +113,7 @@ final class ProductsListViewController: UIViewController {
             cell.fill(with: ProductsListItemViewModel(model: item))
         }
 
-        return UICollectionViewDiffableDataSource<ListSection, ProductEntity>(collectionView:
-                                                                                productListView.collectionView) {
+        return UICollectionViewDiffableDataSource<ListSection,ProductEntity>(collectionView: productListView.collectionView) {
             (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration,
                                                                 for: indexPath,
@@ -118,7 +125,6 @@ final class ProductsListViewController: UIViewController {
         var snapshot = Snapshot()
         snapshot.deleteAllItems()
         snapshot.appendSections([.main])
-
         return snapshot
     }
 
@@ -136,8 +142,8 @@ final class ProductsListViewController: UIViewController {
     private func configureRefreshControl() {
         productListView.collectionView.refreshControl = UIRefreshControl()
         productListView.collectionView.refreshControl?.addTarget(self,
-                                                            action:#selector(didSetRefreshControl),
-                                                            for: .valueChanged)
+                                                                 action:#selector(didSetRefreshControl),
+                                                                 for: .valueChanged)
     }
     
     private func resetData() {
@@ -178,7 +184,8 @@ final class ProductsListViewController: UIViewController {
 }
 
 extension ProductsListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         guard let product = dataSource.itemIdentifier(for: indexPath) else {
             collectionView.deselectItem(at: indexPath,
                                         animated: true)
@@ -188,7 +195,8 @@ extension ProductsListViewController: UICollectionViewDelegate {
         viewModel.didSelectItem(product)
     }
     
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView,
+                                  willDecelerate decelerate: Bool) {
         reloadDataDidScrollDown(productListView.collectionView)
     }
     
@@ -196,7 +204,8 @@ extension ProductsListViewController: UICollectionViewDelegate {
         let trigger = (collectionView.contentSize.height - collectionView.bounds.size.height) + Const.hundred
         
         if collectionView.contentOffset.y > trigger {
-            initialPageInfo = (initialPageInfo.pageNumber + Const.one, RequestName.initialItemPerPage)
+            initialPageInfo = (initialPageInfo.pageNumber + Const.one,
+                               RequestName.initialItemPerPage)
             bindViewModel(by: initialPageInfo)
         }
     }

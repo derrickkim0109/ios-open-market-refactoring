@@ -6,5 +6,6 @@
 //
 
 protocol ModifyProductRepository {
-    func modifyProduct(productID: Int, product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response
+    func modifyProduct(productID: Int,
+                       product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response
 }

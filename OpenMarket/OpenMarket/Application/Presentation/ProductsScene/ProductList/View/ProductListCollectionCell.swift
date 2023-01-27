@@ -9,7 +9,8 @@ import UIKit
 
 final class ProductListCollectionCell: UICollectionViewCell {
     private lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productImageView, labelStackView])
+        let stackView = UIStackView(arrangedSubviews: [productImageView,
+                                                       labelStackView])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill

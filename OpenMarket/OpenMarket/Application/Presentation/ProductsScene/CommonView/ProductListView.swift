@@ -33,8 +33,10 @@ final class ProductListView: UIView {
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Const.ten),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Const.ten)
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                    constant: Const.ten),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                     constant: -Const.ten)
         ])
     }
 
@@ -51,7 +53,7 @@ final class ProductListView: UIView {
                                                        count: Const.two)
 
         group.interItemSpacing = NSCollectionLayoutSpacing.fixed(Const.ten)
-
+        
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = Const.ten
         section.contentInsets = NSDirectionalEdgeInsets(top: Const.zero,

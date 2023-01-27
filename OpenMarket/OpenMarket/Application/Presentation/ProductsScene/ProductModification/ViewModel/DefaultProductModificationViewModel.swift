@@ -23,9 +23,11 @@ final class DefaultProductModificationViewModel: ProductModificationViewModel {
         self.actions = actions
     }
 
-    private func motify(productID: Int, product: TypedProductDetailsRequestDTO) async throws {
+    private func motify(productID: Int,
+                        product: TypedProductDetailsRequestDTO) async throws {
         do {
-            try await motifyProductsUseCase.execute(productID: productID, product: product)
+            try await motifyProductsUseCase.execute(productID: productID,
+                                                    product: product)
         } catch (let error) {
             throw error
         }

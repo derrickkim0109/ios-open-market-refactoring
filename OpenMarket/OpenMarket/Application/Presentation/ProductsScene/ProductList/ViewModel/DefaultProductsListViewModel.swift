@@ -23,9 +23,12 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
         self.actions = actions
     }
 
-    private func load(pageNumber: Int, itemsPerPage: Int) async throws -> ProductsResponseDTO? {
+    private func fetch(pageNumber: Int,
+                       itemsPerPage: Int) async throws -> ProductsResponseDTO? {
         do {
-            let result = try await fetchProductsUseCase.execute(requestValue: FetchProductsUseCaseRequestValue(page: pageNumber, itemPerPage: itemsPerPage))
+            let result = try await fetchProductsUseCase.execute(requestValue:
+                                                                    FetchProductsUseCaseRequestValue(page: pageNumber,
+                                                                                                     itemPerPage: itemsPerPage))
             return result
         } catch (let error) {
             throw error
@@ -35,7 +38,10 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
     private func format(data: [Product]?) -> [ProductEntity] {
         let convertedEntity = data?.compactMap{ $0.toDomain() }
 
-        guard let convertedEntity else { return [ProductEntity]() }
+        guard let convertedEntity else {
+            return [ProductEntity]()
+        }
+
         return convertedEntity
     }
 }

@@ -27,7 +27,8 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
                     return data
                 }
 
-                throw NetworkError.error(statusCode: httpResponse.statusCode, data: data)
+                throw NetworkError.error(statusCode: httpResponse.statusCode,
+                                         data: data)
             }
 
             return data

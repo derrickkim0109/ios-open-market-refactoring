@@ -16,7 +16,9 @@ final class DefaultModifyProductsUseCase: ModifyProductsUseCase {
         self.modifyProductRepository = modifyProductRepository
     }
 
-    func execute(productID: Int, product: TypedProductDetailsRequestDTO) async throws  {
-        return try await modifyProductRepository.modifyProduct(productID: productID, product: product)
+    func execute(productID: Int,
+                 product: TypedProductDetailsRequestDTO) async throws  {
+        return try await modifyProductRepository.modifyProduct(productID: productID,
+                                                               product: product)
     }
 }

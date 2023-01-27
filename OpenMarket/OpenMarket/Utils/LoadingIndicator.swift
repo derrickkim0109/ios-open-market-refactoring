@@ -10,7 +10,9 @@ import UIKit
 @MainActor
 class LoadingIndicator {
     static func presentLoading() async {
-        guard let window = UIApplication.shared.windows.last else { return }
+        guard let window = UIApplication.shared.windows.last else {
+            return
+        }
 
         let loadingIndicatorView: UIActivityIndicatorView
         if let existedView = window.subviews.first(where: { $0 is UIActivityIndicatorView } ) as? UIActivityIndicatorView {
@@ -26,7 +28,10 @@ class LoadingIndicator {
     }
     
     static func hideLoading() async {
-        guard let window = UIApplication.shared.windows.last else { return }
+        guard let window = UIApplication.shared.windows.last else {
+            return
+        }
+        
         window.subviews.filter({ $0 is UIActivityIndicatorView }).forEach { $0.removeFromSuperview() }
     }
 }

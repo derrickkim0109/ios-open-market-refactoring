@@ -18,11 +18,13 @@ final class JSONResponseDecoder: ResponseDecoder {
     func decode<T: Decodable>(from data: Data) async throws -> T {
         do {
             if T.self == String.self {
-                return String(data: data, encoding: .utf8) as! T
+                return String(data: data,
+                              encoding: .utf8) as! T
             }
 
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode(T.self, from: data)
+            return try decoder.decode(T.self,
+                                      from: data)
         } catch (let error) {
             throw error
         }

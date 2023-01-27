@@ -9,7 +9,8 @@ import Foundation
 
 protocol DataTransferService {
     @discardableResult
-    func request<T: Decodable, E: ResponseRequestable>(with endpoint: E) async throws -> T  where E.Response == T
+    func request<T: Decodable,
+                 E: ResponseRequestable>(with endpoint: E) async throws -> T  where E.Response == T
     func request<E: ResponseRequestable>(with endpoint: E) async throws where E : ResponseRequestable, E.Response == ()
 }
 
@@ -23,10 +24,12 @@ final class DefaultDataTransferService {
 
 extension DefaultDataTransferService: DataTransferService {
     @MainActor
-    func request<T: Decodable, E: ResponseRequestable>(with endpoint: E) async throws -> T {
+    func request<T: Decodable,
+                 E: ResponseRequestable>(with endpoint: E) async throws -> T {
         do {
             let data = try await networkService.request(endpoint: endpoint)
-            let result: T = try await self.decode(data: data, decoder: endpoint.responseDecoder)
+            let result: T = try await decode(data: data,
+                                             decoder: endpoint.responseDecoder)
             return result
         } catch (let error) {
             throw resolve(error: error)
@@ -42,9 +45,13 @@ extension DefaultDataTransferService: DataTransferService {
         }
     }
 
-    private func decode<T: Decodable>(data: Data?, decoder: ResponseDecoder) async throws -> T {
+    private func decode<T: Decodable>(data: Data?,
+                                      decoder: ResponseDecoder) async throws -> T {
         do {
-            guard let data = data else { throw DataTransferError.noResponse }
+            guard let data = data else {
+                throw DataTransferError.noResponse
+            }
+
             return try await decoder.decode(from: data)
         } catch (let error) {
             throw DataTransferError.parsing(error)

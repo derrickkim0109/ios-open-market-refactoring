@@ -11,11 +11,11 @@ protocol FetchProductsUseCase {
 
 final class DefaultFetchProductsUseCase: FetchProductsUseCase {
     private let productsRepository: ProductsRepository
-
+    
     init(productsRepository: ProductsRepository) {
         self.productsRepository = productsRepository
     }
-
+    
     func execute(requestValue: FetchProductsUseCaseRequestValue) async throws -> ProductsResponseDTO {
         return try await productsRepository.fetchProductsList(page: requestValue.page,
                                                               itemsPerPage: requestValue.itemPerPage)
