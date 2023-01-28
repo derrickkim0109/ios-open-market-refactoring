@@ -63,10 +63,14 @@ struct AlertControllerBulider {
         var cancelStyleCancelAction: ((UIAlertAction) -> Void)?
 
         init() {
-            let rootViewController =
+            var topController =
             firstScene?.windows.filter{ $0.isKeyWindow }.first?.rootViewController
 
-            context = rootViewController
+            while let presentedViewController = topController?.presentedViewController {
+                topController = presentedViewController
+            }
+
+            context = topController
         }
     }
 
