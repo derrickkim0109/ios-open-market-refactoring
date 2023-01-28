@@ -10,7 +10,8 @@ final class AnyCancelTaskBag {
 
     init() {}
 
-    func add(task: any AnyCancellableTask) {
+    func add(
+        task: any AnyCancellableTask) {
         tasks.append(task)
     }
 
@@ -26,7 +27,8 @@ final class AnyCancelTaskBag {
 
 
 extension Task {
-    func store(in bag: AnyCancelTaskBag) {
+    func store(
+        in bag: AnyCancelTaskBag) {
         bag.add(task: self)
     }
 }

@@ -10,15 +10,19 @@ import Foundation
 final class DefaultProductDetailsRepository {
     private let dataTransferService: DataTransferService
 
-    init(dataTransferService: DataTransferService) {
+    init(
+        dataTransferService: DataTransferService) {
         self.dataTransferService = dataTransferService
     }
 }
 
 extension DefaultProductDetailsRepository: ProductDetailsRepository {
-    func fetchProductDetails(productID: Int) async throws -> ProductDetailsRequestDTO {
+    func fetchProductDetails(
+        productID: Int) async throws -> ProductDetailsRequestDTO {
         let endpoint = APIEndpoints.getProductDetails(productID)
-        let result = try await dataTransferService.request(with: endpoint)
+            
+        let result = try await dataTransferService.request(
+            with: endpoint)
         return result
     }
 }

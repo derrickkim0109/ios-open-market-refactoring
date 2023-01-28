@@ -8,7 +8,8 @@
 protocol ProductDetailsViewModelInput {
     func transform() async
     func didSelectEditButton()
-    func didSelectDeleteButton() async throws
+    func didSelectDeleteButton() async
+    func popViewController()
 }
 
 protocol ProductDetailsViewModelOutput {

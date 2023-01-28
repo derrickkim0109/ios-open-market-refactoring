@@ -15,54 +15,68 @@ final class DefaultProductModificationViewModel: ProductModificationViewModel {
     // MARK: Output
     var state: ProductModificationState?
 
-    init(product: ProductDetailsEntity,
-         motifyProductsUseCase: ModifyProductsUseCase,
-         actions: ProductModificationViewModelActions? = nil) {
+    init(
+        product: ProductDetailsEntity,
+        motifyProductsUseCase: ModifyProductsUseCase,
+        actions: ProductModificationViewModelActions? = nil) {
         self.product = product
         self.motifyProductsUseCase = motifyProductsUseCase
         self.actions = actions
     }
 
-    private func motify(productID: Int,
-                        product: TypedProductDetailsRequestDTO) async throws {
+    private func motify(
+        productID: Int,
+        product: TypedProductDetailsRequestDTO) async throws {
         do {
-            try await motifyProductsUseCase.execute(productID: productID,
-                                                    product: product)
+            try await motifyProductsUseCase.execute(
+                productID: productID,
+                product: product)
         } catch (let error) {
             throw error
         }
     }
 
-    private func handleModifyProduct(error: Error) -> String {
+    private func handleModifyProduct(
+        error: Error) -> String {
         return error.isInternetConnectionError ?
-        NSLocalizedString(Const.noInternetConnection,
-                          comment: Const.empty) :
-        NSLocalizedString(Const.failedModifyingProduct,
-                          comment: Const.empty)
+        NSLocalizedString(
+            Const.noInternetConnection,
+            comment: Const.empty) :
+        NSLocalizedString(
+            Const.failedModifyingProduct,
+            comment: Const.empty)
     }
 
     private enum Const {
         static let empty = ""
-        static let noInternetConnection = "No internet connection"
-        static let failedModifyingProduct = "Failed modifying product"
+        static let noInternetConnection = "인터넷 연결에 실패하였습니다."
+        static let failedModifyingProduct = "상품 수정에 실패하였습니다."
     }
 }
 
 extension DefaultProductModificationViewModel {
-    func didSelectCompletionButton(input: TypedProductDetailsRequestDTO) async {
+    func didSelectModificationButton(
+        input: TypedProductDetailsRequestDTO) async {
         do {
-            try await motify(productID: product.id, product: input)
-            actions?.dismissViewController()
+            try await motify(
+                productID: product.id,
+                product: input)
+            state = .success
         } catch (let error) {
-            state = .failed(error: handleModifyProduct(error: error))
+            state = .failed(
+                error: handleModifyProduct(error: error))
         }
     }
 
     func didTapCancelButton() {
-        actions?.dismissViewController()
+        dismissScene()
     }
 
     func fetchData() -> ProductDetailsEntity {
         return product
+    }
+
+    func dismissScene() {
+        actions?.dismissViewController()
     }
 }

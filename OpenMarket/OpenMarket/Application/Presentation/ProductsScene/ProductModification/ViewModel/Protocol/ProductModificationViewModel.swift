@@ -6,9 +6,11 @@
 //
 
 protocol ProductModificationViewModelInput {
-    func didSelectCompletionButton(input: TypedProductDetailsRequestDTO) async
+    func didSelectModificationButton(
+        input: TypedProductDetailsRequestDTO) async
     func didTapCancelButton()
     func fetchData() -> ProductDetailsEntity
+    func dismissScene()
 }
 
 protocol ProductModificationViewModelOutput {
@@ -16,6 +18,7 @@ protocol ProductModificationViewModelOutput {
 }
 
 enum ProductModificationState {
+    case success
     case failed(error: String)
 }
 

@@ -6,17 +6,21 @@
 //
 
 protocol FetchProductSecretUseCase {
-    func execute(productID: Int) async throws -> String
+    func execute(
+        productID: Int) async throws -> String
 }
 
 final class DefaultFetchProductSecretUseCase: FetchProductSecretUseCase {
     private let productSecretRepository: ProductSecretRepository
 
-    init(productSecretRepository: ProductSecretRepository) {
+    init(
+        productSecretRepository: ProductSecretRepository) {
         self.productSecretRepository = productSecretRepository
     }
 
-    func execute(productID: Int) async throws -> String {
-        return try await productSecretRepository.fetchProductSecret(productID: productID)
+    func execute(
+        productID: Int) async throws -> String {
+        return try await productSecretRepository.fetchProductSecret(
+            productID: productID)
     }
 }

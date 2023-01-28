@@ -10,19 +10,23 @@ import Foundation
 final class DefaultEnrollProductRepository {
     private let dataTransferService: DataTransferService
 
-    init(dataTransferService: DataTransferService) {
+    init(
+        dataTransferService: DataTransferService) {
         self.dataTransferService = dataTransferService
     }
 }
 
 extension DefaultEnrollProductRepository: EnrollmentProductRepository {
-    func enrollProduct(product: TypedProductDetailsRequestDTO,
-                       images: [ProductImageDTO]) async throws {
-        guard let endpoint = APIEndpoints.postProductEnrollment(product: product,
-                                                                images: images) else {
+    func enrollProduct(
+        product: TypedProductDetailsRequestDTO,
+        images: [ProductImageDTO]) async throws {
+        guard let endpoint = APIEndpoints.postProductEnrollment(
+            product: product,
+            images: images) else {
             return
         }
         
-        return try await dataTransferService.request(with: endpoint)
+        return try await dataTransferService.request(
+            with: endpoint)
     }
 }

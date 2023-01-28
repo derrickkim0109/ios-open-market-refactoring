@@ -11,14 +11,19 @@ final class AppDIContainer {
     lazy var appConfiguration = AppConfiguration()
     
     lazy var apiDataTransferService: DataTransferService = {
-        let configuration = ApiDataNetworkConfig(baseURL: URL(string: appConfiguration.apiBaseURL)!)
+        let configuration = ApiDataNetworkConfig(
+            baseURL: URL(string: appConfiguration.apiBaseURL)!)
         
-        let apiDataNetwork = DefaultNetworkService(config: configuration)
-        return DefaultDataTransferService(with: apiDataNetwork)
+        let apiDataNetwork = DefaultNetworkService(
+            config: configuration)
+        return DefaultDataTransferService(
+            with: apiDataNetwork)
     }()
     
     func makeProductsSceneDIContainer() -> ProductsSceneDIContainer {
-        let dependencies = ProductsSceneDIContainer.Dependencies(apiDataTransferService: apiDataTransferService)
-        return ProductsSceneDIContainer(dependencies: dependencies)
+        let dependencies = ProductsSceneDIContainer.Dependencies(
+            apiDataTransferService: apiDataTransferService)
+        return ProductsSceneDIContainer(
+            dependencies: dependencies)
     }
 }

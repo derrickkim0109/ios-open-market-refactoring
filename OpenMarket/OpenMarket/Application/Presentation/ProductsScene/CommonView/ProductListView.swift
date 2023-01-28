@@ -9,15 +9,17 @@ import UIKit
 
 final class ProductListView: UIView {
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero,
-                                              collectionViewLayout: createLayout())
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: createLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
 
     init() {
-        super.init(frame: .zero)
+        super.init(
+            frame: .zero)
         backgroundColor = .systemBackground
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
@@ -31,37 +33,51 @@ final class ProductListView: UIView {
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                    constant: Const.ten),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                     constant: -Const.ten)
+            collectionView.topAnchor.constraint(
+                equalTo: topAnchor),
+            collectionView.bottomAnchor.constraint(
+                equalTo: bottomAnchor),
+            collectionView.leadingAnchor.constraint(
+                equalTo: leadingAnchor,
+                constant: Const.ten),
+            collectionView.trailingAnchor.constraint(
+                equalTo: trailingAnchor,
+                constant: -Const.ten)
         ])
     }
 
     private func createLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Const.onePoint),
-                                              heightDimension: .fractionalHeight(Const.onePoint))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Const.onePoint),
+            heightDimension: .fractionalHeight(Const.onePoint))
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(Const.onePoint),
-                                               heightDimension: .fractionalWidth(Const.onePoint / Const.onePointFive))
+        let item = NSCollectionLayoutItem(
+            layoutSize: itemSize)
 
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitem: item,
-                                                       count: Const.two)
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Const.onePoint),
+            heightDimension: .fractionalWidth(Const.onePoint / Const.onePointFive))
+
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitem: item,
+            count: Const.two)
 
         group.interItemSpacing = NSCollectionLayoutSpacing.fixed(Const.ten)
         
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = Const.ten
-        section.contentInsets = NSDirectionalEdgeInsets(top: Const.zero,
-                                                        leading: Const.ten,
-                                                        bottom: Const.zero,
-                                                        trailing: Const.ten)
+        let section = NSCollectionLayoutSection(
+            group: group)
 
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        section.interGroupSpacing = Const.ten
+
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: Const.zero,
+            leading: Const.ten,
+            bottom: Const.zero,
+            trailing: Const.ten)
+
+        let layout = UICollectionViewCompositionalLayout(
+            section: section)
 
         return layout
     }

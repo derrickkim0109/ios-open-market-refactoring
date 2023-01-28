@@ -26,15 +26,16 @@ struct ProductDetailsRequestDTO: Decodable {
 
 extension ProductDetailsRequestDTO {
     func toDomain() -> ProductDetailsEntity {
-        return ProductDetailsEntity(id: id,
-                                    vendorID: vendorId,
-                                    name: name,
-                                    description: description,
-                                    currency: currency,
-                                    price: price,
-                                    bargainPrice: bargainPrice,
-                                    stock: stock,
-                                    images: productImages)
+        return ProductDetailsEntity(
+            id: id,
+            vendorID: vendorId,
+            name: name,
+            description: description,
+            currency: currency,
+            price: price,
+            bargainPrice: bargainPrice,
+            stock: stock,
+            images: productImages)
     }
 
     private var productImages: [String] {

@@ -9,4 +9,5 @@ import Foundation
 
 struct ProductDetailsViewModelActions {
     let presentProductModitifation: (ProductDetailsEntity) -> Void
+    let popViewController: () -> Void
 }

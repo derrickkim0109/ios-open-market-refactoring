@@ -8,17 +8,20 @@
 import UIKit
 
 final class ProductModificationViewController: UIViewController {
-    private let productEnrollmentView = ProductEnrollmentView(pagePurpose: .modification)
+    private let productEnrollmentView = ProductEnrollmentView(
+        pagePurpose: .modification)
     
     private let viewModel: ProductModificationViewModel
     private let bag = AnyCancelTaskBag()
     
-    init(viewModel: ProductModificationViewModel) {
+    init(
+        viewModel: ProductModificationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
+    required init?(
+        coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -27,7 +30,8 @@ final class ProductModificationViewController: UIViewController {
         bind()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(
+        _ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -37,12 +41,14 @@ final class ProductModificationViewController: UIViewController {
         configureNavigationItems()
         configureLayouts()
         
-        updateUI(by: viewModel.fetchData())
+        updateUI(
+            by: viewModel.fetchData())
     }
     
     private func bindViewModel() {
         Task {
-            await viewModel.didSelectCompletionButton(input: productEnrollmentView.convertTextToTypeDTO())
+            await viewModel.didSelectModificationButton(
+                input: productEnrollmentView.convertTextToTypeDTO())
 
             guard let state = viewModel.state else {
                 return
@@ -57,26 +63,34 @@ final class ProductModificationViewController: UIViewController {
     
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            productEnrollmentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            productEnrollmentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            productEnrollmentView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            productEnrollmentView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            productEnrollmentView.topAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.topAnchor),
+            productEnrollmentView.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            productEnrollmentView.leadingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            productEnrollmentView.trailingAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            productEnrollmentView.imageAndPickerButtonScrollView.heightAnchor.constraint(equalToConstant: view.layer.bounds.width * Const.zeroPointThree)
+            productEnrollmentView.imageAndPickerButtonScrollView.heightAnchor.constraint(
+                equalToConstant: view.layer.bounds.width * Const.zeroPointThree)
         ])
     }
     
     private func configureNavigationItems() {
         title = Const.title
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel,
-                                                           target: self,
-                                                           action: #selector(didTapCancelButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                                            target: self,
-                                                            action: #selector(didTapDoneButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .cancel,
+            target: self,
+            action: #selector(didTapCancelButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(didTapDoneButton))
     }
     
-    private func checkNumberOfText(in textView: UITextView) {
+    private func checkNumberOfText(
+        in textView: UITextView) {
         if textView.text.isEmpty {
             textView.textColor = .lightGray
             textView.text = Const.productDescription
@@ -91,24 +105,31 @@ final class ProductModificationViewController: UIViewController {
         productEnrollmentView.discountedPriceTextField.text = data.bargainPrice.description
         productEnrollmentView.productStockTextField.text = data.stock.description
         productEnrollmentView.productDescriptionTextView.text = data.description
-        productEnrollmentView.currencySegmentedControl.selectedSegmentIndex = data.currency == .krw ? Const.zero : Const.one
+
+        productEnrollmentView.currencySegmentedControl.selectedSegmentIndex =
+        data.currency == .krw ? Const.zero : Const.one
+
         configureNewImageView(data.images)
-        checkNumberOfText(in: productEnrollmentView.productDescriptionTextView)
+        checkNumberOfText(
+            in: productEnrollmentView.productDescriptionTextView)
     }
     
-    private func configureProfileImageView(with imageURL: String) -> UIImageView {
+    private func configureProfileImageView(
+        with imageURL: String) -> UIImageView {
         let imageView = UIImageView()
         imageView.setImageUrl(imageURL)
         
         return imageView
     }
     
-    private func configureNewImageView(_ imagesURL: [String]) {
+    private func configureNewImageView(
+        _ imagesURL: [String]) {
         imagesURL.forEach { image in
             let imageView = configureProfileImageView(with: image)
             
             NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor)
+                imageView.widthAnchor.constraint(
+                    equalTo: imageView.heightAnchor)
             ])
             
             productEnrollmentView.imageStackView.addArrangedSubview(imageView)
@@ -129,5 +150,6 @@ final class ProductModificationViewController: UIViewController {
         static let one = 1
         static let title = "상품 수정"
         static let productDescription = "제품 상세 설명"
+        static let modificationSuccess = "상품 수정 완료하였습니다"
     }
 }

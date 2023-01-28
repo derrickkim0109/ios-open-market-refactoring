@@ -20,19 +20,24 @@ final class ProductEnrollmentView: UIView {
     }()
 
     private lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageAndPickerButtonScrollView,
-                                                       textFieldStackView,
-                                                       productDescriptionTextView])
+        let stackView = UIStackView(
+            arrangedSubviews: [imageAndPickerButtonScrollView,
+                               textFieldStackView,
+                               productDescriptionTextView])
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.layoutMargins = UIEdgeInsets(top: Const.ten,
-                                               left: Const.ten,
-                                               bottom: Const.ten,
-                                               right: Const.ten)
+
+        stackView.layoutMargins = UIEdgeInsets(
+            top: Const.ten,
+            left: Const.ten,
+            bottom: Const.ten,
+            right: Const.ten)
+
         return stackView
     }()
 
@@ -46,9 +51,12 @@ final class ProductEnrollmentView: UIView {
     let enrollmentButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: Const.plus),
-                        for: .normal)
         button.backgroundColor = .systemGray4
+
+        button.setImage(
+            UIImage(systemName: Const.plus),
+                    for: .normal)
+
         return button
     }()
 
@@ -59,8 +67,10 @@ final class ProductEnrollmentView: UIView {
     }()
 
     private lazy var imageAndPickerButtonStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [imageStackView,
-                                                       enrollmentButton])
+        let stackView = UIStackView(
+            arrangedSubviews: [imageStackView,
+                               enrollmentButton])
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = Const.ten
         stackView.alignment = .fill
@@ -80,10 +90,12 @@ final class ProductEnrollmentView: UIView {
     }()
 
     private lazy var textFieldStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productNameTextField,
-                                                       productPriceStackView,
-                                                       discountedPriceTextField,
-                                                       productStockTextField])
+        let stackView = UIStackView(
+            arrangedSubviews: [productNameTextField,
+                               productPriceStackView,
+                               discountedPriceTextField,
+                               productStockTextField])
+
         stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
@@ -92,8 +104,10 @@ final class ProductEnrollmentView: UIView {
     }()
 
     private lazy var productPriceStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [originalPriceTextField,
-                                                       currencySegmentedControl])
+        let stackView = UIStackView(
+            arrangedSubviews: [originalPriceTextField,
+                               currencySegmentedControl])
+
         stackView.spacing = Const.ten
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -107,7 +121,10 @@ final class ProductEnrollmentView: UIView {
         textField.borderStyle = .roundedRect
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.placeholder = Const.productName
-        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
+
+        textField.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return textField
     }()
 
@@ -118,14 +135,18 @@ final class ProductEnrollmentView: UIView {
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.placeholder = Const.productPrice
         textField.keyboardType = .numberPad
-        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
+
+        textField.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return textField
     }()
 
     let currencySegmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: [
-            Currency.krw.rawValue,
-            Currency.usd.rawValue])
+        let segmentedControl = UISegmentedControl(
+            items: [Currency.krw.rawValue,
+                    Currency.usd.rawValue])
+
         segmentedControl.selectedSegmentIndex = Const.zero
         return segmentedControl
     }()
@@ -137,7 +158,10 @@ final class ProductEnrollmentView: UIView {
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.placeholder = Const.productDiscountedPrice
         textField.keyboardType = .numberPad
-        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
+
+        textField.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return textField
     }()
 
@@ -148,7 +172,10 @@ final class ProductEnrollmentView: UIView {
         textField.layer.borderColor = UIColor.systemGray2.cgColor
         textField.placeholder = Const.productStock
         textField.keyboardType = .numberPad
-        textField.font = UIFont.preferredFont(forTextStyle: .caption1)
+
+        textField.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return textField
     }()
 
@@ -156,21 +183,29 @@ final class ProductEnrollmentView: UIView {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.font = UIFont.preferredFont(forTextStyle: .caption1)
+
+        textView.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return textView
     }()
 
     private let pagePurpose: PagePurpose
+    private let bag = AnyCancelTaskBag()
 
-    init(pagePurpose: PagePurpose) {
+    init(
+        pagePurpose: PagePurpose) {
         self.pagePurpose = pagePurpose
-        super.init(frame: .zero)
+
+        super.init(
+            frame: .zero)
         
         bind()
     }
 
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
+    required init?(
+        coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -182,7 +217,9 @@ final class ProductEnrollmentView: UIView {
         imageAndPickerButtonScrollView.addSubview(imageAndPickerButtonStackView)
         productDescriptionTextView.delegate = self
 
-        let heightAnchor = rootScrollView.heightAnchor.constraint(equalTo: rootScrollView.heightAnchor)
+        let heightAnchor = rootScrollView.heightAnchor.constraint(
+            equalTo: rootScrollView.heightAnchor)
+
         heightAnchor.priority = .defaultHigh
         heightAnchor.isActive = true
 
@@ -202,29 +239,45 @@ final class ProductEnrollmentView: UIView {
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            rootScrollView.topAnchor.constraint(equalTo: topAnchor),
-            rootScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            rootScrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            rootScrollView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            rootScrollView.topAnchor.constraint(
+                equalTo: topAnchor),
+            rootScrollView.leadingAnchor.constraint(
+                equalTo: leadingAnchor),
+            rootScrollView.trailingAnchor.constraint(
+                equalTo: trailingAnchor),
+            rootScrollView.bottomAnchor.constraint(
+                equalTo: bottomAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: rootScrollView.topAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: rootScrollView.leadingAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: rootScrollView.trailingAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: rootScrollView.bottomAnchor),
-            rootStackView.widthAnchor.constraint(equalTo: rootScrollView.widthAnchor),
+            rootStackView.topAnchor.constraint(
+                equalTo: rootScrollView.topAnchor),
+            rootStackView.leadingAnchor.constraint(
+                equalTo: rootScrollView.leadingAnchor),
+            rootStackView.trailingAnchor.constraint(
+                equalTo: rootScrollView.trailingAnchor),
+            rootStackView.bottomAnchor.constraint(
+                equalTo: rootScrollView.bottomAnchor),
+            rootStackView.widthAnchor.constraint(
+                equalTo: rootScrollView.widthAnchor),
         ])
 
         NSLayoutConstraint.activate([
-            imageAndPickerButtonStackView.topAnchor.constraint(equalTo: imageAndPickerButtonScrollView.topAnchor),
-            imageAndPickerButtonStackView.bottomAnchor.constraint(equalTo: imageAndPickerButtonScrollView.bottomAnchor),
-            imageAndPickerButtonStackView.trailingAnchor.constraint(equalTo: imageAndPickerButtonScrollView.trailingAnchor),
-            imageAndPickerButtonStackView.leadingAnchor.constraint(equalTo: imageAndPickerButtonScrollView.leadingAnchor),
+            imageAndPickerButtonStackView.topAnchor.constraint(
+                equalTo: imageAndPickerButtonScrollView.topAnchor),
+            imageAndPickerButtonStackView.bottomAnchor.constraint(
+                equalTo: imageAndPickerButtonScrollView.bottomAnchor),
+            imageAndPickerButtonStackView.trailingAnchor.constraint(
+                equalTo: imageAndPickerButtonScrollView.trailingAnchor),
+            imageAndPickerButtonStackView.leadingAnchor.constraint(
+                equalTo: imageAndPickerButtonScrollView.leadingAnchor),
 
-            imageAndPickerButtonStackView.heightAnchor.constraint(equalTo: imageAndPickerButtonScrollView.heightAnchor),
-            productDescriptionTextView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            enrollmentButton.widthAnchor.constraint(equalTo: enrollmentButton.heightAnchor)
+            imageAndPickerButtonStackView.heightAnchor.constraint(
+                equalTo: imageAndPickerButtonScrollView.heightAnchor),
+            productDescriptionTextView.bottomAnchor.constraint(
+                equalTo: bottomAnchor),
+            enrollmentButton.widthAnchor.constraint(
+                equalTo: enrollmentButton.heightAnchor)
         ])
     }
 
@@ -234,6 +287,7 @@ final class ProductEnrollmentView: UIView {
             selector: #selector(keyboardWillShow),
             name: UIResponder.keyboardWillShowNotification,
             object: nil)
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillHide),
@@ -241,7 +295,9 @@ final class ProductEnrollmentView: UIView {
             object: nil)
     }
 
-    private func checkNumberOfTextValidation(_ text: String?, by limitedNumber: Int) -> Bool {
+    private func checkNumberOfTextValidation(
+        _ text: String?,
+        by limitedNumber: Int) -> Bool {
         guard let count = text?.count,
               count >= limitedNumber else {
             return false
@@ -250,24 +306,31 @@ final class ProductEnrollmentView: UIView {
     }
 
     func convertTextToTypeDTO() -> TypedProductDetailsRequestDTO {
-        let currency = currencySegmentedControl.selectedSegmentIndex == 0 ? Currency.krw : Currency.usd
-        let data = TypedProductDetailsRequestDTO(name: productNameTextField.text ?? "",
-                                                 description: productDescriptionTextView.text,
-                                                 price: originalPriceTextField.text?.convertToDouble() ?? Const.zeroPointZero,
-                                                 currency: currency.rawValue,
-                                                 discountedPrice: discountedPriceTextField.text?.convertToDouble(),
-                                                 stock: productStockTextField.text?.convertToInt(),
-                                                 secret: User.secret)
+        let currency = currencySegmentedControl.selectedSegmentIndex ==
+        0 ? Currency.krw : Currency.usd
+
+        let data = TypedProductDetailsRequestDTO(
+            name: productNameTextField.text ?? "",
+            description: productDescriptionTextView.text,
+            price: originalPriceTextField.text?.convertToDouble() ?? Const.zeroPointZero,
+            currency: currency.rawValue,
+            discountedPrice: discountedPriceTextField.text?.convertToDouble(),
+            stock: productStockTextField.text?.convertToInt(),
+            secret: User.secret)
+
         return data
     }
 
-    func addSquareImageView(_ view: UIView) {
+    func addSquareImageView(
+        _ view: UIView) {
         imageStackView.addArrangedSubview(view)
     }
 
-    @objc private func keyboardWillShow(_ notification: Notification) {
+    @objc private func keyboardWillShow(
+        _ notification: Notification) {
         guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+              let keyboardFrame =
+                userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
 
@@ -299,22 +362,28 @@ final class ProductEnrollmentView: UIView {
         static let productDiscountedPrice = "할인금액"
         static let productStock = "재고 수량"
         static let productDescription = "상품설명"
+        static let alertCommonTitle = "알림"
+        static let confirmTitle = "확인"
+        static let exceedValue = "글자수가 초과되었습니다"
     }
 }
 
 extension ProductEnrollmentView: UITextViewDelegate {
-    func textView(_ textView: UITextView,
-                  shouldChangeTextIn range: NSRange,
-                  replacementText text: String) -> Bool {
-        guard checkNumberOfTextValidation(textView.text,
-                                          by: Const.oneThousand) else {
-            //            self.presentConfirmAlert(message: AlertMessage.exceedValue)
+    func textView(
+        _ textView: UITextView,
+        shouldChangeTextIn range: NSRange,
+        replacementText text: String) -> Bool {
+        guard checkNumberOfTextValidation(
+            textView.text,
+            by: Const.oneThousand) else {
+            
             return true
         }
         return false
     }
 
-    func textViewDidBeginEditing(_ textView: UITextView) {
+    func textViewDidBeginEditing(
+        _ textView: UITextView) {
         guard textView.text == Const.productDescription else {
             return
         }
@@ -323,8 +392,10 @@ extension ProductEnrollmentView: UITextViewDelegate {
         textView.textColor = .black
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        guard textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+    func textViewDidEndEditing(
+        _ textView: UITextView) {
+        guard textView.text.trimmingCharacters(
+            in: .whitespacesAndNewlines).isEmpty else {
             return
         }
 

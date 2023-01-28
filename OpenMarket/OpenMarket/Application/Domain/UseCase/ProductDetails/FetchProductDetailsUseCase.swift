@@ -12,11 +12,14 @@ protocol FetchProductDetailsUseCase {
 final class DefaultFetchProductDetailsUseCase: FetchProductDetailsUseCase {
     private let productDetailsRepository: ProductDetailsRepository
 
-    init(productDetailsRepository: ProductDetailsRepository) {
+    init(
+        productDetailsRepository: ProductDetailsRepository) {
         self.productDetailsRepository = productDetailsRepository
     }
 
-    func execute(productID: Int) async throws -> ProductDetailsRequestDTO {
-        return try await productDetailsRepository.fetchProductDetails(productID: productID)
+    func execute(
+        productID: Int) async throws -> ProductDetailsRequestDTO {
+        return try await productDetailsRepository.fetchProductDetails(
+            productID: productID)
     }
 }

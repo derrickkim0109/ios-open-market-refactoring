@@ -10,16 +10,21 @@ import Foundation
 final class DefaultModifyProductRepository {
     private let dataTransferService: DataTransferService
 
-    init(dataTransferService: DataTransferService) {
+    init(
+        dataTransferService: DataTransferService) {
         self.dataTransferService = dataTransferService
     }
 }
 
 extension DefaultModifyProductRepository: ModifyProductRepository {
-    func modifyProduct(productID: Int,
-                       product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response {
-        let endpoint = APIEndpoints.patchProduct(productID,
-                                                 product: product)
-        return try await dataTransferService.request(with: endpoint)
+    func modifyProduct(
+        productID: Int,
+        product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response {
+        let endpoint = APIEndpoints.patchProduct(
+            productID,
+            product: product)
+
+        return try await dataTransferService.request(
+            with: endpoint)
     }
 }

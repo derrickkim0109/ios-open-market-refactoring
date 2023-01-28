@@ -15,10 +15,14 @@ class LoadingIndicator {
         }
 
         let loadingIndicatorView: UIActivityIndicatorView
-        if let existedView = window.subviews.first(where: { $0 is UIActivityIndicatorView } ) as? UIActivityIndicatorView {
+
+        if let existedView = window.subviews.first(
+            where: { $0 is UIActivityIndicatorView } ) as? UIActivityIndicatorView {
             loadingIndicatorView = existedView
         } else {
-            loadingIndicatorView = UIActivityIndicatorView(style: .large)
+            loadingIndicatorView = UIActivityIndicatorView(
+                style: .large)
+            
             loadingIndicatorView.frame = window.frame
             loadingIndicatorView.color = .brown
             window.addSubview(loadingIndicatorView)

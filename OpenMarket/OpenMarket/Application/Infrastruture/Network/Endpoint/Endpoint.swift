@@ -27,16 +27,17 @@ final class Endpoint<R>: ResponseRequestable {
     let bodyEncoding: BodyEncoding
     let responseDecoder: ResponseDecoder
 
-    init(path: String,
-         isFullPath: Bool = false,
-         method: HTTPMethodType,
-         headerParameters: [String: String] = [:],
-         queryParametersEncodable: Encodable? = nil,
-         queryParameters: [String: Any] = [:],
-         bodyParametersEncodable: Encodable? = nil,
-         bodyParameters: [String: Any] = [:],
-         bodyEncoding: BodyEncoding = .jsonSerializationData,
-         responseDecoder: ResponseDecoder = JSONResponseDecoder()) {
+    init(
+        path: String,
+        isFullPath: Bool = false,
+        method: HTTPMethodType,
+        headerParameters: [String: String] = [:],
+        queryParametersEncodable: Encodable? = nil,
+        queryParameters: [String: Any] = [:],
+        bodyParametersEncodable: Encodable? = nil,
+        bodyParameters: [String: Any] = [:],
+        bodyEncoding: BodyEncoding = .jsonSerializationData,
+        responseDecoder: ResponseDecoder = JSONResponseDecoder()) {
         self.path = path
         self.isFullPath = isFullPath
         self.method = method

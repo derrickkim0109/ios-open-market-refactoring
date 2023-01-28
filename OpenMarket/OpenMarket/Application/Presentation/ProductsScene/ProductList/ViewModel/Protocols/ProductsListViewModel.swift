@@ -10,10 +10,12 @@ import Foundation
 protocol ProductsListViewModel: ProductsListViewModelInput, ProductsListViewModelOutput {}
 
 protocol ProductsListViewModelInput {
-    func transform(input: (pageNumber: Int,
-                           itemsPerPage: Int)) async
+    func transform(
+        input: (pageNumber: Int,
+                itemsPerPage: Int)) async
     func viewDidLoad()
-    func didSelectItem(_ item: ProductEntity)
+    func didSelectItem(
+        _ item: ProductEntity)
     func didTapEnrollmentButton()
 }
 

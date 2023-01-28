@@ -9,8 +9,10 @@ import UIKit
 
 final class ProductListCollectionCell: UICollectionViewCell {
     private lazy var rootStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productImageView,
-                                                       labelStackView])
+        let stackView = UIStackView(
+            arrangedSubviews: [productImageView,
+                               labelStackView])
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fill
@@ -20,10 +22,12 @@ final class ProductListCollectionCell: UICollectionViewCell {
     }()
     
     private lazy var labelStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [productNameLabel,
-                                                       originalPriceLabel,
-                                                       discountedPriceLabel,
-                                                       stockLabel])
+        let stackView = UIStackView(
+            arrangedSubviews: [productNameLabel,
+                               originalPriceLabel,
+                               discountedPriceLabel,
+                               stockLabel])
+
         stackView.axis = .vertical
         stackView.distribution = .fillProportionally
         stackView.spacing = Const.five
@@ -42,45 +46,61 @@ final class ProductListCollectionCell: UICollectionViewCell {
     
     private let productNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .title3)
         label.adjustsFontForContentSizeCategory = true
+
+        label.font = UIFont.preferredFont(
+            forTextStyle: .title3)
+
         return label
     }()
     
     private let originalPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .gray
         label.numberOfLines = Const.zero
         label.adjustsFontForContentSizeCategory = true
+
+        label.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return label
     }()
     
     private let discountedPriceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .gray
         label.numberOfLines = Const.zero
         label.adjustsFontForContentSizeCategory = true
+
+        label.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return label
     }()
     
     private let stockLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
         label.textColor = .gray
         label.adjustsFontForContentSizeCategory = true
+
+        label.font = UIFont.preferredFont(
+            forTextStyle: .caption1)
+
         return label
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(
+        frame: CGRect) {
+        super.init(
+            frame: frame)
         bind()
     }
     
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    required init?(
+        coder: NSCoder) {
+        super.init(
+            coder: coder)
     }
     
     override func prepareForReuse() {
@@ -102,27 +122,37 @@ final class ProductListCollectionCell: UICollectionViewCell {
 
     private func configureLayouts() {
         NSLayoutConstraint.activate([
-            rootStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            rootStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            rootStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            rootStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            rootStackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor),
+            rootStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor),
+            rootStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor),
+            rootStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor),
 
-            productImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
-            productImageView.heightAnchor.constraint(equalTo: productImageView.widthAnchor,
-                                                     multiplier: Const.zeroPointEight)
+            productImageView.widthAnchor.constraint(
+                equalTo: contentView.widthAnchor),
+            productImageView.heightAnchor.constraint(
+                equalTo: productImageView.widthAnchor,
+                multiplier: Const.zeroPointEight)
         ])
     }
     
     private func configureForOriginal() {
         discountedPriceLabel.isHidden = true
-        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(value: Const.zero)
         originalPriceLabel.textColor = .systemGray
+
+        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(
+            value: Const.zero)
     }
     
     private func configureForBargain() {
         discountedPriceLabel.isHidden = false
-        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(value: NSUnderlineStyle.single.rawValue)
         originalPriceLabel.textColor = .systemRed
+
+        originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(
+            value: NSUnderlineStyle.single.rawValue)
     }
     
     func fill(with viewModel: ProductsListItemViewModel) {
@@ -131,9 +161,10 @@ final class ProductListCollectionCell: UICollectionViewCell {
         originalPriceLabel.text = viewModel.originalPriceText
         discountedPriceLabel.text = viewModel.discountedPriceText
         stockLabel.text = viewModel.stockText
-
-        viewModel.isDiscountedItem == true ? configureForBargain() : configureForOriginal()
         stockLabel.textColor = viewModel.stockTextColor
+
+        viewModel.isDiscountedItem ==
+        true ? configureForBargain() : configureForOriginal()
     }
 
     enum Const {

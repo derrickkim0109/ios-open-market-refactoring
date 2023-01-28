@@ -17,25 +17,28 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
     let loading: ProductsListViewModelLoading? = .none
     var state: ProductsListState?
 
-    init(fetchProductsUseCase: FetchProductsUseCase,
-         actions: ProductsListViewModelActions? = nil) {
+    init(
+        fetchProductsUseCase: FetchProductsUseCase,
+        actions: ProductsListViewModelActions? = nil) {
         self.fetchProductsUseCase = fetchProductsUseCase
         self.actions = actions
     }
 
-    private func fetch(pageNumber: Int,
-                       itemsPerPage: Int) async throws -> ProductsResponseDTO? {
+    private func fetch(
+        pageNumber: Int,
+        itemsPerPage: Int) async throws -> ProductsResponseDTO? {
         do {
-            let result = try await fetchProductsUseCase.execute(requestValue:
-                                                                    FetchProductsUseCaseRequestValue(page: pageNumber,
-                                                                                                     itemPerPage: itemsPerPage))
+            let result = try await fetchProductsUseCase.execute(
+                requestValue: FetchProductsUseCaseRequestValue(page: pageNumber,
+                                                               itemPerPage: itemsPerPage))
             return result
         } catch (let error) {
             throw error
         }
     }
 
-    private func format(data: [Product]?) -> [ProductEntity] {
+    private func format(
+        data: [Product]?) -> [ProductEntity] {
         let convertedEntity = data?.compactMap{ $0.toDomain() }
 
         guard let convertedEntity else {
@@ -45,39 +48,47 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
         return convertedEntity
     }
 
-    private func handleFetchingProducts(error: Error) -> String {
+    private func handleFetchingProducts(
+        error: Error) -> String {
         return error.isInternetConnectionError ?
-        NSLocalizedString(Const.noInternetConnection,
-                          comment: Const.empty) :
-        NSLocalizedString(Const.failedFetchingProducts,
-                          comment: Const.empty)
+        NSLocalizedString(
+            Const.noInternetConnection,
+            comment: Const.empty) :
+        NSLocalizedString(
+            Const.failedFetchingProducts,
+            comment: Const.empty)
     }
 
     private enum Const {
         static let empty = ""
-        static let noInternetConnection = "No internet connection"
-        static let failedFetchingProducts = "Failed fetching products"
+        static let noInternetConnection = "인터넷 연결에 실패하였습니다."
+        static let failedFetchingProducts = "상품 리스트를 불러오는데 실패하였습니다."
     }
 }
 
 extension DefaultProductsListViewModel {
     func viewDidLoad() { }
 
-    func transform(input: (pageNumber: Int,
-                           itemsPerPage: Int)) async {
+    func transform(
+        input: (pageNumber: Int,
+                itemsPerPage: Int)) async {
         do {
             let (pageNumber, itemsPerPage) = input
-            let data = try await fetch(pageNumber: pageNumber,
-                                       itemsPerPage: itemsPerPage)
 
-            state = .success(data: format(data: data?.pages))
+            let data = try await fetch(
+                pageNumber: pageNumber,
+                itemsPerPage: itemsPerPage)
 
+            state = .success(
+                data: format(data: data?.pages))
         } catch (let error) {
-            state = .failed(error: handleFetchingProducts(error: error))
+            state = .failed(
+                error: handleFetchingProducts(error: error))
         }
     }
     
-    func didSelectItem(_ item: ProductEntity) {
+    func didSelectItem(
+        _ item: ProductEntity) {
         actions?.presentProductDetails(item)
     }
 

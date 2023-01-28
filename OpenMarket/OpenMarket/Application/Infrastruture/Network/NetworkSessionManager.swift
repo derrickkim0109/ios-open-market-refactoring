@@ -8,7 +8,8 @@
 import UIKit
 
 protocol NetworkSessionManager {
-    func request(_ request: URLRequest) async throws -> Data?
+    func request(
+        _ request: URLRequest) async throws -> Data?
 }
 
 final class DefaultNetworkSessionManager: NetworkSessionManager {
@@ -17,9 +18,11 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
 
     private init() {}
     
-    func request(_ request: URLRequest) async throws -> Data? {
+    func request(
+        _ request: URLRequest) async throws -> Data? {
         do {
-            let (data, response) = try await session.data(for: request)
+            let (data, response) = try await session.data(
+                for: request)
 
             if let httpResponse = response as? HTTPURLResponse,
                httpResponse.statusCode != 200 {
@@ -27,18 +30,23 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
                     return data
                 }
 
-                throw NetworkError.error(statusCode: httpResponse.statusCode,
-                                         data: data)
+                throw NetworkError.error(
+                    statusCode: httpResponse.statusCode,
+                    data: data)
             }
 
             return data
         } catch (let error) {
-            throw resolve(error: error)
+            throw resolve(
+                error: error)
         }
     }
 
-    private func resolve(error: Error) -> NetworkError {
-        let code = URLError.Code(rawValue: (error as NSError).code)
+    private func resolve(
+        error: Error) -> NetworkError {
+        let code = URLError.Code(
+            rawValue: (error as NSError).code)
+            
         switch code {
         case .notConnectedToInternet:
             return .notConnected

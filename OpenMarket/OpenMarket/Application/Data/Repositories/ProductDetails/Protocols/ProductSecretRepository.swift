@@ -6,5 +6,6 @@
 //
 
 protocol ProductSecretRepository {
-    func fetchProductSecret(productID: Int) async throws -> Endpoint<String>.Response
+    func fetchProductSecret(
+        productID: Int) async throws -> Endpoint<String>.Response
 }

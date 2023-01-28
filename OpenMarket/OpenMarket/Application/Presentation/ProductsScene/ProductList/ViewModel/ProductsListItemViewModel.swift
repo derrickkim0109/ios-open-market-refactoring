@@ -31,7 +31,8 @@ struct ProductsListItemViewModel {
     }
 
     var stockText: String {
-        return isEmptyStock == true ? Const.emptyStock : Const.leftOver + Const.colons + "\(model.stock)"
+        return isEmptyStock ==
+        true ? Const.emptyStock : Const.leftOver + Const.colons + "\(model.stock)"
     }
 
     var isDiscountedItem: Bool {
@@ -46,7 +47,8 @@ struct ProductsListItemViewModel {
         return isEmptyStock == true ? .systemYellow : .systemGray
     }
 
-    init(model: ProductEntity) {
+    init(
+        model: ProductEntity) {
         self.model = model
     }
 

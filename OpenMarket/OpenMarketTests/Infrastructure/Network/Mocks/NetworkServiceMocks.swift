@@ -8,7 +8,9 @@
 import Foundation
 
 class NetworkConfigurableMock: NetworkConfigurable {
-    var baseURL: URL = URL(string: "https://openmarket.yagom-academy.kr")!
+    var baseURL: URL = URL(
+        string: "https://openmarket.yagom-academy.kr")!
+    
     var headers: [String: String] = [:]
     var queryParameters: [String: String] = [:]
 }

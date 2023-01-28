@@ -6,5 +6,6 @@
 //
 
 protocol DeleteProductRepository {
-    func deleteProduct(deleteURI: String) async throws
+    func deleteProduct(
+        deleteURI: String) async throws
 }

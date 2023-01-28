@@ -11,15 +11,17 @@ final class AppFlowCoordinator {
     var navigationController: UINavigationController
     private let appDIContainer: AppDIContainer
     
-    init(navigationController: UINavigationController,
-         appDIContainer: AppDIContainer) {
+    init(
+        navigationController: UINavigationController,
+        appDIContainer: AppDIContainer) {
         self.navigationController = navigationController
         self.appDIContainer = appDIContainer
     }
     
     func start() {
         let productsSceneDIContainer = appDIContainer.makeProductsSceneDIContainer()
-        let flow = productsSceneDIContainer.makeProductsListFlowCoordinator(navigationController: navigationController)
+        let flow = productsSceneDIContainer.makeProductsListFlowCoordinator(
+            navigationController: navigationController)
         flow.start()
     }
 }

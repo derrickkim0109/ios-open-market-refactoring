@@ -18,9 +18,10 @@ struct ApiDataNetworkConfig: NetworkConfigurable {
     let headers: [String: String]
     let queryParameters: [String: String]
 
-    init(baseURL: URL,
-         headers: [String: String] = [:],
-         queryParameters: [String: String] = [:]) {
+    init(
+        baseURL: URL,
+        headers: [String: String] = [:],
+        queryParameters: [String: String] = [:]) {
         self.baseURL = baseURL
         self.headers = headers
         self.queryParameters = queryParameters
