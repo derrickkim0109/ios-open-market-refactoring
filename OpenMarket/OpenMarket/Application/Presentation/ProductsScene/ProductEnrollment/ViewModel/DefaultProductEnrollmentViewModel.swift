@@ -63,6 +63,13 @@ extension DefaultProductEnrollmentViewModel {
                 product: product,
                 images: images)
 
+            await AlertControllerBulider.Builder()
+                .setMessag(Const.enrollmentSuccess)
+                .setConfirmAction({ [weak self](_) in
+                    self?.actions?.dismissViewController()
+                })
+                .build()
+                .present()
         } catch (let error) {
             state = .failed(
                 error: handlePostProduct(error: error))

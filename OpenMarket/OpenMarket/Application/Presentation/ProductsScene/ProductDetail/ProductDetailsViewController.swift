@@ -61,7 +61,13 @@ final class ProductDetailsViewController: UIViewController {
                 updateUI(data)
                 await LoadingIndicator.hideLoading()
             case .failed(let errorMessage):
-                presentConfirmAlert(message: errorMessage)
+                await AlertControllerBulider.Builder()
+                    .setMessag(errorMessage)
+                    .setConfirmAction({ [weak self] _ in
+                        self?.viewModel.popViewController()
+                    })
+                    .build()
+                    .present()
             }
         }.store(in: bag)
     }
@@ -157,6 +163,37 @@ final class ProductDetailsViewController: UIViewController {
     }
 
     @MainActor
+    private func presentActionSheet() {
+        Task {
+            await AlertControllerBulider.Builder()
+                .setAlertStyle(.actionSheet)
+                .setConfrimText(Const.modifyTitle)
+                .setConfirmAction({ [weak self] _ in
+                    self?.viewModel.didSelectEditButton()
+                })
+                .setDestructiveStyleCancelText(Const.deleteTitle)
+                .setDestructiveStyleCancelAction({ [weak self] _ in
+                    guard let `self` = self else {
+                        return
+                    }
+
+                    Task {
+                        await AlertControllerBulider.Builder()
+                            .setTitle(Const.alertCommonTitle)
+                            .setMessag(Const.deleteMessage)
+                            .setConfrimText(Const.confirmTitle)
+                            .setConfirmAction({ [weak self] _ in
+                                self?.deleteProduct()
+                            })
+                            .setDestructiveStyleCancelText(Const.deleteTitle)
+                            .build()
+                            .present()
+                    }.store(in: self.bag)
+                })
+                .setCancelStyleCancelText(Const.cancelTitle)
+                .build()
+                .present()
+        }.store(in: bag)
     }
 
     private func deleteProduct() {
@@ -171,6 +208,11 @@ final class ProductDetailsViewController: UIViewController {
             case .success(_):
                 viewModel.popViewController()
             case .failed(let errorMessage):
+                await AlertControllerBulider.Builder()
+                    .setMessag(errorMessage)
+                    .setConfrimText(Const.confirmTitle)
+                    .build()
+                    .present()
             }
         }.store(in: bag)
     }
