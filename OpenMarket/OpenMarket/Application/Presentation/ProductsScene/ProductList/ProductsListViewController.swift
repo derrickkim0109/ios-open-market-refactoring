@@ -26,28 +26,28 @@ final class ProductsListViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.tintColor = .systemBlue
-
+        
         imageView.image = UIImage(
             systemName: Const.systemCircleImageName)
-
+        
         imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
     init(
         viewModel: ProductsListViewModel) {
-        self.viewModel = viewModel
-
-        super.init(
-            nibName: nil,
-            bundle: nil)
-    }
+            self.viewModel = viewModel
+            
+            super.init(
+                nibName: nil,
+                bundle: nil)
+        }
     
     @available(*, unavailable)
     required init?(
         coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+            fatalError(Const.fatalErrorComment)
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,11 +56,11 @@ final class ProductsListViewController: UIViewController {
     
     override func viewWillAppear(
         _ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        bindViewModel(
-            by: initialPageInfo)
-    }
+            super.viewWillAppear(animated)
+            
+            bindViewModel(
+                by: initialPageInfo)
+        }
     
     private func bind() {
         view.backgroundColor = .systemBackground
@@ -90,7 +90,9 @@ final class ProductsListViewController: UIViewController {
                 applySnapshot(by: data)
             case .failed(let errorMessage):
                 await AlertControllerBulider.Builder()
+                    .setTitle(Const.alertCommonTitle)
                     .setMessag(errorMessage)
+                    .setConfrimText(Const.confirmTitle)
                     .build()
                     .present()
             }
@@ -125,7 +127,9 @@ final class ProductsListViewController: UIViewController {
     
     private func configureDataSource() -> DataSource {
         let cellRegistration = UICollectionView.CellRegistration<ProductListCollectionCell, ProductEntity> {
-            cell, indexPath, item in
+            (cell,
+             indexPath,
+             item) in
             cell.layer.borderColor = UIColor.systemGray.cgColor
             cell.layer.borderWidth = Const.borderWidthOnePoint
             cell.layer.cornerRadius = Const.cornerRadiusTenPoint
@@ -136,12 +140,14 @@ final class ProductsListViewController: UIViewController {
         
         return UICollectionViewDiffableDataSource<ListSection,ProductEntity>(
             collectionView: productListView.collectionView) {
-            (collectionView, indexPath, itemIdentifier) -> UICollectionViewCell? in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifier)
-        }
+                (collectionView,
+                 indexPath,
+                 itemIdentifier) -> UICollectionViewCell? in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier)
+            }
     }
     
     private func makeSnapshot() -> Snapshot {
@@ -154,15 +160,15 @@ final class ProductsListViewController: UIViewController {
     @MainActor
     private func applySnapshot(
         by data: [ProductEntity]) {
-        if initialPageInfo.pageNumber == RequestName.initialPageNumber {
-            snapshot = makeSnapshot()
+            if initialPageInfo.pageNumber == RequestName.initialPageNumber {
+                snapshot = makeSnapshot()
+            }
+            
+            snapshot.appendItems(data)
+            dataSource.apply(
+                snapshot,
+                animatingDifferences: false)
         }
-        
-        snapshot.appendItems(data)
-        dataSource.apply(
-            snapshot,
-            animatingDifferences: false)
-    }
     
     private func configureRefreshControl() {
         productListView.collectionView.refreshControl = UIRefreshControl()
@@ -176,10 +182,10 @@ final class ProductsListViewController: UIViewController {
         initialPageInfo = (
             RequestName.initialPageNumber,
             RequestName.initialItemPerPage)
-
+        
         bindViewModel(
             by: initialPageInfo)
-
+        
         productListView.collectionView.refreshControl?.endRefreshing()
     }
     
@@ -212,6 +218,9 @@ final class ProductsListViewController: UIViewController {
         static let fifty: CGFloat = 50
         static let hundred: CGFloat = 100
         static let systemCircleImageName = "plus.circle.fill"
+        static let alertCommonTitle = "알림"
+        static let confirmTitle = "확인"
+        static let fatalErrorComment = "init(coder:) has not been implemented"
     }
 }
 
@@ -219,32 +228,32 @@ extension ProductsListViewController: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath) {
-        guard let product = dataSource.itemIdentifier(
-            for: indexPath) else {
-            collectionView.deselectItem(
-                at: indexPath,
-                animated: true)
-            return
+            guard let product = dataSource.itemIdentifier(
+                for: indexPath) else {
+                collectionView.deselectItem(
+                    at: indexPath,
+                    animated: true)
+                return
+            }
+            
+            viewModel.didSelectItem(product)
         }
-        
-        viewModel.didSelectItem(product)
-    }
     
     func scrollViewDidEndDragging(
         _ scrollView: UIScrollView,
         willDecelerate decelerate: Bool) {
-        reloadDataDidScrollDown(productListView.collectionView)
-    }
+            reloadDataDidScrollDown(productListView.collectionView)
+        }
     
     private func reloadDataDidScrollDown(
         _ collectionView: UICollectionView) {
-        let trigger = (collectionView.contentSize.height -
-                       collectionView.bounds.size.height) + Const.hundred
-        
-        if collectionView.contentOffset.y > trigger {
-            initialPageInfo = (initialPageInfo.pageNumber + Const.one,
-                               RequestName.initialItemPerPage)
-            bindViewModel(by: initialPageInfo)
+            let trigger = (collectionView.contentSize.height -
+                           collectionView.bounds.size.height) + Const.hundred
+            
+            if collectionView.contentOffset.y > trigger {
+                initialPageInfo = (initialPageInfo.pageNumber + Const.one,
+                                   RequestName.initialItemPerPage)
+                bindViewModel(by: initialPageInfo)
+            }
         }
-    }
 }

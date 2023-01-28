@@ -10,121 +10,123 @@ import UIKit
 final class ProductDetailsViewController: UIViewController {
     private typealias DataSource = UICollectionViewDiffableDataSource<DetailsSection, String>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<DetailsSection, String>
-
+    
     private lazy var productDetailsView = ProductDetailsView()
     private lazy var productDetailImagesDataSource = configureDataSource()
-
+    
     private let viewModel: ProductDetailsViewModel
     private let bag = AnyCancelTaskBag()
-
+    
     init(
         viewModel: ProductDetailsViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
+            self.viewModel = viewModel
+            super.init(nibName: nil, bundle: nil)
+        }
+    
+    @available(*, unavailable)
+    required init?(
+        coder: NSCoder) {
+            fatalError(Const.fatalErrorComment)
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
     }
-
+    
     override func viewWillAppear(
         _ animated: Bool) {
-        super.viewWillAppear(animated)
-        bindViewModel(viewModel)
-        configureNavigationItems()
-    }
-
+            super.viewWillAppear(animated)
+            bindViewModel(viewModel)
+            configureNavigationItems()
+        }
+    
     private func bind() {
         view.backgroundColor = .systemBackground
         view.addSubview(productDetailsView)
         productDetailsView.imagesCollectionView.delegate = self
         configureLayouts()
     }
-
+    
     @MainActor
     private func bindViewModel(
         _ viewModel: ProductDetailsViewModel) {
-        Task {
-            await viewModel.transform()
-
-            guard let state = viewModel.state else {
-                return
-            }
-
-            switch state {
-            case .success(let data):
-                updateUI(data)
-                await LoadingIndicator.hideLoading()
-            case .failed(let errorMessage):
-                await AlertControllerBulider.Builder()
-                    .setMessag(errorMessage)
-                    .setConfirmAction({ [weak self] _ in
-                        self?.viewModel.popViewController()
-                    })
-                    .build()
-                    .present()
-            }
-        }.store(in: bag)
-    }
-
+            Task {
+                await viewModel.transform()
+                
+                guard let state = viewModel.state else {
+                    return
+                }
+                
+                switch state {
+                case .success(let data):
+                    updateUI(data)
+                    await LoadingIndicator.hideLoading()
+                case .failed(let errorMessage):
+                    await AlertControllerBulider.Builder()
+                        .setMessag(errorMessage)
+                        .setConfirmAction({ [weak self] _ in
+                            self?.viewModel.popViewController()
+                        })
+                        .build()
+                        .present()
+                }
+            }.store(in: bag)
+        }
+    
     @MainActor
     private func updateUI(
         _ data: ProductDetailsEntity) {
-        title = data.name
-
-        productDetailsView.productNameLabel.text = data.name
-        productDetailsView.stockLabel.text = data.stock.description
-        productDetailsView.originalPriceLabel.text = data.price.description
-        productDetailsView.discountedPriceLabel.text = data.bargainPrice.description
-        productDetailsView.productDescriptionTextView.text = data.description
-
-        (data.price != data.bargainPrice) ==
-        true ? configureForBargain() : configureForOriginal()
-
-        productDetailsView.stockLabel.textColor = viewModel.isEmptyStock ==
-        true ? .systemYellow : .systemGray
-
-        applySnapShot(
-            productDetailImagesDataSource,
-            by: data.images)
-    }
-
+            title = data.name
+            
+            productDetailsView.productNameLabel.text = data.name
+            productDetailsView.stockLabel.text = data.stock.description
+            productDetailsView.originalPriceLabel.text = data.price.description
+            productDetailsView.discountedPriceLabel.text = data.bargainPrice.description
+            productDetailsView.productDescriptionTextView.text = data.description
+            
+            (data.price != data.bargainPrice) ==
+            true ? configureForBargain() : configureForOriginal()
+            
+            productDetailsView.stockLabel.textColor = viewModel.isEmptyStock ==
+            true ? .systemYellow : .systemGray
+            
+            applySnapShot(
+                productDetailImagesDataSource,
+                by: data.images)
+        }
+    
     private func configureForOriginal() {
         productDetailsView.discountedPriceLabel.isHidden = true
-
+        
         productDetailsView.originalPriceLabel.attributedText =
         productDetailsView.originalPriceLabel.text?.strikeThrough(
             value: Const.zero)
-
+        
         productDetailsView.originalPriceLabel.textColor = .systemGray
     }
-
+    
     private func configureForBargain() {
         productDetailsView.discountedPriceLabel.isHidden = false
-
+        
         productDetailsView.originalPriceLabel.attributedText =
         productDetailsView.originalPriceLabel.text?.strikeThrough(
             value: NSUnderlineStyle.single.rawValue)
-
+        
         productDetailsView.originalPriceLabel.textColor = .systemRed
     }
-
+    
     private func applySnapShot(
         _ dataSource: DataSource,
         by data: [String]) {
-        var snapShot = Snapshot()
-        snapShot.appendSections([.main])
-        snapShot.appendItems(data)
-
-        dataSource.apply(snapShot,
-                         animatingDifferences: true)
-    }
-
+            var snapShot = Snapshot()
+            snapShot.appendSections([.main])
+            snapShot.appendItems(data)
+            
+            dataSource.apply(snapShot,
+                             animatingDifferences: true)
+        }
+    
     private func configureLayouts() {
         NSLayoutConstraint.activate([
             productDetailsView.topAnchor.constraint(
@@ -139,7 +141,7 @@ final class ProductDetailsViewController: UIViewController {
                 equalToConstant: view.layer.bounds.height * Const.zeroPintThirtyFive)
         ])
     }
-
+    
     private func configureNavigationItems() {
         let leftButtonImage = UIImage(
             systemName: Const.navigationItemBackward)
@@ -152,7 +154,7 @@ final class ProductDetailsViewController: UIViewController {
         guard viewModel.isEqualVendorID else {
             return
         }
-
+        
         let rightButtonImage = UIImage(
             systemName: Const.navigationItemArrowUp)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
@@ -161,7 +163,7 @@ final class ProductDetailsViewController: UIViewController {
             target: self,
             action: #selector(didTapEditButton))
     }
-
+    
     @MainActor
     private func presentActionSheet() {
         Task {
@@ -176,7 +178,7 @@ final class ProductDetailsViewController: UIViewController {
                     guard let `self` = self else {
                         return
                     }
-
+                    
                     Task {
                         await AlertControllerBulider.Builder()
                             .setTitle(Const.alertCommonTitle)
@@ -195,15 +197,15 @@ final class ProductDetailsViewController: UIViewController {
                 .present()
         }.store(in: bag)
     }
-
+    
     private func deleteProduct() {
         Task {
             await viewModel.didSelectDeleteButton()
-
+            
             guard let state = viewModel.state else {
                 return 
             }
-
+            
             switch state {
             case .success(_):
                 viewModel.popViewController()
@@ -216,44 +218,46 @@ final class ProductDetailsViewController: UIViewController {
             }
         }.store(in: bag)
     }
-
+    
     private func configureDataSource() -> DataSource {
         let cellRegistration = UICollectionView.CellRegistration<ProductDetailsCollectionViewCell, String> {
-            [weak self] cell, indexPath, item in
+            [weak self] (cell,
+                         indexPath,
+                         item) in
             guard let items = self?.viewModel.items else {
                 return
             }
             let viewModel = ProductDetailsItemViewModel(model: items)
-
+            
             cell.fill(
                 imageURL: item,
                 currentIndex: viewModel.returnTotalPage(indexPath.row + Const.one))
         }
-
+        
         return UICollectionViewDiffableDataSource<DetailsSection, String>(
             collectionView: productDetailsView.imagesCollectionView) {
-            (collectionView,
-             indexPath,
-             itemIdentifier) -> UICollectionViewCell? in
-            return collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifier)
-        }
+                (collectionView,
+                 indexPath,
+                 itemIdentifier) -> UICollectionViewCell? in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
+                    for: indexPath,
+                    item: itemIdentifier)
+            }
     }
-
+    
     @objc private func didTapBackButton() {
         viewModel.popViewController()
     }
-
+    
     @objc private func didTapEditButton() {
         presentActionSheet()
     }
-
+    
     enum DetailsSection {
         case main
     }
-
+    
     enum Const {
         static let zero = 0
         static let zeroPintThirtyFive: CGFloat = 0.35
@@ -267,6 +271,7 @@ final class ProductDetailsViewController: UIViewController {
         static let modifyTitle = "수정"
         static let deleteMessage = "정말 삭제하시겠습니까?"
         static let deleteSuccess = "상품 삭제 완료하였습니다"
+        static let fatalErrorComment = "init(coder:) has not been implemented"
     }
 }
 
@@ -274,8 +279,8 @@ extension ProductDetailsViewController: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(
-            at: indexPath,
-            animated: true)
-    }
+            collectionView.deselectItem(
+                at: indexPath,
+                animated: true)
+        }
 }

@@ -61,7 +61,8 @@ extension DefaultProductModificationViewModel {
             try await motify(
                 productID: product.id,
                 product: input)
-            state = .success
+
+            actions?.dismissViewController()
         } catch (let error) {
             state = .failed(
                 error: handleModifyProduct(error: error))

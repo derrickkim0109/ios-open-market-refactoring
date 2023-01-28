@@ -15,15 +15,15 @@ final class ProductEnrollmentViewController: UIViewController {
     
     init(
         viewModel: ProductEnrollmentViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
+            self.viewModel = viewModel
+            super.init(nibName: nil, bundle: nil)
+        }
     
     @available(*, unavailable)
     required init?(
         coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+            fatalError(Const.fatalErrorComment)
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ final class ProductEnrollmentViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(productEnrollmentView)
         productEnrollmentView.productImagePicker.delegate = self
-
+        
         productEnrollmentView.enrollmentButton.addTarget(
             self,
             action: #selector(didTapImagePickerButton(_:)),
@@ -52,18 +52,20 @@ final class ProductEnrollmentViewController: UIViewController {
             }
             
             let input = (data, images)
-
+            
             await viewModel.didSelectEnrollmentButton(
                 input: input)
             
             guard let state = viewModel.state else {
                 return
             }
-
+            
             switch state {
             case .failed(let errorMessage):
                 await AlertControllerBulider.Builder()
+                    .setTitle(Const.alertCommonTitle)
                     .setMessag(errorMessage)
+                    .setConfrimText(Const.confirmTitle)
                     .build()
                     .present()
             }
@@ -88,12 +90,12 @@ final class ProductEnrollmentViewController: UIViewController {
     
     private func configureNavigationItems() {
         title = Const.productEnrollment
-
+        
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .cancel,
             target: self,
             action: #selector(didTapCancelButton))
-
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .done,
             target: self,
@@ -130,27 +132,32 @@ final class ProductEnrollmentViewController: UIViewController {
     
     @objc private func didTapImagePickerButton(
         _ sender: UIButton) {
-        guard productEnrollmentView.imageStackView.subviews.count < 5 else {
-            Task {
-                await AlertControllerBulider.Builder()
-                    .setMessag(Const.exceedImages)
-                    .build()
-                    .present()
-            }.store(
-                in: bag)
-            return
+            guard productEnrollmentView.imageStackView.subviews.count < 5 else {
+                Task {
+                    await AlertControllerBulider.Builder()
+                        .setTitle(Const.alertCommonTitle)
+                        .setMessag(Const.exceedImages)
+                        .setConfrimText(Const.confirmTitle)
+                        .build()
+                        .present()
+                }.store(
+                    in: bag)
+                return
+            }
+            
+            present(
+                self.productEnrollmentView.productImagePicker,
+                animated: true)
         }
-        
-        present(
-            self.productEnrollmentView.productImagePicker,
-            animated: true)
-    }
     
     enum Const {
         static let zeroPointThree: CGFloat = 0.3
         static let productEnrollment = "상품등록"
         static let pngType = "png"
         static let exceedImages = "이미지를 추가할 수 없습니다"
+        static let fatalErrorComment = "init(coder:) has not been implemented"
+        static let alertCommonTitle = "알림"
+        static let confirmTitle = "확인"
     }
 }
 
@@ -158,21 +165,21 @@ extension ProductEnrollmentViewController: UIImagePickerControllerDelegate, UINa
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        var newImage = UIImage()
-        
-        if let possibleImage =
-            info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            newImage = possibleImage
-        } else if let possibleImage =
-                    info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            newImage = possibleImage
+            var newImage = UIImage()
+            
+            if let possibleImage =
+                info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                newImage = possibleImage
+            } else if let possibleImage =
+                        info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                newImage = possibleImage
+            }
+            
+            let newView = newImage.configureSquareImageView()
+            
+            productEnrollmentView.addSquareImageView(newView)
+            picker.dismiss(
+                animated: true,
+                completion: nil)
         }
-        
-        let newView = newImage.configureSquareImageView()
-        
-        productEnrollmentView.addSquareImageView(newView)
-        picker.dismiss(
-            animated: true,
-            completion: nil)
-    }
 }
