@@ -89,10 +89,7 @@ final class ProductsListViewController: UIViewController {
             case .success(let data):
                 applySnapshot(by: data)
             case .failed(let errorMessage):
-                await AlertControllerBulider.Builder()
-                    .setMessag(errorMessage)
-                    .build()
-                    .present()
+                presentConfirmAlert(message: errorMessage)
             }
         }.store(in: bag)
     }

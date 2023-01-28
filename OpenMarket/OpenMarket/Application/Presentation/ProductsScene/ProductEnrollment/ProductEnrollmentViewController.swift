@@ -62,10 +62,7 @@ final class ProductEnrollmentViewController: UIViewController {
 
             switch state {
             case .failed(let errorMessage):
-                await AlertControllerBulider.Builder()
-                    .setMessag(errorMessage)
-                    .build()
-                    .present()
+                presentConfirmAlert(message: errorMessage)
             }
         }.store(in: bag)
     }
@@ -131,13 +128,7 @@ final class ProductEnrollmentViewController: UIViewController {
     @objc private func didTapImagePickerButton(
         _ sender: UIButton) {
         guard productEnrollmentView.imageStackView.subviews.count < 5 else {
-            Task {
-                await AlertControllerBulider.Builder()
-                    .setMessag(Const.exceedImages)
-                    .build()
-                    .present()
-            }.store(
-                in: bag)
+            presentConfirmAlert(message: AlertMessage.exceedImages)
             return
         }
         

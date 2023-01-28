@@ -376,14 +376,6 @@ extension ProductEnrollmentView: UITextViewDelegate {
         guard checkNumberOfTextValidation(
             textView.text,
             by: Const.oneThousand) else {
-            Task {
-                await AlertControllerBulider.Builder()
-                    .setTitle(Const.alertCommonTitle)
-                    .setMessag(Const.exceedValue)
-                    .setConfrimText(Const.confirmTitle)
-                    .build()
-                    .present()
-            }.store(in: bag)
             
             return true
         }

@@ -55,18 +55,8 @@ final class ProductModificationViewController: UIViewController {
             }
 
             switch state {
-            case .success:
-                await AlertControllerBulider.Builder()
-                    .setMessag(Const.modificationSuccess)
-                    .build()
-                    .present()
-                
-                viewModel.dismissScene()
             case .failed(let errorMessage):
-                await AlertControllerBulider.Builder()
-                    .setMessag(errorMessage)
-                    .build()
-                    .present()
+                presentConfirmAlert(message: errorMessage)
             }
         }.store(in: bag)
     }
