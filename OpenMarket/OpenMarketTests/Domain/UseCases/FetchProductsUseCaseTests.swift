@@ -9,7 +9,7 @@ import XCTest
 
 final class FetchProductsUseCaseTests: XCTestCase {
     let products: ProductsResponseDTO = {
-        let pages = Product.sample
+        let pages = Product.list
         return ProductsResponseDTO(pageNo: 1,
                                    itemsPerPage: 10,
                                    pages: pages)
@@ -19,9 +19,9 @@ final class FetchProductsUseCaseTests: XCTestCase {
         case failedFetching
     }
 
-    func testFetchProductsUseCase_상품연결이성공할_때() async {
+    func testFetchProductsUseCase_상품리스트연결이성공할_때() async {
         // given
-        let expectation = self.expectation(description: "상품 연결한다")
+        let expectation = self.expectation(description: "상품 리스트에 연결한다")
         
         let productsRepositoryMock = ProductsRepositoryMock(result: products,
                                                             error: nil)
@@ -45,9 +45,9 @@ final class FetchProductsUseCaseTests: XCTestCase {
         XCTAssertEqual(responsedProducts[0].id, products.pages[0].id)
     }
 
-    func testFetchProductsUseCase_상품연결이실패할_때() async {
+    func testFetchProductsUseCase_상품리스트연결이실패할_때() async {
         // given
-        let expectation = self.expectation(description: "상품 연결이 실패한다")
+        let expectation = self.expectation(description: "상품 리스트 연결에 실패한다")
 
         let productsRepositoryMock = ProductsRepositoryMock(result: products,
                                                             error: ProductsRepositorySuccessTestError.failedFetching)
