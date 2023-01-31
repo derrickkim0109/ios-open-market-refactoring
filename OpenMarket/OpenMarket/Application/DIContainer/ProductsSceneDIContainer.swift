@@ -14,7 +14,8 @@ final class ProductsSceneDIContainer {
     
     private let dependencies: Dependencies
     
-    init(dependencies: Dependencies) {
+    init(
+        dependencies: Dependencies) {
         self.dependencies = dependencies
     }
     

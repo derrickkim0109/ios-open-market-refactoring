@@ -10,3 +10,4 @@ protocol ProductsRepository {
         page: Int,
         itemsPerPage: Int) async throws -> Endpoint<ProductsResponseDTO>.Response
 }
+
