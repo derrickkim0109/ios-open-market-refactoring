@@ -33,8 +33,8 @@ extension Product {
                 createdAt: createdAt,
                 issuedAt: issuedAt)
         }
-
-    static let sample = [
+    
+    static let list = [
         Product.stub(
             id: 1,
             vendorId: 12,
