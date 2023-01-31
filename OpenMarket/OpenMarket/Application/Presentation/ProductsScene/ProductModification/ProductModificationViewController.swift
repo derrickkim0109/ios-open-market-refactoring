@@ -64,7 +64,9 @@ final class ProductModificationViewController: UIViewController {
                     .build()
                     .present()
             }
-        }.store(in: bag)
+        }
+        .store(
+            in: bag)
     }
     
     private func configureLayouts() {
@@ -123,8 +125,13 @@ final class ProductModificationViewController: UIViewController {
     private func configureProfileImageView(
         with imageURL: String) -> UIImageView {
             let imageView = UIImageView()
-            imageView.setImageUrl(imageURL)
-            
+
+            Task {
+                await imageView.setImageUrl(imageURL)
+            }
+            .store(
+                in: bag)
+
             return imageView
         }
     

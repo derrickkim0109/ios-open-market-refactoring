@@ -68,7 +68,7 @@ final class ProductsListViewController: UIViewController {
         view.addSubview(productEnrollmentImageViewButton)
         
         productListView.collectionView.delegate = self
-        
+
         configureLayouts()
         configureRefreshControl()
         setupProductEnrollmentImageViewGesture()

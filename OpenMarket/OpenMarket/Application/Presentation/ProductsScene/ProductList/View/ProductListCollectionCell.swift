@@ -89,6 +89,8 @@ final class ProductListCollectionCell: UICollectionViewCell {
         return label
     }()
 
+    private let bag = AnyCancelTaskBag()
+
     override init(
         frame: CGRect) {
         super.init(
@@ -156,7 +158,12 @@ final class ProductListCollectionCell: UICollectionViewCell {
     }
     
     func fill(with viewModel: ProductsListItemViewModel) {
-        productImageView.setImageUrl(viewModel.thumbnail)
+        Task {
+            await productImageView.setImageUrl(viewModel.thumbnail)
+        }
+        .store(
+            in: bag)
+
         productNameLabel.text = viewModel.name
         originalPriceLabel.text = viewModel.originalPriceText
         discountedPriceLabel.text = viewModel.discountedPriceText

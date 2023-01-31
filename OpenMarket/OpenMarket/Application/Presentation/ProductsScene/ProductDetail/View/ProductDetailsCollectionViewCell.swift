@@ -26,6 +26,8 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    private let bag = AnyCancelTaskBag()
+
     override init(
         frame: CGRect) {
         super.init(
@@ -83,7 +85,12 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
     func fill(
         imageURL: String,
         currentIndex: String) {
-        productImageView.setImageUrl(imageURL)
+            Task {
+                await productImageView.setImageUrl(imageURL)
+            }
+            .store(
+                in: bag)
+            
         productImageQuantityLabel.text = currentIndex
     }
 
