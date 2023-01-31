@@ -8,10 +8,11 @@
 import UIKit
 
 extension UIImageView {
-    func setImageUrl(_ url: String) {
+    func setImageUrl(_ url: String) async {
         let imageCacheManager = ImageCacheManager.shared
-        
-        DispatchQueue.global(qos: .background).async {
+        let bag = AnyCancelTaskBag()
+
+        Task {
             let cachedKey = NSString(string: url)
             if let cachedImage = imageCacheManager.object(forKey: cachedKey) {
                 DispatchQueue.main.async {
@@ -25,22 +26,29 @@ extension UIImageView {
                 return
             }
 
-            URLSession.shared.dataTask(with: url) { (data, result, error) in
-                guard error == nil else {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.image = UIImage()
-                    }
-                    
-                    return
+            do {
+                let (data, response) = try await URLSession.shared.data(
+                    for: URLRequest(url: url))
+
+                if let httpResponse = response as? HTTPURLResponse,
+                   httpResponse.statusCode != 200 {
+
+                    throw NetworkError.error(
+                        statusCode: httpResponse.statusCode,
+                        data: data)
                 }
 
-                DispatchQueue.main.async { [weak self] in
-                    if let data = data, let image = UIImage(data: data) {
-                        imageCacheManager.setObject(image, forKey: cachedKey)
-                        self?.image = image
-                    }
+                if let image = UIImage(data: data) {
+                    imageCacheManager.setObject(image, forKey: cachedKey)
+                    Task {
+                        await MainActor.run() {
+                            self.image = image
+                        }
+                    }.store(in: bag)
                 }
-            }.resume()
-        }
+            } catch {
+                self.image = UIImage()
+            }
+        }.store(in: bag)
     }
 }
