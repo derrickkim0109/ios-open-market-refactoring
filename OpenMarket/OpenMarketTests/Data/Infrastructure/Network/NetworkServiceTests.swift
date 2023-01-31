@@ -199,9 +199,9 @@ fileprivate struct EndpointMock: Requestable {
     init(
         path: String,
         method: HTTPMethodType) {
-        self.path = path
-        self.method = method
-    }
+            self.path = path
+            self.method = method
+        }
 }
 
 fileprivate enum NetworkErrorMock: Error {

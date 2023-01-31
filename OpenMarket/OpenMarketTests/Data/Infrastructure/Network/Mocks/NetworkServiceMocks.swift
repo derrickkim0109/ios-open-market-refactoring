@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkConfigurableMock: NetworkConfigurable {
+struct NetworkConfigurableMock: NetworkConfigurable {
     var baseURL: URL = URL(
         string: "https://openmarket.yagom-academy.kr")!
     
