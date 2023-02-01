@@ -36,6 +36,8 @@ class LoadingIndicator {
             return
         }
         
-        window.subviews.filter({ $0 is UIActivityIndicatorView }).forEach { $0.removeFromSuperview() }
+        window.subviews
+            .filter({ $0 is UIActivityIndicatorView })
+            .forEach { $0.removeFromSuperview() }
     }
 }
