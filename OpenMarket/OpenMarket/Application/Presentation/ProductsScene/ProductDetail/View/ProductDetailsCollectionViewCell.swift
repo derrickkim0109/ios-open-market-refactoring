@@ -30,18 +30,18 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
 
     override init(
         frame: CGRect) {
-        super.init(
-            frame: frame)
+            super.init(
+                frame: frame)
 
-        bind()
-    }
+            bind()
+        }
     
     @available(*, unavailable)
     required init?(
         coder: NSCoder) {
-        super.init(
-            coder: coder)
-    }
+            super.init(
+                coder: coder)
+        }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -81,18 +81,30 @@ final class ProductDetailsCollectionViewCell: UICollectionViewCell {
                 equalTo: contentView.trailingAnchor),
         ])
     }
-    
+
+    private func setupImageCaching(from imageURL: String) async {
+        do {
+            try await productImageView.setImageUrl(imageURL)
+        } catch (let error) {
+            await AlertControllerBulider.Builder()
+                .setMessag(error.localizedDescription)
+                .setConfrimText("확인")
+                .build()
+                .present()
+        }
+    }
+
     func fill(
         imageURL: String,
         currentIndex: String) {
             Task {
-                await productImageView.setImageUrl(imageURL)
+                await setupImageCaching(from: imageURL)
             }
             .store(
                 in: bag)
             
-        productImageQuantityLabel.text = currentIndex
-    }
+            productImageQuantityLabel.text = currentIndex
+        }
 
     enum Const {
         static let ten: CGFloat = 10

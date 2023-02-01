@@ -156,10 +156,22 @@ final class ProductListCollectionCell: UICollectionViewCell {
         originalPriceLabel.attributedText = originalPriceLabel.text?.strikeThrough(
             value: NSUnderlineStyle.single.rawValue)
     }
-    
+
+    private func setupImageCaching(from imageURL: String) async {
+        do {
+            try await productImageView.setImageUrl(imageURL)
+        } catch (let error) {
+            await AlertControllerBulider.Builder()
+                .setMessag(error.localizedDescription)
+                .setConfrimText("확인")
+                .build()
+                .present()
+        }
+    }
+
     func fill(with viewModel: ProductsListItemViewModel) {
         Task {
-            await productImageView.setImageUrl(viewModel.thumbnail)
+            await setupImageCaching(from: viewModel.thumbnail)
         }
         .store(
             in: bag)

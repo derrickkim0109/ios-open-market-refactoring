@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImageView {
-    func setImageUrl(_ url: String) async {
+    func setImageUrl(_ url: String) async throws {
         let imageCacheManager = ImageCacheManager.shared
         let bag = AnyCancelTaskBag()
 

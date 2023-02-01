@@ -121,13 +121,25 @@ final class ProductModificationViewController: UIViewController {
         checkNumberOfText(
             in: productEnrollmentView.productDescriptionTextView)
     }
+
+    private func setupImageCaching(from imageURL: String, for imageView: UIImageView) async {
+        do {
+            try await imageView.setImageUrl(imageURL)
+        } catch (let error) {
+            await AlertControllerBulider.Builder()
+                .setMessag(error.localizedDescription)
+                .setConfrimText("확인")
+                .build()
+                .present()
+        }
+    }
     
     private func configureProfileImageView(
         with imageURL: String) -> UIImageView {
             let imageView = UIImageView()
 
             Task {
-                await imageView.setImageUrl(imageURL)
+                await setupImageCaching(from:imageURL,for: imageView)
             }
             .store(
                 in: bag)
