@@ -111,10 +111,34 @@
 		90AAB05D289E58DA00A3F1E1 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AAB05C289E58DA00A3F1E1 /* ImageCacheManager.swift */; };
 		90B8FAE32989163F002F2021 /* Product+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FAAF5E298663CD0074290F /* Product+Stub.swift */; };
 		90B8FAE529891677002F2021 /* ModifyProductsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAE429891677002F2021 /* ModifyProductsUseCaseTests.swift */; };
+		90B8FAE82989184A002F2021 /* ProductsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAE72989184A002F2021 /* ProductsListViewModelTests.swift */; };
+		90B8FAEB298918B5002F2021 /* FetchProductsUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAEA298918B5002F2021 /* FetchProductsUseCaseMock.swift */; };
+		90B8FAEC29891975002F2021 /* DefaultProductsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E2F69C288BC0E700E150AC /* DefaultProductsListViewModel.swift */; };
+		90B8FAED2989197C002F2021 /* DefaultProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B2F3AB2897AE1A00BC75CF /* DefaultProductDetailsViewModel.swift */; };
+		90B8FAEE29891981002F2021 /* DefaultProductEnrollmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881ED2972B50E0057ED87 /* DefaultProductEnrollmentViewModel.swift */; };
+		90B8FAEF29891981002F2021 /* DefaultProductEnrollmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881ED2972B50E0057ED87 /* DefaultProductEnrollmentViewModel.swift */; };
+		90B8FAF029891985002F2021 /* DefaultProductModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A29142971218C0058E1EF /* DefaultProductModificationViewModel.swift */; };
+		90B8FAF129891E16002F2021 /* ProductsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C2A296D994A002D396E /* ProductsListViewModel.swift */; };
+		90B8FAF229891E23002F2021 /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C2E296D9AFF002D396E /* ProductDetailsViewModel.swift */; };
+		90B8FAF329891E26002F2021 /* ProductEnrollmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A292929725B920058E1EF /* ProductEnrollmentViewModel.swift */; };
+		90B8FAF429891E29002F2021 /* ProductModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A2911297115640058E1EF /* ProductModificationViewModel.swift */; };
+		90B8FAF529891EF0002F2021 /* ProductEnrollmentViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881EB2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift */; };
+		90B8FAF629891EF7002F2021 /* ProductsListViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C2C296D9975002D396E /* ProductsListViewModelActions.swift */; };
+		90B8FAF729894D8B002F2021 /* ProductDetailsViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C32296D9B2E002D396E /* ProductDetailsViewModelActions.swift */; };
+		90B8FAF829894D97002F2021 /* ProductModificationViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A29252971832F0058E1EF /* ProductModificationViewModelActions.swift */; };
+		90B8FAFA2989545C002F2021 /* ProductDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAF92989545C002F2021 /* ProductDetailsViewModelTests.swift */; };
+		90B8FAFC298954E6002F2021 /* FetchProductDetailsUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAFB298954E6002F2021 /* FetchProductDetailsUseCaseMock.swift */; };
+		90B8FAFE29895675002F2021 /* ProductEntity+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FAFD29895675002F2021 /* ProductEntity+Stub.swift */; };
+		90B8FB3D298A7A66002F2021 /* ProductEnrollmentViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB3C298A7A66002F2021 /* ProductEnrollmentViewModelTests.swift */; };
+		90B8FB40298A7AD1002F2021 /* FetchProductSecretUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB3E298A7AD1002F2021 /* FetchProductSecretUseCaseMock.swift */; };
+		90B8FB41298A7AD1002F2021 /* DeleteProductUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB3F298A7AD1002F2021 /* DeleteProductUseCaseMock.swift */; };
+		90B8FB43298A7C3E002F2021 /* EnrollProductUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB42298A7C3E002F2021 /* EnrollProductUseCaseMock.swift */; };
+		90B8FB45298A80E4002F2021 /* ProductModificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB44298A80E4002F2021 /* ProductModificationViewModelTests.swift */; };
+		90B8FB47298A814E002F2021 /* ModifyProductsUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB46298A814E002F2021 /* ModifyProductsUseCaseMock.swift */; };
+		90B8FB49298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */; };
 		90C0AD8B29791C6D00F10DEA /* AnyCancellableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */; };
 		90C0AD8D29791C8700F10DEA /* AnyCancelTaskBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */; };
 		90C881EC2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881EB2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift */; };
-		90C881EE2972B50E0057ED87 /* DefaultProductEnrollmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881ED2972B50E0057ED87 /* DefaultProductEnrollmentViewModel.swift */; };
 		90C881F12972B58D0057ED87 /* EnrollProductUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881F02972B58D0057ED87 /* EnrollProductUseCase.swift */; };
 		90C881F52972B5F70057ED87 /* EnrollmentProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881F42972B5F70057ED87 /* EnrollmentProductRepository.swift */; };
 		90C881F72972B61E0057ED87 /* DefaultEnrollProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881F62972B61E0057ED87 /* DefaultEnrollProductRepository.swift */; };
@@ -234,6 +258,18 @@
 		90AAB034289DF7C000A3F1E1 /* UIRefreshControl+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Extensions.swift"; sourceTree = "<group>"; };
 		90AAB05C289E58DA00A3F1E1 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		90B8FAE429891677002F2021 /* ModifyProductsUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProductsUseCaseTests.swift; sourceTree = "<group>"; };
+		90B8FAE72989184A002F2021 /* ProductsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsListViewModelTests.swift; sourceTree = "<group>"; };
+		90B8FAEA298918B5002F2021 /* FetchProductsUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProductsUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FAF92989545C002F2021 /* ProductDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		90B8FAFB298954E6002F2021 /* FetchProductDetailsUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchProductDetailsUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FAFD29895675002F2021 /* ProductEntity+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductEntity+Stub.swift"; sourceTree = "<group>"; };
+		90B8FB3C298A7A66002F2021 /* ProductEnrollmentViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEnrollmentViewModelTests.swift; sourceTree = "<group>"; };
+		90B8FB3E298A7AD1002F2021 /* FetchProductSecretUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchProductSecretUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FB3F298A7AD1002F2021 /* DeleteProductUseCaseMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteProductUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FB42298A7C3E002F2021 /* EnrollProductUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollProductUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FB44298A80E4002F2021 /* ProductModificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModificationViewModelTests.swift; sourceTree = "<group>"; };
+		90B8FB46298A814E002F2021 /* ModifyProductsUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProductsUseCaseMock.swift; sourceTree = "<group>"; };
+		90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductDetailsEntity+Stub.swift"; sourceTree = "<group>"; };
 		90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCancellableTask.swift; sourceTree = "<group>"; };
 		90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCancelTaskBag.swift; sourceTree = "<group>"; };
 		90C881EB2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEnrollmentViewModelActions.swift; sourceTree = "<group>"; };
@@ -719,6 +755,21 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		90B8FAE9298918A5002F2021 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				90B8FAEA298918B5002F2021 /* FetchProductsUseCaseMock.swift */,
+				90B8FAFB298954E6002F2021 /* FetchProductDetailsUseCaseMock.swift */,
+				90B8FB3F298A7AD1002F2021 /* DeleteProductUseCaseMock.swift */,
+				90B8FB3E298A7AD1002F2021 /* FetchProductSecretUseCaseMock.swift */,
+				90B8FB42298A7C3E002F2021 /* EnrollProductUseCaseMock.swift */,
+				90B8FB46298A814E002F2021 /* ModifyProductsUseCaseMock.swift */,
+				90B8FAFD29895675002F2021 /* ProductEntity+Stub.swift */,
+				90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		90C0AD8E297951C400F10DEA /* Infrastruture */ = {
 			isa = PBXGroup;
 			children = (
@@ -863,6 +914,11 @@
 		90FAAF492983E01B0074290F /* ProductsScene */ = {
 			isa = PBXGroup;
 			children = (
+				90B8FAE9298918A5002F2021 /* Mocks */,
+				90B8FAE72989184A002F2021 /* ProductsListViewModelTests.swift */,
+				90B8FAF92989545C002F2021 /* ProductDetailsViewModelTests.swift */,
+				90B8FB3C298A7A66002F2021 /* ProductEnrollmentViewModelTests.swift */,
+				90B8FB44298A80E4002F2021 /* ProductModificationViewModelTests.swift */,
 			);
 			path = ProductsScene;
 			sourceTree = "<group>";
@@ -1048,39 +1104,60 @@
 			buildActionMask = 2147483647;
 			files = (
 				90FAAF5429862EEC0074290F /*  EnrollmentProductRepositoryMock.swift in Sources */,
+				90B8FAF029891985002F2021 /* DefaultProductModificationViewModel.swift in Sources */,
+				90B8FAF229891E23002F2021 /* ProductDetailsViewModel.swift in Sources */,
 				90B8FAE529891677002F2021 /* ModifyProductsUseCaseTests.swift in Sources */,
+				90B8FAEC29891975002F2021 /* DefaultProductsListViewModel.swift in Sources */,
+				90B8FB43298A7C3E002F2021 /* EnrollProductUseCaseMock.swift in Sources */,
 				904CB7B32988FCC200873F8F /* EnrollProductUseCase.swift in Sources */,
 				90FAAF5D29862F2A0074290F /* ModifyProductRepository.swift in Sources */,
+				90B8FB3D298A7A66002F2021 /* ProductEnrollmentViewModelTests.swift in Sources */,
 				90FAAF5029862EC90074290F /*  ProductSecretRepositoryMock.swift in Sources */,
+				90B8FAF829894D97002F2021 /* ProductModificationViewModelActions.swift in Sources */,
 				904CB7BA2989041A00873F8F /* TypedProductDetailsRequestDTO+Stub.swift in Sources */,
 				904CB7B82989034F00873F8F /* EnrollProductUseCaseTests.swift in Sources */,
+				90B8FAF629891EF7002F2021 /* ProductsListViewModelActions.swift in Sources */,
+				90B8FAF729894D8B002F2021 /* ProductDetailsViewModelActions.swift in Sources */,
+				90B8FAEB298918B5002F2021 /* FetchProductsUseCaseMock.swift in Sources */,
 				90FAAF5829862F180074290F /* ProductsRepository.swift in Sources */,
 				90A816A529822CC6002EA529 /* DataTransferService.swift in Sources */,
 				904CB7B6298901C200873F8F /* DeleteProductUseCaseTests.swift in Sources */,
+				90B8FB45298A80E4002F2021 /* ProductModificationViewModelTests.swift in Sources */,
 				90A816A629822CCE002EA529 /* ApiDataNetworkConfig.swift in Sources */,
 				90A81696297FC9F0002EA529 /* NetworkServiceMocks.swift in Sources */,
+				90B8FAFA2989545C002F2021 /* ProductDetailsViewModelTests.swift in Sources */,
+				90B8FAF329891E26002F2021 /* ProductEnrollmentViewModel.swift in Sources */,
 				90A816A729822CD9002EA529 /* Requestable.swift in Sources */,
 				90A816A829822CDC002EA529 /* MultiPartForm.swift in Sources */,
+				90B8FB40298A7AD1002F2021 /* FetchProductSecretUseCaseMock.swift in Sources */,
+				90B8FAEF29891981002F2021 /* DefaultProductEnrollmentViewModel.swift in Sources */,
 				90A816A02982253F002EA529 /* NetworkServiceTests.swift in Sources */,
 				90FAAF5229862EE30074290F /*  DeleteProductRepositoryMock.swift in Sources */,
 				90A816B829822DB2002EA529 /* TypedProductDetailsRequestDTO.swift in Sources */,
 				90A816AC29822CEF002EA529 /* User.swift in Sources */,
 				90A816B329822D88002EA529 /* DataTransferError.swift in Sources */,
 				90FAAF5F298663CD0074290F /* Product+Stub.swift in Sources */,
+				90B8FAF129891E16002F2021 /* ProductsListViewModel.swift in Sources */,
 				90FAAF4329834CCB0074290F /* ConnectionError.swift in Sources */,
 				90FAAF672987324A0074290F /* FetchProductsUseCaseTests.swift in Sources */,
 				90A816AD29822CF2002EA529 /* AnyCancellableTask.swift in Sources */,
 				90A816A929822CDE002EA529 /* JSONResponseDecoder.swift in Sources */,
 				90A816B629822DAD002EA529 /* ProductsRequestDTO+Mapping.swift in Sources */,
+				90B8FB49298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift in Sources */,
 				904CB7B12988FCBD00873F8F /* FetchProductSecretUseCase.swift in Sources */,
 				90A816B929822DC6002EA529 /* ProductEntity.swift in Sources */,
+				90B8FAED2989197C002F2021 /* DefaultProductDetailsViewModel.swift in Sources */,
 				90A816B729822DAF002EA529 /* ProductDetailsRequestDTO+Mapping.swift in Sources */,
+				90B8FAE82989184A002F2021 /* ProductsListViewModelTests.swift in Sources */,
 				90A816A329822CC1002EA529 /* ImageCacheManager.swift in Sources */,
+				90B8FAF429891E29002F2021 /* ProductModificationViewModel.swift in Sources */,
 				90A81699297FCA10002EA529 /* NetworkSessionManagerMock.swift in Sources */,
 				904CB7AB2988ECF700873F8F /* ProductDetailsRequestDTO+Stub.swift in Sources */,
 				904CB7A92988EC9100873F8F /* FetchProductDetailsUseCaseTests.swift in Sources */,
+				90B8FAF529891EF0002F2021 /* ProductEnrollmentViewModelActions.swift in Sources */,
 				904CB7B02988F65000873F8F /* FetchProductSecretUseCaseTests.swift in Sources */,
 				90FAAF3F298284BE0074290F /* DataTransferServiceTests.swift in Sources */,
+				90B8FB47298A814E002F2021 /* ModifyProductsUseCaseMock.swift in Sources */,
 				90A816A429822CC4002EA529 /* NetworkService.swift in Sources */,
 				90FAAF5629862EF30074290F /*  ModifyProductRepositoryMock.swift in Sources */,
 				904CB7A62988D9EB00873F8F /* FetchProductsUseCase.swift in Sources */,
@@ -1092,14 +1169,17 @@
 				90FAAF5B29862F220074290F /* DeleteProductRepository.swift in Sources */,
 				90A816B529822DA8002EA529 /* APIEndpoints.swift in Sources */,
 				904CB7BC298904B800873F8F /* ProductImageDTO+Stub.swift in Sources */,
+				90B8FB41298A7AD1002F2021 /* DeleteProductUseCaseMock.swift in Sources */,
 				904CB7B22988FCC000873F8F /* DeleteProductUseCase.swift in Sources */,
 				90FAAF5929862F1E0074290F /* ProductDetailsRepository.swift in Sources */,
 				90FAAF4E29862EBE0074290F /*  ProductDetailsRepositoryMock.swift in Sources */,
 				90A816AB29822CEC002EA529 /* HTTPMethod.swift in Sources */,
 				90A816AA29822CE0002EA529 /* Endpoint.swift in Sources */,
 				90A816A229822C87002EA529 /* NetworkSessionManager.swift in Sources */,
+				90B8FAFE29895675002F2021 /* ProductEntity+Stub.swift in Sources */,
 				90A816B429822D9B002EA529 /* NetworkError.swift in Sources */,
 				90FAAF5C29862F280074290F /* EnrollmentProductRepository.swift in Sources */,
+				90B8FAFC298954E6002F2021 /* FetchProductDetailsUseCaseMock.swift in Sources */,
 				904CB7A72988D9EE00873F8F /* FetchProductDetailsUseCase.swift in Sources */,
 				90FAAF4C29862EA00074290F /* ProductsRepositoryMock.swift in Sources */,
 			);
@@ -1114,7 +1194,6 @@
 				90C881FB2972DEC70057ED87 /* UIImage+Extensions.swift in Sources */,
 				905A291D29712F570058E1EF /* DefaultModifyProductRepository.swift in Sources */,
 				905A29152971218C0058E1EF /* DefaultProductModificationViewModel.swift in Sources */,
-				90C881EE2972B50E0057ED87 /* DefaultProductEnrollmentViewModel.swift in Sources */,
 				900BE11F295DCFC20040A630 /* ProductListView.swift in Sources */,
 				903A2C2C289A121100CEBC00 /* ProductModificationViewController.swift in Sources */,
 				904CB7A52988D9D100873F8F /* FetchProductsUseCaseTests.swift in Sources */,
@@ -1176,6 +1255,7 @@
 				90275C05296BC37B002D396E /* Endpoint.swift in Sources */,
 				9093F34628864B7F008014D2 /* ProductListCollectionCell.swift in Sources */,
 				90275C45297027DF002D396E /* DefaultDeleteProductRepository.swift in Sources */,
+				90B8FAEE29891981002F2021 /* DefaultProductEnrollmentViewModel.swift in Sources */,
 				9042078F289125E500910330 /* ProductDetailsViewController.swift in Sources */,
 				90275C08296BC3D1002D396E /* Requestable.swift in Sources */,
 				6AD8D04B287D8E9E0062E969 /* NetworkSessionManager.swift in Sources */,
