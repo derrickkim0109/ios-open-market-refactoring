@@ -9,11 +9,17 @@ import Foundation
 
 extension ProductImageDTO {
     static func stub(
-        data: Data,
-        mimeType: String
+        data: Data = Data(),
+        mimeType: String = "png"
     ) -> Self {
         return ProductImageDTO(data: data,
                                mimeType: mimeType)
     }
+
+    static let sample = [
+        ProductImageDTO.stub(),
+        ProductImageDTO.stub(),
+        ProductImageDTO.stub()
+    ]
 }
 

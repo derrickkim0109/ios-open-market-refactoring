@@ -33,46 +33,46 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         fetchProductSecretUseCase: FetchProductSecretUseCase,
         deleteProductUseCase: DeleteProductUseCase,
         actions: ProductDetailsViewModelActions? = nil) {
-        self.product = product
-        self.fetchProductDetailsUseCase = fetchProductDetailsUseCase
-        self.fetchProductSecretUseCase = fetchProductSecretUseCase
-        self.deleteProductUseCase = deleteProductUseCase
-        self.actions = actions
-    }
+            self.product = product
+            self.fetchProductDetailsUseCase = fetchProductDetailsUseCase
+            self.fetchProductSecretUseCase = fetchProductSecretUseCase
+            self.deleteProductUseCase = deleteProductUseCase
+            self.actions = actions
+        }
 
     private func fetchProduct(
         productID: Int) async throws -> ProductDetailsRequestDTO {
-        do {
-            let result = try await fetchProductDetailsUseCase.execute(
-                productID: productID)
+            do {
+                let result = try await fetchProductDetailsUseCase.execute(
+                    productID: productID)
 
-            return result
-        } catch (let error) {
-            throw error
+                return result
+            } catch (let error) {
+                throw error
+            }
         }
-    }
 
     private func fetchProductSecret(
         by productID: Int) async throws -> String {
-        do {
-            let result = try await fetchProductSecretUseCase.execute(
-                productID: productID)
+            do {
+                let result = try await fetchProductSecretUseCase.execute(
+                    productID: productID)
 
-            return result
-        } catch (let error) {
-            throw error
+                return result
+            } catch (let error) {
+                throw error
+            }
         }
-    }
 
     private func deleteProduct(
         deleteURL: String) async throws {
-        do {
-            try await deleteProductUseCase.execute(
-                deleteURL: deleteURL)
-        } catch (let error) {
-            throw error
+            do {
+                try await deleteProductUseCase.execute(
+                    deleteURL: deleteURL)
+            } catch (let error) {
+                throw error
+            }
         }
-    }
 
     private func checkVendorID() async {
         do {
@@ -90,42 +90,42 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
 
     private func handleFetchProductNetwork(
         error: Error) -> String {
-        return error.isInternetConnectionError ?
-        NSLocalizedString(
-            Const.noInternetConnection,
-            comment: Const.empty) :
-        NSLocalizedString(
-            Const.failedFetchingProduct,
-            comment: Const.empty)
-    }
+            return error.isInternetConnectionError ?
+            NSLocalizedString(
+                Const.noInternetConnection,
+                comment: Const.empty) :
+            NSLocalizedString(
+                Const.failedFetchingProduct,
+                comment: Const.empty)
+        }
 
     private func handleFetchProductSecret(
         error: Error) -> String {
-        return error.isInternetConnectionError ?
-        NSLocalizedString(
-            Const.noInternetConnection,
-            comment: Const.empty) :
-        NSLocalizedString(
-            Const.failedFetchingProductSecret,
-            comment: Const.empty)
-    }
+            return error.isInternetConnectionError ?
+            NSLocalizedString(
+                Const.noInternetConnection,
+                comment: Const.empty) :
+            NSLocalizedString(
+                Const.failedFetchingProductSecret,
+                comment: Const.empty)
+        }
 
     private func handleDeletingProduct(
         error: Error) -> String {
-        return error.isInternetConnectionError ?
-        NSLocalizedString(
-            Const.noInternetConnection,
-            comment: Const.empty) :
-        NSLocalizedString(
-            Const.failedDeletingProduct,
-            comment: Const.empty)
-    }
+            return error.isInternetConnectionError ?
+            NSLocalizedString(
+                Const.noInternetConnection,
+                comment: Const.empty) :
+            NSLocalizedString(
+                Const.failedDeletingProduct,
+                comment: Const.empty)
+        }
 
     private func format(
         productDetails: ProductDetailsRequestDTO) -> ProductDetailsEntity {
-        let productInfo = productDetails.toDomain()
-        return productInfo
-    }
+            let productInfo = productDetails.toDomain()
+            return productInfo
+        }
 
     private enum Const {
         static let empty = ""

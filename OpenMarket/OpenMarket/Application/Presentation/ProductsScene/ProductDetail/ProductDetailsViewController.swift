@@ -203,7 +203,7 @@ final class ProductDetailsViewController: UIViewController {
             await viewModel.didSelectDeleteButton()
             
             guard let state = viewModel.state else {
-                return 
+                return
             }
             
             switch state {

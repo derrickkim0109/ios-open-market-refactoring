@@ -9,13 +9,13 @@ import Foundation
 
 extension TypedProductDetailsRequestDTO {
     static func stub(
-        name: String,
-        description: String,
-        price: Double,
-        currency: String,
-        discountedPrice: Double?,
-        stock: Int?,
-        secret: String
+        name: String = "나뭇잎",
+        description: String = "은행나무",
+        price: Double = 100.0,
+        currency: String = "krw",
+        discountedPrice: Double? = 10.0,
+        stock: Int? = 10,
+        secret: String = "123"
     ) -> Self {
         return TypedProductDetailsRequestDTO(
             name: name,
@@ -26,4 +26,6 @@ extension TypedProductDetailsRequestDTO {
             stock: stock,
             secret: secret)
     }
+
+    static let sample = TypedProductDetailsRequestDTO.stub()
 }
