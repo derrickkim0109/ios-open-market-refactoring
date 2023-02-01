@@ -14,7 +14,7 @@ final class DeleteProductUseCaseTests: XCTestCase {
 
     func testDeleteProductUseCase_상품삭제가성공할_때() async {
         // given
-        let expectation = self.expectation(description: "상품을 삭제한다")
+        let expectation = self.expectation(description: "상품을 삭제한다.")
 
         let deleteProductRepositoryMock = DeleteProductRepositoryMock(result: (),
                                                                       error: nil)
@@ -34,7 +34,7 @@ final class DeleteProductUseCaseTests: XCTestCase {
 
     func testDeleteProductUseCase_상품삭제가실패할_때() async {
         // given
-        let expectation = self.expectation(description: "상품 삭제에 실패한다")
+        let expectation = self.expectation(description: "상품 삭제에 실패한다.")
 
         let deleteProductRepositoryMock = DeleteProductRepositoryMock(
             result: (),

@@ -14,7 +14,7 @@ final class EnrollProductUseCaseTests: XCTestCase {
     
     func testEnrollProductUseCase_상품등록에성공할_때() async {
         // given
-        let expectation = self.expectation(description: "상품을 등록한다")
+        let expectation = self.expectation(description: "상품을 등록한다.")
         
         let enrollmentProductRepositoryMock = EnrollmentProductRepositoryMock(result: (),
                                                                               error: nil)
@@ -51,7 +51,7 @@ final class EnrollProductUseCaseTests: XCTestCase {
     
     func testEnrollProductUseCase_상품등록에실패할_때() async {
         // given
-        let expectation = self.expectation(description: "상품을 등록에 실패한다")
+        let expectation = self.expectation(description: "상품을 등록에 실패한다.")
         
         let enrollmentProductRepositoryMock = EnrollmentProductRepositoryMock(
             result: (),

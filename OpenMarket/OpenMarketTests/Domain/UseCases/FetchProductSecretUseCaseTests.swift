@@ -16,7 +16,7 @@ final class FetchProductSecretUseCaseTests: XCTestCase {
 
     func testFetchProductSecretUseCase_상품Secret연결이성공할_때() async {
         // given
-        let expectation = self.expectation(description: "상품 Secret을 연결한다")
+        let expectation = self.expectation(description: "상품 Secret을 연결한다.")
 
         let productSecretRepositoryMock = ProductSecretRepositoryMock(result: productSecret,
                                                                       error: nil)
@@ -39,7 +39,7 @@ final class FetchProductSecretUseCaseTests: XCTestCase {
 
     func testFetchProductSecretUseCase_상품Secret연결이실패할_때() async {
         // given
-        let expectation = self.expectation(description: "상품 Secret을 연결에 실패한다")
+        let expectation = self.expectation(description: "상품 Secret을 연결에 실패한다.")
 
         let productSecretRepositoryMock = ProductSecretRepositoryMock(
             result: productSecret,
