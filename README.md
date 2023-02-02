@@ -281,7 +281,7 @@ protocol DataTransferErrorResolver {
 
 ## 📚 참고문서
 - [Concurrency - Explore structured concurrency in Swift WWDC21](https://developer.apple.com/videos/play/wwdc2021/10134/)
-	- [정리한 글](https://hackmd.io/c44EHt6cR9iIxjog1ei5pQ)
+	- [정리한 글](https://hackmd.io/Lj__DHc_RlSu76KlqOr68g)
 
 - [malloc: nano zone abandoned due to inability to preallocate reserved vm space](https://www.youtube.com/watch?v=V0GeOd72xqQ)
 
