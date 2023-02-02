@@ -6,7 +6,7 @@
 //
 
 protocol FetchProductDetailsUseCase {
-    func execute(productID: Int) async throws -> ProductDetailsRequestDTO
+    func execute(productID: Int) async throws -> ProductDetailsEntity
 }
 
 final class DefaultFetchProductDetailsUseCase: FetchProductDetailsUseCase {
@@ -18,7 +18,7 @@ final class DefaultFetchProductDetailsUseCase: FetchProductDetailsUseCase {
     }
 
     func execute(
-        productID: Int) async throws -> ProductDetailsRequestDTO {
+        productID: Int) async throws -> ProductDetailsEntity {
         return try await productDetailsRepository.fetchProductDetails(
             productID: productID)
     }

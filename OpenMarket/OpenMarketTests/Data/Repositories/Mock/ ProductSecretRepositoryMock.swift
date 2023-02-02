@@ -13,7 +13,7 @@ struct ProductSecretRepositoryMock: ProductSecretRepository {
     var error: Error?
     
     func fetchProductSecret(
-        productID: Int) async throws -> Endpoint<String>.Response {
+        productID: Int) async throws -> String {
             if error == nil {
                 return result
             } else {

@@ -9,24 +9,10 @@ import Foundation
 
 final class FetchProductDetailsUseCaseMock: FetchProductDetailsUseCase {
     var error: Error?
-    var productInfo = ProductDetailsRequestDTO(
-        id: 0,
-        vendorId: 0,
-        name: "",
-        description: "",
-        thumbnail: "",
-        currency: .krw,
-        price: 0.0,
-        bargainPrice: 0.0,
-        discountedPrice: 0.0,
-        stock: 0,
-        createdAt: "",
-        issuedAt: "",
-        images: [],
-        vendors: Vendor(id: 0, name: ""))
+    var productInfo = ProductDetailsEntity.stub(images: ["apple.png"])
     
     func execute(
-        productID: Int) async throws -> ProductDetailsRequestDTO {
+        productID: Int) async throws -> ProductDetailsEntity {
             if error == nil {
                 return productInfo
             } else {

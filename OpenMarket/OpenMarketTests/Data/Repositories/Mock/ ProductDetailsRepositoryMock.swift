@@ -13,9 +13,9 @@ struct ProductDetailsRepositoryMock: ProductDetailsRepository {
     var error: Error?
 
     func fetchProductDetails(
-        productID: Int) async throws -> Endpoint<ProductDetailsRequestDTO>.Response {
+        productID: Int) async throws -> ProductDetailsEntity {
             if error == nil {
-                return result
+                return result.toDomain()
             } else {
                 throw error ?? DataTransferError.noResponse
             }

@@ -41,7 +41,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
         }
     
     private func fetchProduct(
-        productID: Int) async throws -> ProductDetailsRequestDTO {
+        productID: Int) async throws -> ProductDetailsEntity {
             do {
                 let result = try await fetchProductDetailsUseCase.execute(
                     productID: productID)

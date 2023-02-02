@@ -9,12 +9,12 @@ import Foundation
 import XCTest
 
 struct ProductsRepositoryMock: ProductsRepository {
-    var result: ProductsResponseDTO
+    var result: [ProductEntity]
     var error: Error?
 
     func fetchProductsList(
         page: Int,
-        itemsPerPage: Int) async throws -> Endpoint<ProductsResponseDTO>.Response {
+        itemsPerPage: Int) async throws -> [ProductEntity] {
             if error == nil {
                 return result
             } else {

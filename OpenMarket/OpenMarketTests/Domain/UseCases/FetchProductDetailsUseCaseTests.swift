@@ -26,7 +26,7 @@ final class FetchProductDetailsUseCaseTests: XCTestCase {
         let productID = 1
 
         // then
-        var responsedProduct: ProductDetailsRequestDTO?
+        var responsedProduct: ProductDetailsEntity?
 
         do {
             responsedProduct = try await useCase.execute(productID: productID)
@@ -52,7 +52,7 @@ final class FetchProductDetailsUseCaseTests: XCTestCase {
         let productID = 1
 
         // then
-        var responsedProduct: ProductDetailsRequestDTO?
+        var responsedProduct: ProductDetailsEntity?
 
         do {
             responsedProduct = try await useCase.execute(productID: productID)
