@@ -29,7 +29,7 @@ extension ProductDetailsEntity {
                 stock: stock,
                 images: images)
         }
-
+    
     static let sample = ProductDetailsEntity.stub(
         images: ["apple.png", "iphone.png"])
 }

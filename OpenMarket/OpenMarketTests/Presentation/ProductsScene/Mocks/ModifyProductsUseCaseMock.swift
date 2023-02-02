@@ -10,7 +10,7 @@ import Foundation
 final class ModifyProductsUseCaseMock: ModifyProductsUseCase {
     var result: Void = ()
     var error: Error?
-
+    
     func execute(
         productID: Int,
         product: TypedProductDetailsRequestDTO) async throws {

@@ -20,9 +20,9 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
     init(
         fetchProductsUseCase: FetchProductsUseCase,
         actions: ProductsListViewModelActions? = nil) {
-        self.fetchProductsUseCase = fetchProductsUseCase
-        self.actions = actions
-    }
+            self.fetchProductsUseCase = fetchProductsUseCase
+            self.actions = actions
+        }
 
     private func fetch(
         pageNumber: Int,
@@ -35,29 +35,17 @@ final class DefaultProductsListViewModel: ProductsListViewModel {
         } catch (let error) {
             throw error
         }
-    }
-
-    private func format(
-        data: [Product]?) -> [ProductEntity] {
-        let convertedEntity = data?.compactMap{ $0.toDomain() }
-
-        guard let convertedEntity else {
-            return [ProductEntity]()
-        }
-
-        return convertedEntity
-    }
 
     private func handleFetchingProducts(
         error: Error) -> String {
-        return error.isInternetConnectionError ?
-        NSLocalizedString(
-            Const.noInternetConnection,
-            comment: Const.empty) :
-        NSLocalizedString(
-            Const.failedFetchingProducts,
-            comment: Const.empty)
-    }
+            return error.isInternetConnectionError ?
+            NSLocalizedString(
+                Const.noInternetConnection,
+                comment: Const.empty) :
+            NSLocalizedString(
+                Const.failedFetchingProducts,
+                comment: Const.empty)
+        }
 
     private enum Const {
         static let empty = ""
@@ -75,22 +63,24 @@ extension DefaultProductsListViewModel {
         do {
             let (pageNumber, itemsPerPage) = input
 
-            let data = try await fetch(
+            guard let data = try await fetch(
                 pageNumber: pageNumber,
-                itemsPerPage: itemsPerPage)
+                itemsPerPage: itemsPerPage) else {
+                return
+            }
 
             state = .success(
-                data: format(data: data?.pages))
+                data: data)
         } catch (let error) {
             state = .failed(
                 error: handleFetchingProducts(error: error))
         }
     }
-    
+
     func didSelectItem(
         _ item: ProductEntity) {
-        actions?.presentProductDetails(item)
-    }
+            actions?.presentProductDetails(item)
+        }
 
     func didTapEnrollmentButton() {
         actions?.presentProductEnrollment()

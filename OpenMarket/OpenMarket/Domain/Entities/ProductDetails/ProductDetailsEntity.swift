@@ -18,4 +18,3 @@ struct ProductDetailsEntity: Hashable {
     let stock: Int
     let images: [String]
 }
-

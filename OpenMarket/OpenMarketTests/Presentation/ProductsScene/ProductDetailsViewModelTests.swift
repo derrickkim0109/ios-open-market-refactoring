@@ -23,13 +23,13 @@ final class ProductDetailsViewModelTests: XCTestCase {
         let expectation = self.expectation(
             description: "ProductDetailsViewModel은 상품 정보 데이터를 가지고 있다.")
         
-        let productInfo = ProductDetailsRequestDTO.productInfo
+        let productInfo = ProductDetailsEntity.stub(images: ["apple.png"])
         
         // when
         fetchProductDetailsUseCaseMock.productInfo = productInfo
         
         let viewModel = DefaultProductDetailsViewModel(
-            product: ProductEntity.sample,
+            product: ProductEntity.stub(),
             fetchProductDetailsUseCase: fetchProductDetailsUseCaseMock,
             fetchProductSecretUseCase: fetchProductSecretUseCaseMock,
             deleteProductUseCase: deleteProductUseCaseMock)
@@ -70,7 +70,7 @@ final class ProductDetailsViewModelTests: XCTestCase {
         fetchProductDetailsUseCaseMock.error = FetchProductDetailsUseCaseError.someError
         
         let viewModel = DefaultProductDetailsViewModel(
-            product: ProductEntity.sample,
+            product: ProductEntity.stub(),
             fetchProductDetailsUseCase: fetchProductDetailsUseCaseMock,
             fetchProductSecretUseCase: fetchProductSecretUseCaseMock,
             deleteProductUseCase: deleteProductUseCaseMock)

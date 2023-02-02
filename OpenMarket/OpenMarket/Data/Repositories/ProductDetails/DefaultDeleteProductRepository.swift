@@ -12,17 +12,17 @@ final class DefaultDeleteProductRepository {
 
     init(
         dataTransferService: DataTransferService) {
-        self.dataTransferService = dataTransferService
-    }
+            self.dataTransferService = dataTransferService
+        }
 }
 
 extension DefaultDeleteProductRepository: DeleteProductRepository {
     func deleteProduct(
         deleteURI: String) async throws {
-        let endpoint = APIEndpoints.deleteProduct(
-            deleteURL: deleteURI)
+            let endpoint = APIEndpoints.deleteProduct(
+                deleteURL: deleteURI)
 
-        try await dataTransferService.request(
-            with: endpoint)
-    }
+            try await dataTransferService.request(
+                with: endpoint)
+        }
 }

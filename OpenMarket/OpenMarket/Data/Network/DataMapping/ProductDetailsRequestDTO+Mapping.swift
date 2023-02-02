@@ -37,10 +37,10 @@ extension ProductDetailsRequestDTO {
             stock: stock,
             images: productImages)
     }
-
+    
     private var productImages: [String] {
         var array: [String] = []
-
+        
         for image in images {
             array.append(image.url)
         }

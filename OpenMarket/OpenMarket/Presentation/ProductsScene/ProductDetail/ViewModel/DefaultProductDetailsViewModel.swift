@@ -12,7 +12,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     private let fetchProductSecretUseCase: FetchProductSecretUseCase
     private let deleteProductUseCase: DeleteProductUseCase
     private let actions: ProductDetailsViewModelActions?
-
+    
     // MARK: Output
     var loading: ProductsListViewModelLoading?
     var state: ProductDetailsState?
@@ -24,9 +24,9 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
     var isEqualVendorID: Bool {
         return product.vendorID == User.vendorID
     }
-
+    
     private let product: ProductEntity
-
+    
     init(
         product: ProductEntity,
         fetchProductDetailsUseCase: FetchProductDetailsUseCase,
@@ -39,31 +39,31 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
             self.deleteProductUseCase = deleteProductUseCase
             self.actions = actions
         }
-
+    
     private func fetchProduct(
         productID: Int) async throws -> ProductDetailsRequestDTO {
             do {
                 let result = try await fetchProductDetailsUseCase.execute(
                     productID: productID)
-
+                
                 return result
             } catch (let error) {
                 throw error
             }
         }
-
+    
     private func fetchProductSecret(
         by productID: Int) async throws -> String {
             do {
                 let result = try await fetchProductSecretUseCase.execute(
                     productID: productID)
-
+                
                 return result
             } catch (let error) {
                 throw error
             }
         }
-
+    
     private func deleteProduct(
         deleteURL: String) async throws {
             do {
@@ -73,13 +73,13 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
                 throw error
             }
         }
-
+    
     private func checkVendorID() async {
         do {
             if isEqualVendorID {
                 let data = try await fetchProductSecret(
                     by: product.id)
-
+                
                 itemSecret = data
             }
         } catch (let error) {
@@ -87,7 +87,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
                 error: handleFetchProductSecret(error: error))
         }
     }
-
+    
     private func handleFetchProductNetwork(
         error: Error) -> String {
             return error.isInternetConnectionError ?
@@ -98,7 +98,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
                 Const.failedFetchingProduct,
                 comment: Const.empty)
         }
-
+    
     private func handleFetchProductSecret(
         error: Error) -> String {
             return error.isInternetConnectionError ?
@@ -109,7 +109,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
                 Const.failedFetchingProductSecret,
                 comment: Const.empty)
         }
-
+    
     private func handleDeletingProduct(
         error: Error) -> String {
             return error.isInternetConnectionError ?
@@ -120,13 +120,7 @@ final class DefaultProductDetailsViewModel: ProductDetailsViewModel {
                 Const.failedDeletingProduct,
                 comment: Const.empty)
         }
-
-    private func format(
-        productDetails: ProductDetailsRequestDTO) -> ProductDetailsEntity {
-            let productInfo = productDetails.toDomain()
-            return productInfo
-        }
-
+    
     private enum Const {
         static let empty = ""
         static let noInternetConnection = "인터넷 연결에 실패하였습니다."
@@ -142,14 +136,11 @@ extension DefaultProductDetailsViewModel {
             let data = try await fetchProduct(
                 productID: product.id)
             
-            let formattedData = format(
-                productDetails: data)
-
-            items = formattedData
-
+            items = data
+            
             state = .success(
-                data: formattedData)
-
+                data: data)
+            
             await checkVendorID()
         } catch (let error) {
             state = .failed(
@@ -161,10 +152,10 @@ extension DefaultProductDetailsViewModel {
         guard let model = items else {
             return
         }
-
+        
         actions?.presentProductModitifation(model)
     }
-
+    
     func didSelectDeleteButton() async {
         do {
             try await deleteProduct(
@@ -174,7 +165,7 @@ extension DefaultProductDetailsViewModel {
                 error: handleDeletingProduct(error: error))
         }
     }
-
+    
     func popViewController() {
         actions?.popViewController()
     }

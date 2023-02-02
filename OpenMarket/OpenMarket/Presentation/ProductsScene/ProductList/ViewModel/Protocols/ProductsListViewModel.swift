@@ -7,8 +7,6 @@
 
 import Foundation
 
-protocol ProductsListViewModel: ProductsListViewModelInput, ProductsListViewModelOutput {}
-
 protocol ProductsListViewModelInput {
     func transform(
         input: (pageNumber: Int,
@@ -33,3 +31,5 @@ enum ProductsListViewModelLoading {
     case fullScreen
     case nextPage
 }
+
+protocol ProductsListViewModel: ProductsListViewModelInput, ProductsListViewModelOutput {}

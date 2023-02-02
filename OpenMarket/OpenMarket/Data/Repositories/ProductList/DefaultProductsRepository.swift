@@ -12,20 +12,23 @@ final class DefaultProductsRepository {
 
     init(
         dataTransferService: DataTransferService) {
-        self.dataTransferService = dataTransferService
-    }
+            self.dataTransferService = dataTransferService
+        }
 }
 
 extension DefaultProductsRepository: ProductsRepository {
     func fetchProductsList(
         page: Int,
         itemsPerPage: Int) async throws -> ProductsResponseDTO {
-        let endpoint = APIEndpoints.getProducts(
-            page,
-            itemsPerPage)
+            let endpoint = APIEndpoints.getProducts(
+                page,
+                itemsPerPage)
 
-        let result = try await dataTransferService.request(
-            with: endpoint)
-        return result
-    }
+            let data = try await dataTransferService.request(
+                with: endpoint)
+
+            let result = data.pages.map{ $0.toDomain() }
+
+            return result
+        }
 }

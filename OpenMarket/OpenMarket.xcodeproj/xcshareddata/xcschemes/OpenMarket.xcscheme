@@ -90,28 +90,6 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904D4EA02978116900027B5A"
-               BuildableName = "ProductListView.xctest"
-               BlueprintName = "ProductListView"
-               ReferencedContainer = "container:OpenMarket.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "904D4EB1297811D100027B5A"
-               BuildableName = "ProductDetailsView.xctest"
-               BlueprintName = "ProductDetailsView"
-               ReferencedContainer = "container:OpenMarket.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "904D4EBE2978120500027B5A"
                BuildableName = "OpenMarketTests.xctest"
                BlueprintName = "OpenMarketTests"
