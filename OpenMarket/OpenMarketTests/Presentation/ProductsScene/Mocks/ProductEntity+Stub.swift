@@ -27,6 +27,9 @@ extension ProductEntity {
                 discountedPrice: discountedPrice,
                 stock: stock)
         }
-
-    static let sample = ProductEntity.stub()
+    
+    static let sample = [
+        ProductEntity.stub(),
+        ProductEntity.stub(),
+        ProductEntity.stub()]
 }

@@ -8,11 +8,9 @@
 import XCTest
 
 final class FetchProductsUseCaseTests: XCTestCase {
-    let products: ProductsResponseDTO = {
-        let pages = Product.list
-        return ProductsResponseDTO(pageNo: 1,
-                                   itemsPerPage: 10,
-                                   pages: pages)
+    let products: [ProductEntity] = {
+        let products = Product.list.map{ $0.toDomain() }
+        return products
     }()
 
     enum ProductsRepositorySuccessTestError: Error {
@@ -31,18 +29,18 @@ final class FetchProductsUseCaseTests: XCTestCase {
         let requestValue = FetchProductsUseCaseRequestValue(page: 1,
                                                             itemPerPage: 10)
         // then
-        var responsedProducts: [Product] = []
+        var responsedProducts: [ProductEntity] = []
 
         do {
             let data = try await useCase.execute(requestValue: requestValue)
 
-            responsedProducts = data.pages
+            responsedProducts = data
 
             expectation.fulfill()
         } catch { }
 
         await waitForExpectations(timeout: 5, handler: nil)
-        XCTAssertEqual(responsedProducts[0].id, products.pages[0].id)
+        XCTAssertEqual(responsedProducts[0].id, products[0].id)
     }
 
     func testFetchProductsUseCase_상품리스트연결이실패할_때() async {
@@ -58,11 +56,11 @@ final class FetchProductsUseCaseTests: XCTestCase {
                                                             itemPerPage: 10)
 
         // then
-        var responsedProducts: [Product] = []
+        var responsedProducts: [ProductEntity] = []
 
         do {
             let data = try await useCase.execute(requestValue: requestValue)
-            responsedProducts = data.pages
+            responsedProducts = data
         } catch {
             expectation.fulfill()
         }

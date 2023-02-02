@@ -8,6 +8,6 @@
 protocol ProductsRepository {
     func fetchProductsList(
         page: Int,
-        itemsPerPage: Int) async throws -> Endpoint<ProductsResponseDTO>.Response
+        itemsPerPage: Int) async throws -> [ProductEntity]
 }
 

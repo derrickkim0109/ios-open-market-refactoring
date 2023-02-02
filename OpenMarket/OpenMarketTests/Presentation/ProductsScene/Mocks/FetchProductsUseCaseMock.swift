@@ -9,15 +9,12 @@ import Foundation
 
 final class FetchProductsUseCaseMock: FetchProductsUseCase {
     var error: Error?
-    var page = ProductsResponseDTO(
-        pageNo: 0,
-        itemsPerPage: 0,
-        pages: [])
-
+    var products = ProductEntity.sample
+    
     func execute(
-        requestValue: FetchProductsUseCaseRequestValue) async throws -> ProductsResponseDTO {
+        requestValue: FetchProductsUseCaseRequestValue) async throws -> [ProductEntity] {
             if error == nil {
-                return page
+                return products
             } else {
                 throw error ?? DataTransferError.noResponse
             }

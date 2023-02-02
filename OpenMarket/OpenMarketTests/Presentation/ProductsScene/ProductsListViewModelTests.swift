@@ -22,10 +22,7 @@ final class ProductsListViewModelTests: XCTestCase {
             description: "ProductListViewModel은 상품리스트 데이터를 가지고 있다.")
 
         // when
-        fetchProductsUseCaseMock.page = ProductsResponseDTO(
-            pageNo: 1,
-            itemsPerPage: 10,
-            pages: Product.list)
+        fetchProductsUseCaseMock.products = ProductEntity.sample
 
         let viewModel = DefaultProductsListViewModel(
             fetchProductsUseCase: fetchProductsUseCaseMock)

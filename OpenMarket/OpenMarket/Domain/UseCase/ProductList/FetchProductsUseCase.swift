@@ -7,7 +7,7 @@
 
 protocol FetchProductsUseCase {
     func execute(
-        requestValue: FetchProductsUseCaseRequestValue) async throws -> ProductsResponseDTO
+        requestValue: FetchProductsUseCaseRequestValue) async throws -> [ProductEntity] 
 }
 
 final class DefaultFetchProductsUseCase: FetchProductsUseCase {
@@ -19,7 +19,7 @@ final class DefaultFetchProductsUseCase: FetchProductsUseCase {
     }
     
     func execute(
-        requestValue: FetchProductsUseCaseRequestValue) async throws -> ProductsResponseDTO {
+        requestValue: FetchProductsUseCaseRequestValue) async throws -> [ProductEntity] {
         return try await productsRepository.fetchProductsList(
             page: requestValue.page,
             itemsPerPage: requestValue.itemPerPage)

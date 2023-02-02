@@ -19,7 +19,7 @@ final class DefaultProductsRepository {
 extension DefaultProductsRepository: ProductsRepository {
     func fetchProductsList(
         page: Int,
-        itemsPerPage: Int) async throws -> ProductsResponseDTO {
+        itemsPerPage: Int) async throws -> [ProductEntity] {
             let endpoint = APIEndpoints.getProducts(
                 page,
                 itemsPerPage)
