@@ -16,8 +16,8 @@ struct NetworkSessionManagerMock: NetworkSessionManager {
         _ request: URLRequest) async throws -> Data? {
             if let statusCode = response?.statusCode,
                statusCode != 200 {
-                guard statusCode != 202 else {
-                    return data!
+                if statusCode == 202 || statusCode == 201 {
+                    return data
                 }
                 
                 throw NetworkError.error(

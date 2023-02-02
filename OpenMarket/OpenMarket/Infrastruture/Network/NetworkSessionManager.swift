@@ -26,7 +26,7 @@ final class DefaultNetworkSessionManager: NetworkSessionManager {
 
             if let httpResponse = response as? HTTPURLResponse,
                httpResponse.statusCode != 200 {
-                guard httpResponse.statusCode != 202 else {
+                if httpResponse.statusCode == 202 || httpResponse.statusCode == 201 {
                     return data
                 }
 
