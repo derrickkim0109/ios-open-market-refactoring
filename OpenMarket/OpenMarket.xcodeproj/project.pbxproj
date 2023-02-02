@@ -64,7 +64,6 @@
 		904CB7B12988FCBD00873F8F /* FetchProductSecretUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C3A296FB40C002D396E /* FetchProductSecretUseCase.swift */; };
 		904CB7B22988FCC000873F8F /* DeleteProductUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90275C36296FB387002D396E /* DeleteProductUseCase.swift */; };
 		904CB7B32988FCC200873F8F /* EnrollProductUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881F02972B58D0057ED87 /* EnrollProductUseCase.swift */; };
-		904CB7B42988FCC500873F8F /* ModifyProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A29182971243D0058E1EF /* ModifyProductsUseCase.swift */; };
 		904CB7B6298901C200873F8F /* DeleteProductUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904CB7B5298901C200873F8F /* DeleteProductUseCaseTests.swift */; };
 		904CB7B82989034F00873F8F /* EnrollProductUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904CB7B72989034F00873F8F /* EnrollProductUseCaseTests.swift */; };
 		904CB7BA2989041A00873F8F /* TypedProductDetailsRequestDTO+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904CB7B92989041A00873F8F /* TypedProductDetailsRequestDTO+Stub.swift */; };
@@ -72,7 +71,6 @@
 		905A29102970E8FA0058E1EF /* ProductEnrollmentVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A290F2970E8FA0058E1EF /* ProductEnrollmentVIew.swift */; };
 		905A2912297115640058E1EF /* ProductModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A2911297115640058E1EF /* ProductModificationViewModel.swift */; };
 		905A29152971218C0058E1EF /* DefaultProductModificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A29142971218C0058E1EF /* DefaultProductModificationViewModel.swift */; };
-		905A29192971243D0058E1EF /* ModifyProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A29182971243D0058E1EF /* ModifyProductsUseCase.swift */; };
 		905A291B2971248C0058E1EF /* ModifyProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A291A2971248C0058E1EF /* ModifyProductRepository.swift */; };
 		905A291D29712F570058E1EF /* DefaultModifyProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A291C29712F570058E1EF /* DefaultModifyProductRepository.swift */; };
 		905A291F297147E60058E1EF /* ProductImageDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905A291E297147E60058E1EF /* ProductImageDTO.swift */; };
@@ -136,6 +134,7 @@
 		90B8FB45298A80E4002F2021 /* ProductModificationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB44298A80E4002F2021 /* ProductModificationViewModelTests.swift */; };
 		90B8FB47298A814E002F2021 /* ModifyProductsUseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB46298A814E002F2021 /* ModifyProductsUseCaseMock.swift */; };
 		90B8FB49298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */; };
+		90B8FB5A298B3810002F2021 /* ModifyProductsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B8FB59298B3810002F2021 /* ModifyProductsUseCase.swift */; };
 		90C0AD8B29791C6D00F10DEA /* AnyCancellableTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */; };
 		90C0AD8D29791C8700F10DEA /* AnyCancelTaskBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */; };
 		90C881EC2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C881EB2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift */; };
@@ -245,7 +244,6 @@
 		905A290F2970E8FA0058E1EF /* ProductEnrollmentVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEnrollmentVIew.swift; sourceTree = "<group>"; };
 		905A2911297115640058E1EF /* ProductModificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModificationViewModel.swift; sourceTree = "<group>"; };
 		905A29142971218C0058E1EF /* DefaultProductModificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultProductModificationViewModel.swift; sourceTree = "<group>"; };
-		905A29182971243D0058E1EF /* ModifyProductsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyProductsUseCase.swift; sourceTree = "<group>"; };
 		905A291A2971248C0058E1EF /* ModifyProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProductRepository.swift; sourceTree = "<group>"; };
 		905A291C29712F570058E1EF /* DefaultModifyProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultModifyProductRepository.swift; sourceTree = "<group>"; };
 		905A291E297147E60058E1EF /* ProductImageDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageDTO.swift; sourceTree = "<group>"; };
@@ -270,6 +268,7 @@
 		90B8FB44298A80E4002F2021 /* ProductModificationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModificationViewModelTests.swift; sourceTree = "<group>"; };
 		90B8FB46298A814E002F2021 /* ModifyProductsUseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProductsUseCaseMock.swift; sourceTree = "<group>"; };
 		90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProductDetailsEntity+Stub.swift"; sourceTree = "<group>"; };
+		90B8FB59298B3810002F2021 /* ModifyProductsUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyProductsUseCase.swift; sourceTree = "<group>"; };
 		90C0AD8A29791C6D00F10DEA /* AnyCancellableTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCancellableTask.swift; sourceTree = "<group>"; };
 		90C0AD8C29791C8700F10DEA /* AnyCancelTaskBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCancelTaskBag.swift; sourceTree = "<group>"; };
 		90C881EB2972B4AF0057ED87 /* ProductEnrollmentViewModelActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEnrollmentViewModelActions.swift; sourceTree = "<group>"; };
@@ -329,11 +328,6 @@
 				90275BDF2969383D002D396E /* AppConfiguration.swift */,
 				90275BDA2969376A002D396E /* AppFlowCoordinator.swift */,
 				90275BDC29693780002D396E /* DIContainer */,
-				90423B1428802AE400F65E94 /* Presentation */,
-				90423B1528802B0600F65E94 /* Domain */,
-				90423B1328800E8500F65E94 /* Data */,
-				90C0AD8E297951C400F10DEA /* Infrastruture */,
-				90C0AD902979523E00F10DEA /* Common */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -509,7 +503,7 @@
 				90275C38296FB396002D396E /* ProductList */,
 				90275C39296FB3A3002D396E /* ProductDetails */,
 				90C881EF2972B5740057ED87 /* ProductEnrollment */,
-				905A29172971243D0058E1EF /* ProductModification */,
+				90B8FB58298B3810002F2021 /* ProductModification */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -658,15 +652,6 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		905A29172971243D0058E1EF /* ProductModification */ = {
-			isa = PBXGroup;
-			children = (
-				905A29182971243D0058E1EF /* ModifyProductsUseCase.swift */,
-			);
-			name = ProductModification;
-			path = OpenMarket/Application/Domain/UseCase/ProductModification;
-			sourceTree = SOURCE_ROOT;
-		};
 		905A2920297149710058E1EF /* ProductList */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +753,14 @@
 				90B8FB48298A9C7A002F2021 /* ProductDetailsEntity+Stub.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		90B8FB58298B3810002F2021 /* ProductModification */ = {
+			isa = PBXGroup;
+			children = (
+				90B8FB59298B3810002F2021 /* ModifyProductsUseCase.swift */,
+			);
+			path = ProductModification;
 			sourceTree = "<group>";
 		};
 		90C0AD8E297951C400F10DEA /* Infrastruture */ = {
@@ -996,6 +989,11 @@
 			isa = PBXGroup;
 			children = (
 				207D45C3287E63C300CF18D5 /* Application */,
+				90423B1428802AE400F65E94 /* Presentation */,
+				90423B1528802B0600F65E94 /* Domain */,
+				90423B1328800E8500F65E94 /* Data */,
+				90C0AD8E297951C400F10DEA /* Infrastruture */,
+				90C0AD902979523E00F10DEA /* Common */,
 				9001D27C2951E6C900CCBB8E /* Utils */,
 				6A8F188D2887D80F0095928F /* Extensions */,
 				207D45C4287E63C900CF18D5 /* Resource */,
@@ -1163,7 +1161,6 @@
 				904CB7A62988D9EB00873F8F /* FetchProductsUseCase.swift in Sources */,
 				90A816AE29822CF4002EA529 /* AnyCancelTaskBag.swift in Sources */,
 				90FAAF5A29862F200074290F /* ProductSecretRepository.swift in Sources */,
-				904CB7B42988FCC500873F8F /* ModifyProductsUseCase.swift in Sources */,
 				90A816B229822D78002EA529 /* ProductImageDTO.swift in Sources */,
 				90A816BA29822DCC002EA529 /* ProductDetailsEntity.swift in Sources */,
 				90FAAF5B29862F220074290F /* DeleteProductRepository.swift in Sources */,
@@ -1223,7 +1220,6 @@
 				90275C41296FB64A002D396E /* DefaultProductSecretRepository.swift in Sources */,
 				90A816A12982255A002EA529 /* NetworkServiceTests.swift in Sources */,
 				90275BFD296AB04B002D396E /* ApiDataNetworkConfig.swift in Sources */,
-				905A29192971243D0058E1EF /* ModifyProductsUseCase.swift in Sources */,
 				905A292A29725B920058E1EF /* ProductEnrollmentViewModel.swift in Sources */,
 				90B8FAE32989163F002F2021 /* Product+Stub.swift in Sources */,
 				90275BE02969383D002D396E /* AppConfiguration.swift in Sources */,
@@ -1259,6 +1255,7 @@
 				9042078F289125E500910330 /* ProductDetailsViewController.swift in Sources */,
 				90275C08296BC3D1002D396E /* Requestable.swift in Sources */,
 				6AD8D04B287D8E9E0062E969 /* NetworkSessionManager.swift in Sources */,
+				90B8FB5A298B3810002F2021 /* ModifyProductsUseCase.swift in Sources */,
 				90275C1A296BF992002D396E /* APIEndpoints.swift in Sources */,
 				90A816B029822D61002EA529 /* NetworkServiceMocks.swift in Sources */,
 				90275BDB2969376A002D396E /* AppFlowCoordinator.swift in Sources */,
