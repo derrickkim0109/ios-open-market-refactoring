@@ -26,7 +26,7 @@ final class DefaultProductModificationViewModel: ProductModificationViewModel {
 
     private func motify(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws {
+        product: TypedProductDetailsEntity) async throws {
         do {
             try await motifyProductsUseCase.execute(
                 productID: productID,
@@ -56,7 +56,7 @@ final class DefaultProductModificationViewModel: ProductModificationViewModel {
 
 extension DefaultProductModificationViewModel {
     func didSelectModificationButton(
-        input: TypedProductDetailsRequestDTO) async {
+        input: TypedProductDetailsEntity) async {
         do {
             try await motify(
                 productID: product.id,

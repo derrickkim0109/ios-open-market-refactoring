@@ -8,7 +8,7 @@
 protocol ModifyProductsUseCase {
     func execute(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws
+        product: TypedProductDetailsEntity) async throws
 }
 
 final class DefaultModifyProductsUseCase: ModifyProductsUseCase {
@@ -21,7 +21,7 @@ final class DefaultModifyProductsUseCase: ModifyProductsUseCase {
 
     func execute(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws  {
+        product: TypedProductDetailsEntity) async throws  {
         return try await modifyProductRepository.modifyProduct(
             productID: productID,
             product: product)

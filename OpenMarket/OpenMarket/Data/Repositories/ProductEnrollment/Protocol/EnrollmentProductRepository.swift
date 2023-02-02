@@ -9,6 +9,6 @@ import Foundation
 
 protocol EnrollmentProductRepository {
     func enrollProduct(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws -> Endpoint<()>.Response
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws -> Endpoint<()>.Response
 }

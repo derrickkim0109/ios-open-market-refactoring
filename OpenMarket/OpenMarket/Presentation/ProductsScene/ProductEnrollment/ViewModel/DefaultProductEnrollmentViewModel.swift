@@ -22,8 +22,8 @@ final class DefaultProductEnrollmentViewModel: ProductEnrollmentViewModel {
     }
     
     private func enroll(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws {
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws {
         do {
             try await enrollmentProductsUseCase.execute(
                 product: product,
@@ -54,8 +54,8 @@ final class DefaultProductEnrollmentViewModel: ProductEnrollmentViewModel {
 
 extension DefaultProductEnrollmentViewModel {
     func didSelectEnrollmentButton(
-        input: (TypedProductDetailsRequestDTO,
-                [ProductImageDTO])) async {
+        input: (TypedProductDetailsEntity,
+                [ProductImageEntity])) async {
         do {
             let (product, images) = input
             

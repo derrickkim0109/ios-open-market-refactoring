@@ -18,8 +18,10 @@ final class DefaultEnrollProductRepository {
 
 extension DefaultEnrollProductRepository: EnrollmentProductRepository {
     func enrollProduct(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws {
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws {
+            let productDTO = product.generate()
+            let imagesDTO = images.map{ $0.generate() }
 
             guard let endpoint = APIEndpoints.postProductEnrollment(
                 product: productDTO,

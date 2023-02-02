@@ -7,8 +7,8 @@
 
 protocol ProductEnrollmentViewModelInput {
     func didSelectEnrollmentButton(
-        input: (TypedProductDetailsRequestDTO,
-                [ProductImageDTO])) async
+        input: (TypedProductDetailsEntity,
+                [ProductImageEntity])) async
     func didTapCancelButton()
 }
 

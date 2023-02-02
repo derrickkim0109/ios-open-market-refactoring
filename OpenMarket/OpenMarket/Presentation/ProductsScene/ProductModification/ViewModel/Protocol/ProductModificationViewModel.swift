@@ -7,7 +7,7 @@
 
 protocol ProductModificationViewModelInput {
     func didSelectModificationButton(
-        input: TypedProductDetailsRequestDTO) async
+        input: TypedProductDetailsEntity) async
     func didTapCancelButton()
     func fetchData() -> ProductDetailsEntity
     func dismissScene()

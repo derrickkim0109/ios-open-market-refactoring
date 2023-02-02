@@ -8,5 +8,5 @@
 protocol ModifyProductRepository {
     func modifyProduct(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response
+        product: TypedProductDetailsEntity) async throws -> Endpoint<()>.Response
 }

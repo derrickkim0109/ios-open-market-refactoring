@@ -21,24 +21,9 @@ final class EnrollProductUseCaseTests: XCTestCase {
         let useCase = DefaultEnrollProductUseCase(enrollmentProductRepository: enrollmentProductRepositoryMock)
         
         // when
-        let typedProduct = TypedProductDetailsRequestDTO.stub(
-            name: "나뭇잎",
-            description: "은행나무 산",
-            price: 10000.0,
-            currency: "krw",
-            discountedPrice: 1.0,
-            stock: 10,
-            secret: "123")
-        
-        let images = [
-            ProductImageDTO(data: Data(),
-                            mimeType: "png"),
-            ProductImageDTO(data: Data(),
-                            mimeType: "png"),
-            ProductImageDTO(data: Data(),
-                            mimeType: "png")
-        ]
-        
+        let typedProduct = TypedProductDetailsEntity.stub()
+        let images = ProductImageEntity.sample
+
         // then
         do {
             try await useCase.execute(product: typedProduct,
@@ -60,24 +45,9 @@ final class EnrollProductUseCaseTests: XCTestCase {
         let useCase = DefaultEnrollProductUseCase(enrollmentProductRepository: enrollmentProductRepositoryMock)
         
         // when
-        let typedProduct = TypedProductDetailsRequestDTO.stub(
-            name: "나뭇잎",
-            description: "은행나무 산",
-            price: 10000.0,
-            currency: "krw",
-            discountedPrice: 1.0,
-            stock: 10,
-            secret: "123")
-        
-        let images = [
-            ProductImageDTO(data: Data(),
-                            mimeType: "png"),
-            ProductImageDTO(data: Data(),
-                            mimeType: "png"),
-            ProductImageDTO(data: Data(),
-                            mimeType: "png")
-        ]
-        
+        let typedProduct = TypedProductDetailsEntity.stub()
+        let images = ProductImageEntity.sample
+
         // then
         do {
             try await useCase.execute(product: typedProduct,

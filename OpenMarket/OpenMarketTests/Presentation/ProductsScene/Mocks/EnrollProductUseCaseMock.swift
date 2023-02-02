@@ -12,8 +12,8 @@ final class EnrollProductUseCaseMock: EnrollProductUseCase {
     var error: Error?
     
     func execute(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws {
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws {
             if error == nil {
                 return result
             } else {

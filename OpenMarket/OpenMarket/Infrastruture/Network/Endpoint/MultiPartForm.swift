@@ -10,7 +10,7 @@ import Foundation
 struct MultiPartForm {
     let boundary: String
     let data: Data
-    let images: [ProductImageDTO]
+    let images: [ProductPostANDPatchRequestDTO.ProductImageDTO]
 }
 
 enum BodyEncoding {
@@ -60,7 +60,7 @@ extension BodyEncoding {
 
     private static func createData(
         boundary: String,
-        image: ProductImageDTO) -> Data {
+        image: ProductPostANDPatchRequestDTO.ProductImageDTO) -> Data {
         let fileName = image.fileName + "." + image.mimeType
         let fileType = "image/\(image.mimeType)"
 

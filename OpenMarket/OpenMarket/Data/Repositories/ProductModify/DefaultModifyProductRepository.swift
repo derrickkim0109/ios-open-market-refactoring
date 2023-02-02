@@ -19,7 +19,8 @@ final class DefaultModifyProductRepository {
 extension DefaultModifyProductRepository: ModifyProductRepository {
     func modifyProduct(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws -> Endpoint<()>.Response {
+        product: TypedProductDetailsEntity) async throws -> Endpoint<()>.Response {
+            let productDTO = product.generate()
 
             let endpoint = APIEndpoints.patchProduct(
                 productID,

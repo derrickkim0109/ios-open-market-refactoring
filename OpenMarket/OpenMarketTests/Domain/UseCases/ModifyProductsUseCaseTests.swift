@@ -22,15 +22,7 @@ final class ModifyProductsUseCaseTests: XCTestCase {
 
         // when
         let productID = 1
-
-        let typedProduct = TypedProductDetailsRequestDTO.stub(
-            name: "나뭇잎",
-            description: "은행나무 산",
-            price: 10000.0,
-            currency: "krw",
-            discountedPrice: 1.0,
-            stock: 10,
-            secret: "123")
+        let typedProduct = TypedProductDetailsEntity.stub()
 
         // then
         do {
@@ -53,15 +45,7 @@ final class ModifyProductsUseCaseTests: XCTestCase {
 
         // when
         let productID = 1
-
-        let typedProduct = TypedProductDetailsRequestDTO.stub(
-            name: "나뭇잎",
-            description: "은행나무 산",
-            price: 10000.0,
-            currency: "krw",
-            discountedPrice: 1.0,
-            stock: 10,
-            secret: "123")
+        let typedProduct = TypedProductDetailsEntity.stub()
 
         // then
         do {

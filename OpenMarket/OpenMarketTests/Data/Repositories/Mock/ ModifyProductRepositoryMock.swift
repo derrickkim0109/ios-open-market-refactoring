@@ -14,7 +14,7 @@ struct ModifyProductRepositoryMock: ModifyProductRepository {
     
     func modifyProduct(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws {
+        product: TypedProductDetailsEntity) async throws {
             if error == nil {
                 return result
             } else {

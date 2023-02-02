@@ -102,8 +102,8 @@ final class ProductEnrollmentViewController: UIViewController {
             action: #selector(didTapDoneButton))
     }
     
-    private func makeProductImages() -> [ProductImageDTO]? {
-        var productImagesArray: [ProductImageDTO] = []
+    private func makeProductImages() -> [ProductImageEntity]? {
+        var productImagesArray: [ProductImageEntity] = []
         
         for i in 0..<productEnrollmentView.imageStackView.subviews.count {
             guard let imageView =
@@ -112,7 +112,7 @@ final class ProductEnrollmentViewController: UIViewController {
                 return nil
             }
             
-            let productImage = ProductImageDTO(
+            let productImage = ProductImageEntity(
                 data: image.compress() ?? Data(),
                 mimeType: Const.pngType)
             

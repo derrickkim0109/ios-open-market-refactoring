@@ -13,8 +13,8 @@ struct EnrollmentProductRepositoryMock: EnrollmentProductRepository {
     var error: Error?
     
     func enrollProduct(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws {
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws {
             if error == nil {
                 return result
             } else {

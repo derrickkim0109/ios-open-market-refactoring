@@ -305,11 +305,11 @@ final class ProductEnrollmentView: UIView {
         return true
     }
 
-    func convertTextToTypeDTO() -> TypedProductDetailsRequestDTO {
+    func convertTextToTypeDTO() -> TypedProductDetailsEntity {
         let currency = currencySegmentedControl.selectedSegmentIndex ==
         0 ? Currency.krw : Currency.usd
 
-        let data = TypedProductDetailsRequestDTO(
+        let data = TypedProductDetailsEntity(
             name: productNameTextField.text ?? "",
             description: productDescriptionTextView.text,
             price: originalPriceTextField.text?.convertToDouble() ?? Const.zeroPointZero,

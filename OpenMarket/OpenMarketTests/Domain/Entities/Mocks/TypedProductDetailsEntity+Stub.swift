@@ -1,5 +1,5 @@
 //
-//  TypedProductDetailsRequestDTO+Stub.swift
+//  TypedProductDetailsEntity+Stub.swift
 //  OpenMarketTests
 //
 //  Created by Derrick kim on 2023/01/31.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension TypedProductDetailsRequestDTO {
+extension TypedProductDetailsEntity {
     static func stub(
         name: String = "나뭇잎",
         description: String = "은행나무",
@@ -17,7 +17,7 @@ extension TypedProductDetailsRequestDTO {
         stock: Int? = 10,
         secret: String = "123"
     ) -> Self {
-        return TypedProductDetailsRequestDTO(
+        return TypedProductDetailsEntity(
             name: name,
             description: description,
             price: price,
@@ -27,5 +27,5 @@ extension TypedProductDetailsRequestDTO {
             secret: secret)
     }
 
-    static let sample = TypedProductDetailsRequestDTO.stub()
+    static let sample = TypedProductDetailsEntity.stub()
 }

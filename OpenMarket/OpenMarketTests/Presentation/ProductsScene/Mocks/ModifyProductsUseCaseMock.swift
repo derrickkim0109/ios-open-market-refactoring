@@ -13,7 +13,7 @@ final class ModifyProductsUseCaseMock: ModifyProductsUseCase {
     
     func execute(
         productID: Int,
-        product: TypedProductDetailsRequestDTO) async throws {
+        product: TypedProductDetailsEntity) async throws {
             if error == nil {
                 return result
             } else {

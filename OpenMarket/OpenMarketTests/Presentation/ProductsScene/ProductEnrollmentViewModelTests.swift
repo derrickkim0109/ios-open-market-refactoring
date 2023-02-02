@@ -25,8 +25,8 @@ final class ProductEnrollmentViewModelTests: XCTestCase {
         let viewModel = DefaultProductEnrollmentViewModel(
             enrollmentProductsUseCase: enrollProductUseCaseMock)
         
-        let productInfo = TypedProductDetailsRequestDTO.sample
-        let images = ProductImageDTO.sample
+        let productInfo = TypedProductDetailsEntity.sample
+        let images = ProductImageEntity.sample
         
         // then
         Task {
@@ -52,8 +52,8 @@ final class ProductEnrollmentViewModelTests: XCTestCase {
         let viewModel = DefaultProductEnrollmentViewModel(
             enrollmentProductsUseCase: enrollProductUseCaseMock)
         
-        let productInfo = TypedProductDetailsRequestDTO.sample
-        let images = ProductImageDTO.sample
+        let productInfo = TypedProductDetailsEntity.sample
+        let images = ProductImageEntity.sample
         
         // then
         Task {

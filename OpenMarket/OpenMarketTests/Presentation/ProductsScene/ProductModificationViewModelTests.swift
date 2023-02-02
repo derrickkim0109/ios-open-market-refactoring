@@ -22,6 +22,7 @@ final class ProductModificationViewModelTests: XCTestCase {
             description: "ProductModificationViewModel은 상품을 수정한다.")
 
         // when
+        let data = TypedProductDetailsEntity.sample
         let viewModel = DefaultProductModificationViewModel(
             product: ProductDetailsEntity.sample,
             motifyProductsUseCase: modifyProductsUseCaseMock)
@@ -29,7 +30,7 @@ final class ProductModificationViewModelTests: XCTestCase {
         // then
         Task {
             await viewModel.didSelectModificationButton(
-                input: TypedProductDetailsRequestDTO.sample)
+                input: data)
 
             expectation.fulfill()
         }.store(in: bag)
@@ -47,6 +48,7 @@ final class ProductModificationViewModelTests: XCTestCase {
 
         // when
         modifyProductsUseCaseMock.error = ModifyProductsUseCaseError.someError
+        let data = TypedProductDetailsEntity.sample
 
         let viewModel = DefaultProductModificationViewModel(
             product: ProductDetailsEntity.sample,
@@ -55,7 +57,7 @@ final class ProductModificationViewModelTests: XCTestCase {
         // then
         Task {
             await viewModel.didSelectModificationButton(
-                input: TypedProductDetailsRequestDTO.sample)
+                input: data)
 
             guard let state = viewModel.state else {
                 return

@@ -7,8 +7,8 @@
 
 protocol EnrollProductUseCase {
     func execute(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws
 }
 
 final class DefaultEnrollProductUseCase: EnrollProductUseCase {
@@ -20,8 +20,8 @@ final class DefaultEnrollProductUseCase: EnrollProductUseCase {
     }
 
     func execute(
-        product: TypedProductDetailsRequestDTO,
-        images: [ProductImageDTO]) async throws  {
+        product: TypedProductDetailsEntity,
+        images: [ProductImageEntity]) async throws  {
         return try await enrollmentProductRepository.enrollProduct(
             product: product,
             images: images)
