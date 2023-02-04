@@ -514,16 +514,6 @@
 			path = UseCase;
 			sourceTree = "<group>";
 		};
-		90275C12296BF739002D396E /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				90275C24296D714F002D396E /* ProductDetailsRepository.swift */,
-				90275C3C296FB472002D396E /* ProductSecretRepository.swift */,
-				90275C42297025A4002D396E /* DeleteProductRepository.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		90275C16296BF8F5002D396E /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -626,6 +616,7 @@
 			children = (
 				20BFDA652890EAB1000AA075 /* Entities */,
 				90275C0F296BF56A002D396E /* UseCase */,
+				905A29212971497F0058E1EF /* Interfaces */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -660,24 +651,27 @@
 		905A2920297149710058E1EF /* ProductList */ = {
 			isa = PBXGroup;
 			children = (
-				905A29212971497F0058E1EF /* Protocol */,
 				90275C17296BF905002D396E /* DefaultProductsRepository.swift */,
 			);
 			path = ProductList;
 			sourceTree = "<group>";
 		};
-		905A29212971497F0058E1EF /* Protocol */ = {
+		905A29212971497F0058E1EF /* Interfaces */ = {
 			isa = PBXGroup;
 			children = (
 				90275C14296BF756002D396E /* ProductsRepository.swift */,
+				90275C3C296FB472002D396E /* ProductSecretRepository.swift */,
+				90275C42297025A4002D396E /* DeleteProductRepository.swift */,
+				90275C24296D714F002D396E /* ProductDetailsRepository.swift */,
+				90C881F42972B5F70057ED87 /* EnrollmentProductRepository.swift */,
+				905A291A2971248C0058E1EF /* ModifyProductRepository.swift */,
 			);
-			path = Protocol;
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 		905A29222971498C0058E1EF /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
-				90275C12296BF739002D396E /* Protocols */,
 				90275C26296D7212002D396E /* DefaultProductDetailsRepository.swift */,
 				90275C40296FB64A002D396E /* DefaultProductSecretRepository.swift */,
 				90275C44297027DF002D396E /* DefaultDeleteProductRepository.swift */,
@@ -688,18 +682,9 @@
 		905A2923297149B30058E1EF /* ProductModify */ = {
 			isa = PBXGroup;
 			children = (
-				905A2924297149BE0058E1EF /* Protocol */,
 				905A291C29712F570058E1EF /* DefaultModifyProductRepository.swift */,
 			);
 			path = ProductModify;
-			sourceTree = "<group>";
-		};
-		905A2924297149BE0058E1EF /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				905A291A2971248C0058E1EF /* ModifyProductRepository.swift */,
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		905A2927297183420058E1EF /* Actions */ = {
@@ -818,18 +803,9 @@
 		90C881F22972B5D50057ED87 /* ProductEnrollment */ = {
 			isa = PBXGroup;
 			children = (
-				90C881F32972B5E30057ED87 /* Protocol */,
 				90C881F62972B61E0057ED87 /* DefaultEnrollProductRepository.swift */,
 			);
 			path = ProductEnrollment;
-			sourceTree = "<group>";
-		};
-		90C881F32972B5E30057ED87 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				90C881F42972B5F70057ED87 /* EnrollmentProductRepository.swift */,
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		90E5AB8429651D41009B4C18 /* ProductEnrollment */ = {
