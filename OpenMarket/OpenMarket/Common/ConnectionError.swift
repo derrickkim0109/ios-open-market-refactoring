@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol ConnectionError: Error {
+protocol ConnectionError: Error {
     var isInternetConnectionError: Bool { get }
 }
 
-public extension Error {
+extension Error {
     var isInternetConnectionError: Bool {
         guard let error = self as? ConnectionError,
               error.isInternetConnectionError else {

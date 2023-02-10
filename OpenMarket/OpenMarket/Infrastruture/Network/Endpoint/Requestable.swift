@@ -14,7 +14,7 @@ enum RequestGenerationError: Error {
 protocol Requestable {
     var path: String { get }
     var isFullPath: Bool { get }
-    var method: HTTPMethodType { get }
+    var method: HTTPMethod { get }
     var headerParameters: [String: String] { get }
     var queryParametersEncodable: Encodable? { get }
     var queryParameters: [String: Any] { get }

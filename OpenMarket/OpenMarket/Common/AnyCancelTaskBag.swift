@@ -25,7 +25,6 @@ final class AnyCancelTaskBag {
     }
 }
 
-
 extension Task {
     func store(
         in bag: AnyCancelTaskBag) {

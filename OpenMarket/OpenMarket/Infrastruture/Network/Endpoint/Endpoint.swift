@@ -18,7 +18,7 @@ final class Endpoint<R>: ResponseRequestable {
 
     let path: String
     let isFullPath: Bool
-    let method: HTTPMethodType
+    let method: HTTPMethod
     let headerParameters: [String: String]
     let queryParametersEncodable: Encodable?
     let queryParameters: [String: Any]
@@ -30,14 +30,14 @@ final class Endpoint<R>: ResponseRequestable {
     init(
         path: String,
         isFullPath: Bool = false,
-        method: HTTPMethodType,
+        method: HTTPMethod,
         headerParameters: [String: String] = [:],
         queryParametersEncodable: Encodable? = nil,
         queryParameters: [String: Any] = [:],
         bodyParametersEncodable: Encodable? = nil,
         bodyParameters: [String: Any] = [:],
         bodyEncoding: BodyEncoding = .jsonSerializationData,
-        responseDecoder: ResponseDecoder = JSONResponseDecoder()) {
+        responseDecoder: ResponseDecoder = DefaultJSONResponseDecoder()) {
         self.path = path
         self.isFullPath = isFullPath
         self.method = method

@@ -15,7 +15,7 @@ enum ProductURLQueryItem {
     static let items_per_page = "items_per_page"
 }
 
-enum HTTPMethodType: String {
+enum HTTPMethod: String {
     case get     = "GET"
     case head    = "HEAD"
     case post    = "POST"

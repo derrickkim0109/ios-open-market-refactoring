@@ -1,5 +1,5 @@
 //
-//  JSONResponseDecoder.swift
+//  ResponseDecoder.swift
 //  OpenMarket
 //
 //  Created by Derrick kim on 2023/01/04.
@@ -12,7 +12,7 @@ protocol ResponseDecoder {
         from data: Data) async throws -> T
 }
 
-final class JSONResponseDecoder: ResponseDecoder {
+final class DefaultJSONResponseDecoder: ResponseDecoder {
     private let decoder = JSONDecoder()
     init() {}
 

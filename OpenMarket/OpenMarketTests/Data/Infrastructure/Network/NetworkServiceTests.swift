@@ -188,7 +188,7 @@ final class NetworkServiceTests: XCTestCase {
 fileprivate struct EndpointMock: Requestable {
     var path: String
     var isFullPath: Bool = false
-    var method: HTTPMethodType
+    var method: HTTPMethod
     var headerParameters: [String: String] = [:]
     var queryParametersEncodable: Encodable?
     var queryParameters: [String: Any] = [:]
@@ -198,7 +198,7 @@ fileprivate struct EndpointMock: Requestable {
 
     init(
         path: String,
-        method: HTTPMethodType) {
+        method: HTTPMethod) {
             self.path = path
             self.method = method
         }
