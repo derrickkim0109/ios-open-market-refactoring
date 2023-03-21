@@ -8,7 +8,7 @@
 import UIKit
 
 @MainActor
-class LoadingIndicator {
+final class LoadingIndicator {
     static func presentLoading() async {
         guard let window = UIApplication.shared.windows.last else {
             return
